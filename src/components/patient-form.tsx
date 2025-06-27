@@ -64,6 +64,9 @@ export function PatientForm() {
                 <PopoverContent className="w-auto p-0 print:hidden">
                   <Calendar
                     mode="single"
+                    captionLayout="dropdown-buttons"
+                    fromYear={new Date().getFullYear() - 100}
+                    toYear={new Date().getFullYear()}
                     selected={patientData.dob ? new Date(patientData.dob) : undefined}
                     onSelect={(date) => setPatientData('dob', date)}
                     initialFocus
