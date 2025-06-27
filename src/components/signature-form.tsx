@@ -1,12 +1,41 @@
 'use client';
 
+import { useRef } from 'react';
+import SignatureCanvas from 'react-signature-canvas';
 import { useClinicalHistoryStore } from '@/store/clinical-history-store';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
+import { Eraser } from 'lucide-react';
 
 export function SignatureForm() {
   const { patientData, setPatientData } = useClinicalHistoryStore();
+  const sigPadRef = useRef<SignatureCanvas | null>(null);
+
+  const setSigPadRef = (ref: SignatureCanvas | null) => {
+    sigPadRef.current = ref;
+    if (ref && patientData.signature && ref.isEmpty()) {
+      ref.fromDataURL(patientData.signature);
+    }
+  };
+
+  const clearSignature = () => {
+    sigPadRef.current?.clear();
+    setPatientData('signature', '');
+  };
+
+  const saveSignature = () => {
+    if (sigPadRef.current) {
+      if (sigPadRef.current.isEmpty()) {
+        setPatientData('signature', '');
+        return;
+      }
+      const signatureImage = sigPadRef.current.toDataURL('image/png');
+      if (signatureImage) {
+        setPatientData('signature', signatureImage);
+      }
+    }
+  };
 
   return (
     <Card className="print:print-card print:border-none print:shadow-none">
@@ -14,22 +43,39 @@ export function SignatureForm() {
         <CardTitle className="font-headline">Firma del Paciente o Tutor</CardTitle>
       </CardHeader>
       <CardContent className="print:print-card-content">
-        <div className="space-y-2 print:hidden">
-          <Label htmlFor="signature">Firma (Escriba el nombre completo)</Label>
-          <Input
-            id="signature"
-            placeholder="Escriba el nombre completo para firmar"
-            value={patientData.signature ?? ''}
-            onChange={(e) => setPatientData('signature', e.target.value)}
-            className="print:print-input"
-          />
+        <div className="space-y-4">
+          <div className="space-y-2 print:hidden">
+            <Label htmlFor="signature-canvas">Firme en el siguiente recuadro</Label>
+            <div className="relative w-full h-48 rounded-md border bg-background">
+              <SignatureCanvas
+                ref={setSigPadRef}
+                penColor="black"
+                canvasProps={{
+                  id: 'signature-canvas',
+                  className: 'w-full h-full rounded-md',
+                }}
+                onEnd={saveSignature}
+              />
+            </div>
+          </div>
+          <div className="flex justify-end gap-2 print:hidden">
+            <Button variant="outline" onClick={clearSignature}>
+              <Eraser className="mr-2 h-4 w-4" />
+              Limpiar
+            </Button>
+          </div>
         </div>
+
         <div className="hidden print:block mt-16">
           <div className="w-2/3 mx-auto">
-             <div className="border-t border-black pt-2 text-center">
-                <p className="font-bold h-6">{patientData.signature ?? ''}</p>
-                <p className="text-sm">Firma del Paciente o Tutor</p>
-             </div>
+            <div className="border-t border-black pt-2 text-center">
+              {patientData.signature ? (
+                <img src={patientData.signature} alt="Firma" className="h-16 mx-auto" />
+              ) : (
+                <div className="h-16"></div>
+              )}
+              <p className="text-sm mt-2">{patientData.fullName || 'Firma del Paciente o Tutor'}</p>
+            </div>
           </div>
         </div>
       </CardContent>
