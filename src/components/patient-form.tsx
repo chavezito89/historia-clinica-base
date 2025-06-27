@@ -26,7 +26,7 @@ export function PatientForm() {
             <Label htmlFor="fullName">Nombre Completo</Label>
             <Input
               id="fullName"
-              value={patientData.fullName}
+              value={patientData.fullName ?? ''}
               onChange={(e) => setPatientData('fullName', e.target.value)}
               className="print:print-input"
             />
@@ -38,7 +38,7 @@ export function PatientForm() {
               <Input
                 id="age"
                 type="number"
-                value={patientData.age}
+                value={patientData.age ?? ''}
                 onChange={(e) => setPatientData('age', e.target.value)}
                 className="print:print-input"
               />
@@ -55,13 +55,13 @@ export function PatientForm() {
                     )}
                   >
                     <CalendarIcon className="mr-2 h-4 w-4" />
-                    {patientData.dob ? format(patientData.dob, 'PPP') : <span>Pick a date</span>}
+                    {patientData.dob ? format(new Date(patientData.dob), 'PPP') : <span>Pick a date</span>}
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0 print:hidden">
                   <Calendar
                     mode="single"
-                    selected={patientData.dob}
+                    selected={patientData.dob ? new Date(patientData.dob) : undefined}
                     onSelect={(date) => setPatientData('dob', date)}
                     initialFocus
                   />
@@ -73,7 +73,7 @@ export function PatientForm() {
           <div className="space-y-2">
             <Label>Sexo</Label>
             <RadioGroup
-              value={patientData.sex}
+              value={patientData.sex ?? ''}
               onValueChange={(value) => setPatientData('sex', value)}
               className="flex items-center space-x-4 pt-2 print:print-radio-group"
             >
@@ -96,7 +96,7 @@ export function PatientForm() {
             <Label htmlFor="address">Domicilio</Label>
             <Input
               id="address"
-              value={patientData.address}
+              value={patientData.address ?? ''}
               onChange={(e) => setPatientData('address', e.target.value)}
               className="print:print-input"
             />
@@ -106,7 +106,7 @@ export function PatientForm() {
             <Label htmlFor="phone">Teléfono de Contacto</Label>
             <Input
               id="phone"
-              value={patientData.phone}
+              value={patientData.phone ?? ''}
               onChange={(e) => setPatientData('phone', e.target.value)}
               className="print:print-input"
             />
@@ -117,7 +117,7 @@ export function PatientForm() {
             <Input
               id="email"
               type="email"
-              value={patientData.email}
+              value={patientData.email ?? ''}
               onChange={(e) => setPatientData('email', e.target.value)}
               className="print:print-input"
             />
@@ -127,7 +127,7 @@ export function PatientForm() {
             <Label htmlFor="occupation">Ocupación</Label>
             <Input
               id="occupation"
-              value={patientData.occupation}
+              value={patientData.occupation ?? ''}
               onChange={(e) => setPatientData('occupation', e.target.value)}
               className="print:print-input"
             />
@@ -137,7 +137,7 @@ export function PatientForm() {
             <Label htmlFor="maritalStatus">Estado Civil</Label>
             <Input
               id="maritalStatus"
-              value={patientData.maritalStatus}
+              value={patientData.maritalStatus ?? ''}
               onChange={(e) => setPatientData('maritalStatus', e.target.value)}
               className="print:print-input"
             />
@@ -147,7 +147,7 @@ export function PatientForm() {
             <Label htmlFor="curp">CURP</Label>
             <Input
               id="curp"
-              value={patientData.curp}
+              value={patientData.curp ?? ''}
               onChange={(e) => setPatientData('curp', e.target.value)}
               className="print:print-input"
             />
@@ -157,7 +157,7 @@ export function PatientForm() {
             <Label htmlFor="tutor">Nombre del Tutor / Responsable Legal (si aplica)</Label>
             <Input
               id="tutor"
-              value={patientData.tutor}
+              value={patientData.tutor ?? ''}
               onChange={(e) => setPatientData('tutor', e.target.value)}
               className="print:print-input"
             />

@@ -20,7 +20,7 @@ export function ChiefComplaintForm() {
             id="chief-complaint"
             placeholder="Describa el motivo principal de la visita del paciente..."
             rows={5}
-            value={chiefComplaint}
+            value={chiefComplaint ?? ''}
             onChange={(e) => setChiefComplaint(e.target.value)}
             className="print:print-textarea"
           />

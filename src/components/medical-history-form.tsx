@@ -47,7 +47,7 @@ export function MedicalHistoryForm() {
                 <TableCell>
                   <Input
                     placeholder="Detalles..."
-                    value={condition.details}
+                    value={condition.details ?? ''}
                     onChange={(e) => setMedicalHistory(index, 'details', e.target.value)}
                     disabled={condition.hasCondition !== 'Sí'}
                     className="print:print-input"
