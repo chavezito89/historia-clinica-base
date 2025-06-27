@@ -5,7 +5,7 @@ import { MedicalHistoryForm } from '@/components/medical-history-form';
 import { ChiefComplaintForm } from '@/components/chief-complaint-form';
 import { SignatureForm } from '@/components/signature-form';
 import { Button } from '@/components/ui/button';
-import { Printer } from 'lucide-react';
+import { Printer, FileJson } from 'lucide-react';
 import { PrintHeader } from '@/components/print-header';
 import { PrintFooter } from '@/components/print-footer';
 import { useClinicalHistoryStore } from '@/store/clinical-history-store';
@@ -22,7 +22,7 @@ const PageContent = () => (
 );
 
 export default function Home() {
-  const { patientId, generatePatientId, isFinalized, finalizeHistory } = useClinicalHistoryStore();
+  const { patientId, generatePatientId, isFinalized, finalizeHistory, patientData, medicalHistory, chiefComplaint } = useClinicalHistoryStore();
 
   useEffect(() => {
     if (!patientId) {
@@ -33,6 +33,29 @@ export default function Home() {
   const handlePrint = useCallback(() => {
     window.print();
   }, []);
+
+  const handleExportJson = useCallback(() => {
+    const stateToExport = {
+      patientId,
+      patientData,
+      medicalHistory,
+      chiefComplaint,
+      isFinalized,
+    };
+
+    const dataStr = JSON.stringify(stateToExport, null, 2);
+    const dataBlob = new Blob([dataStr], {type: "application/json"});
+    const url = URL.createObjectURL(dataBlob);
+    
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `clinical-history-${patientId || 'data'}.json`;
+    document.body.appendChild(link);
+    link.click();
+    
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }, [patientId, patientData, medicalHistory, chiefComplaint, isFinalized]);
 
   return (
     <>
@@ -45,10 +68,16 @@ export default function Home() {
                 Dental History Pro
               </h1>
             </div>
-            <Button onClick={handlePrint}>
-              <Printer className="mr-2 h-4 w-4" />
-              Export to PDF
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button variant="outline" onClick={handleExportJson}>
+                <FileJson className="mr-2 h-4 w-4" />
+                Export to JSON
+              </Button>
+              <Button onClick={handlePrint}>
+                <Printer className="mr-2 h-4 w-4" />
+                Export to PDF
+              </Button>
+            </div>
           </div>
         </header>
         <main className="container mx-auto p-4 md:p-8">
