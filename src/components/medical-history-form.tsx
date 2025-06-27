@@ -19,9 +19,8 @@ export function MedicalHistoryForm() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[30%]">Condición</TableHead>
-              <TableHead className="text-center">Sí</TableHead>
-              <TableHead className="text-center">No</TableHead>
+              <TableHead className="w-[40%]">Condición</TableHead>
+              <TableHead className="w-[20%] text-center">Respuesta</TableHead>
               <TableHead>Especificar</TableHead>
             </TableRow>
           </TableHeader>
@@ -29,20 +28,20 @@ export function MedicalHistoryForm() {
             {medicalHistory.map((condition, index) => (
               <TableRow key={condition.name}>
                 <TableCell className="font-medium">{condition.name}</TableCell>
-                <TableCell className="text-center">
+                <TableCell>
                   <RadioGroup
-                    value={condition.hasCondition || ''}
+                    value={condition.hasCondition ?? ''}
                     onValueChange={(val) => setMedicalHistory(index, 'hasCondition', val as 'Sí' | 'No')}
+                    className="flex justify-center items-center gap-4 print:print-radio-group"
                   >
-                    <RadioGroupItem value="Sí" />
-                  </RadioGroup>
-                </TableCell>
-                <TableCell className="text-center">
-                  <RadioGroup
-                    value={condition.hasCondition || ''}
-                    onValueChange={(val) => setMedicalHistory(index, 'hasCondition', val as 'Sí' | 'No')}
-                  >
-                    <RadioGroupItem value="No" />
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="Sí" id={`${condition.name}-yes-${index}`} />
+                      <Label htmlFor={`${condition.name}-yes-${index}`}>Sí</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="No" id={`${condition.name}-no-${index}`} />
+                      <Label htmlFor={`${condition.name}-no-${index}`}>No</Label>
+                    </div>
                   </RadioGroup>
                 </TableCell>
                 <TableCell>

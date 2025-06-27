@@ -8,9 +8,8 @@ import { Printer } from 'lucide-react';
 import { PrintHeader } from '@/components/print-header';
 import { PrintFooter } from '@/components/print-footer';
 import { useClinicalHistoryStore } from '@/store/clinical-history-store';
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { Logo } from '@/components/icons/logo';
-import { Card } from '@/components/ui/card';
 
 const PageContent = () => (
   <div className="space-y-6">
@@ -29,9 +28,9 @@ export default function Home() {
     }
   }, [patientId, generatePatientId]);
 
-  const handlePrint = () => {
+  const handlePrint = useCallback(() => {
     window.print();
-  };
+  }, []);
 
   return (
     <>
