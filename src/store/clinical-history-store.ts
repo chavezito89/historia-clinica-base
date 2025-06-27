@@ -39,6 +39,7 @@ export interface ClinicalHistoryState {
 const medicalConditionsList: string[] = [
     'Diabetes',
     'Hipertensión',
+    'Hipotensión',
     'Cardiopatías',
     'Enfermedades tiroideas',
     'Trastornos hormonales',
