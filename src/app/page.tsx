@@ -22,6 +22,17 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useToast } from '@/hooks/use-toast';
+import {
+  SidebarProvider,
+  Sidebar,
+  SidebarTrigger,
+  SidebarContent,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarInset,
+  SidebarHeader,
+} from '@/components/ui/sidebar';
 
 const PageContent = () => (
   <div className="space-y-6">
@@ -138,55 +149,76 @@ export default function Home() {
 
   return (
     <>
-      <div className="print:hidden bg-secondary/30 min-h-screen">
-        <header className="sticky top-0 z-10 bg-background/80 backdrop-blur-sm border-b">
-          <div className="container mx-auto flex items-center justify-between p-4">
-            <div className="flex items-center gap-3">
-              <Logo className="h-8 w-8 text-primary" />
-              <h1 className="text-2xl font-bold font-headline text-foreground">
-                Dental History Pro
-              </h1>
-            </div>
-            <div className="flex items-center gap-2">
-               <input
-                type="file"
-                ref={fileInputRef}
-                className="hidden"
-                accept=".json"
-                onChange={handleFileChange}
-              />
-              <Button variant="outline" onClick={handleImportClick}>
-                <Upload className="mr-2 h-4 w-4" />
-                Importar
-              </Button>
-              <Button variant="outline" onClick={handleExportJson}>
-                <FileJson className="mr-2 h-4 w-4" />
-                Exportar
-              </Button>
-              <Button onClick={handlePrint}>
-                <Printer className="mr-2 h-4 w-4" />
-                PDF
-              </Button>
-              <Button variant="outline" onClick={() => setIsResetDialogOpen(true)}>
-                <RotateCcw className="mr-2 h-4 w-4" />
-                Resetear
-              </Button>
-            </div>
-          </div>
-        </header>
-        <main className="container mx-auto p-4 md:p-8">
-            <div className="max-w-4xl mx-auto">
-              <PageContent />
-              {!isFinalized && (
-                <div className="flex justify-end pt-6 print:hidden">
-                  <Button size="lg" onClick={finalizeHistory}>
-                    Finalizar
-                  </Button>
+      <div className='print:hidden'>
+        <SidebarProvider>
+          <Sidebar>
+            <SidebarContent>
+              <SidebarHeader>
+                <div className="flex items-center gap-3">
+                  <Logo className="h-8 w-8 text-primary" />
+                  <h1 className="text-xl font-bold font-headline text-foreground">
+                    Dental History Pro
+                  </h1>
                 </div>
-              )}
-            </div>
-        </main>
+              </SidebarHeader>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton onClick={handleImportClick} tooltip="Importar">
+                    <Upload />
+                    Importar
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton onClick={handleExportJson} tooltip="Exportar">
+                    <FileJson />
+                    Exportar
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton onClick={handlePrint} tooltip="Generar PDF">
+                    <Printer />
+                    PDF
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton onClick={() => setIsResetDialogOpen(true)} tooltip="Resetear Formulario">
+                    <RotateCcw />
+                    Resetear
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarContent>
+          </Sidebar>
+
+          <SidebarInset className="bg-secondary/30">
+            <header className="sticky top-0 z-10 bg-background/80 backdrop-blur-sm border-b">
+              <div className="container mx-auto flex items-center p-4">
+                <SidebarTrigger />
+              </div>
+            </header>
+            <main className="container mx-auto p-4 md:p-8">
+                <div className="max-w-4xl mx-auto">
+                  <PageContent />
+                  {!isFinalized && (
+                    <div className="flex justify-end pt-6 print:hidden">
+                      <Button size="lg" onClick={finalizeHistory}>
+                        Finalizar
+                      </Button>
+                    </div>
+                  )}
+                </div>
+            </main>
+          </SidebarInset>
+        </SidebarProvider>
       </div>
+
+      <input
+        type="file"
+        ref={fileInputRef}
+        className="hidden"
+        accept=".json"
+        onChange={handleFileChange}
+      />
 
       <div className="hidden print:block font-body text-black print-container">
         <PrintHeader />
