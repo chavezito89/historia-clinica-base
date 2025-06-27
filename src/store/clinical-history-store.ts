@@ -50,7 +50,7 @@ const medicalConditionsList: string[] = [
     'Uso de medicamentos actuales',
 ];
 
-const getInitialState = () => ({
+const getInitialState = (): Omit<ClinicalHistoryState, 'generatePatientId' | 'setPatientData' | 'setMedicalHistory' | 'setChiefComplaint' | 'finalizeHistory' | 'resetState'> => ({
   patientId: '',
   patientData: {
     fullName: '',
@@ -120,6 +120,39 @@ export const useClinicalHistoryStore = create<ClinicalHistoryState>()(
       }),
       {
         name: 'clinical-history-storage',
+        merge: (persistedState, currentState) => {
+          const typedPersistedState = persistedState as ClinicalHistoryState;
+
+          if (!typedPersistedState || typeof typedPersistedState !== 'object') {
+            return currentState;
+          }
+
+          // Create a deeply merged state
+          const mergedState = {
+            ...currentState,
+            ...typedPersistedState,
+            patientData: {
+              ...currentState.patientData,
+              ...typedPersistedState.patientData,
+            },
+          };
+
+          // Rehydrate date object, as it's stored as a string in JSON
+          if (typedPersistedState.patientData?.dob) {
+            mergedState.patientData.dob = new Date(typedPersistedState.patientData.dob);
+          }
+          
+          // Intelligently merge medical history
+          mergedState.medicalHistory = currentState.medicalHistory.map(currentCondition => {
+            const persistedCondition = typedPersistedState.medicalHistory?.find(
+              (p: MedicalCondition) => p.name === currentCondition.name
+            );
+            // If a persisted condition is found, use it, otherwise, use the new one from the initial state
+            return persistedCondition || currentCondition;
+          });
+
+          return mergedState as ClinicalHistoryState;
+        },
       }
     )
   )
