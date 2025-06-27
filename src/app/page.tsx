@@ -12,6 +12,14 @@ import { useEffect } from 'react';
 import { Logo } from '@/components/icons/logo';
 import { Card } from '@/components/ui/card';
 
+const PageContent = () => (
+  <div className="space-y-6">
+    <PatientForm />
+    <MedicalHistoryForm />
+    <ChiefComplaintForm />
+  </div>
+);
+
 export default function Home() {
   const { patientId, generatePatientId } = useClinicalHistoryStore();
 
@@ -24,14 +32,6 @@ export default function Home() {
   const handlePrint = () => {
     window.print();
   };
-
-  const PageContent = () => (
-    <div className="space-y-6">
-      <PatientForm />
-      <MedicalHistoryForm />
-      <ChiefComplaintForm />
-    </div>
-  );
 
   return (
     <>
