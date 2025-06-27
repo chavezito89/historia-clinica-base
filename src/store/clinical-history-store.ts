@@ -13,6 +13,7 @@ export interface PatientData {
   maritalStatus: string;
   curp: string;
   tutor: string;
+  signature: string;
 }
 
 export interface MedicalCondition {
@@ -60,6 +61,7 @@ const getInitialState = () => ({
     maritalStatus: '',
     curp: '',
     tutor: '',
+    signature: '',
   },
   medicalHistory: medicalConditionsList.map(name => ({
     name,

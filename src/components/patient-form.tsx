@@ -163,14 +163,6 @@ export function PatientForm() {
             />
           </div>
         </div>
-
-        <div className="hidden print:block mt-16">
-          <div className="w-1/2 mx-auto">
-            <div className="border-t border-black pt-2 text-center text-sm">
-                Firma del Paciente o Tutor
-            </div>
-          </div>
-        </div>
       </CardContent>
     </Card>
   );

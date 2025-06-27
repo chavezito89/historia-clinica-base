@@ -3,6 +3,7 @@
 import { PatientForm } from '@/components/patient-form';
 import { MedicalHistoryForm } from '@/components/medical-history-form';
 import { ChiefComplaintForm } from '@/components/chief-complaint-form';
+import { SignatureForm } from '@/components/signature-form';
 import { Button } from '@/components/ui/button';
 import { Printer } from 'lucide-react';
 import { PrintHeader } from '@/components/print-header';
@@ -16,6 +17,7 @@ const PageContent = () => (
     <PatientForm />
     <MedicalHistoryForm />
     <ChiefComplaintForm />
+    <SignatureForm />
   </div>
 );
 
