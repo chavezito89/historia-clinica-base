@@ -34,6 +34,7 @@ export interface ClinicalHistoryState {
   setChiefComplaint: (value: string) => void;
   finalizeHistory: () => void;
   resetState: () => void;
+  importState: (stateToImport: any) => boolean;
 }
 
 const medicalConditionsList: string[] = [
@@ -50,7 +51,7 @@ const medicalConditionsList: string[] = [
     'Uso de medicamentos actuales',
 ];
 
-const getInitialState = (): Omit<ClinicalHistoryState, 'generatePatientId' | 'setPatientData' | 'setMedicalHistory' | 'setChiefComplaint' | 'finalizeHistory' | 'resetState'> => ({
+const getInitialState = (): Omit<ClinicalHistoryState, 'generatePatientId' | 'setPatientData' | 'setMedicalHistory' | 'setChiefComplaint' | 'finalizeHistory' | 'resetState' | 'importState'> => ({
   patientId: '',
   patientData: {
     fullName: '',
@@ -111,6 +112,42 @@ export const useClinicalHistoryStore = create<ClinicalHistoryState>()(
         },
         finalizeHistory: () => {
           set({ isFinalized: true });
+        },
+        importState: (stateToImport) => {
+          try {
+            if (!stateToImport || typeof stateToImport !== 'object' || !stateToImport.patientId) {
+              console.error("Invalid JSON structure for import.");
+              return false;
+            }
+
+            const currentState = getInitialState();
+            
+            const mergedState = {
+              ...currentState,
+              ...stateToImport,
+              patientData: {
+                ...currentState.patientData,
+                ...stateToImport.patientData,
+              },
+            };
+    
+            if (stateToImport.patientData?.dob) {
+              mergedState.patientData.dob = new Date(stateToImport.patientData.dob);
+            }
+            
+            mergedState.medicalHistory = currentState.medicalHistory.map(currentCondition => {
+              const importedCondition = stateToImport.medicalHistory?.find(
+                (p: MedicalCondition) => p.name === currentCondition.name
+              );
+              return importedCondition || currentCondition;
+            });
+            
+            set(mergedState);
+            return true;
+          } catch (e) {
+            console.error("Failed to import state:", e);
+            return false;
+          }
         },
         resetState: () => {
             const newState = getInitialState();
