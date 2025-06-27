@@ -8,7 +8,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 export function MedicalHistoryForm() {
-  const { medicalHistory, setMedicalHistory } = useClinicalHistoryStore();
+  const { medicalHistory, setMedicalHistory, isFinalized } = useClinicalHistoryStore();
 
   return (
     <Card className="print:print-card">
@@ -33,6 +33,7 @@ export function MedicalHistoryForm() {
                     value={condition.hasCondition ?? ''}
                     onValueChange={(val) => setMedicalHistory(index, 'hasCondition', val as 'Sí' | 'No')}
                     className="flex justify-center items-center gap-4 print:print-radio-group"
+                    disabled={isFinalized}
                   >
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="Sí" id={`${condition.name}-yes-${index}`} />
@@ -49,7 +50,7 @@ export function MedicalHistoryForm() {
                     placeholder="Detalles..."
                     value={condition.details ?? ''}
                     onChange={(e) => setMedicalHistory(index, 'details', e.target.value)}
-                    disabled={condition.hasCondition !== 'Sí'}
+                    disabled={isFinalized || condition.hasCondition !== 'Sí'}
                     className="print:print-input"
                   />
                 </TableCell>

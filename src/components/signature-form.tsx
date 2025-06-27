@@ -7,9 +7,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Eraser } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export function SignatureForm() {
-  const { patientData, setPatientData } = useClinicalHistoryStore();
+  const { patientData, setPatientData, isFinalized } = useClinicalHistoryStore();
   const sigPadRef = useRef<SignatureCanvas | null>(null);
 
   const setSigPadRef = (ref: SignatureCanvas | null) => {
@@ -25,15 +26,17 @@ export function SignatureForm() {
   };
 
   const saveSignature = () => {
-    if (sigPadRef.current) {
-      if (sigPadRef.current.isEmpty()) {
-        setPatientData('signature', '');
-        return;
-      }
-      const signatureImage = sigPadRef.current.toDataURL('image/png');
-      if (signatureImage) {
-        setPatientData('signature', signatureImage);
-      }
+    if (isFinalized || !sigPadRef.current) {
+      return;
+    }
+
+    if (sigPadRef.current.isEmpty()) {
+      setPatientData('signature', '');
+      return;
+    }
+    const signatureImage = sigPadRef.current.toDataURL('image/png');
+    if (signatureImage) {
+      setPatientData('signature', signatureImage);
     }
   };
 
@@ -46,7 +49,12 @@ export function SignatureForm() {
         <div className="space-y-4">
           <div className="space-y-2 print:hidden">
             <Label htmlFor="signature-canvas">Firme en el siguiente recuadro</Label>
-            <div className="relative w-full h-48 rounded-md border bg-background">
+            <div
+              className={cn(
+                'relative w-full h-48 rounded-md border bg-background',
+                isFinalized && 'pointer-events-none bg-muted opacity-70'
+              )}
+            >
               <SignatureCanvas
                 ref={setSigPadRef}
                 penColor="black"
@@ -59,10 +67,12 @@ export function SignatureForm() {
             </div>
           </div>
           <div className="flex justify-end gap-2 print:hidden">
-            <Button variant="outline" onClick={clearSignature}>
-              <Eraser className="mr-2 h-4 w-4" />
-              Limpiar
-            </Button>
+            {!isFinalized && (
+              <Button variant="outline" onClick={clearSignature}>
+                <Eraser className="mr-2 h-4 w-4" />
+                Limpiar
+              </Button>
+            )}
           </div>
         </div>
 

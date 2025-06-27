@@ -27,10 +27,12 @@ export interface ClinicalHistoryState {
   patientData: PatientData;
   medicalHistory: MedicalCondition[];
   chiefComplaint: string;
+  isFinalized: boolean;
   generatePatientId: () => void;
   setPatientData: (field: keyof PatientData, value: any) => void;
   setMedicalHistory: (index: number, field: keyof MedicalCondition, value: any) => void;
   setChiefComplaint: (value: string) => void;
+  finalizeHistory: () => void;
   resetState: () => void;
 }
 
@@ -69,6 +71,7 @@ const getInitialState = () => ({
     details: '',
   })),
   chiefComplaint: '',
+  isFinalized: false,
 });
 
 export const useClinicalHistoryStore = create<ClinicalHistoryState>()(
@@ -104,6 +107,9 @@ export const useClinicalHistoryStore = create<ClinicalHistoryState>()(
         },
         setChiefComplaint: value => {
           set({ chiefComplaint: value });
+        },
+        finalizeHistory: () => {
+          set({ isFinalized: true });
         },
         resetState: () => {
             const newState = getInitialState();

@@ -13,7 +13,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 export function PatientForm() {
-  const { patientData, setPatientData } = useClinicalHistoryStore();
+  const { patientData, setPatientData, isFinalized } = useClinicalHistoryStore();
 
   return (
     <Card className="print:print-card">
@@ -29,6 +29,7 @@ export function PatientForm() {
               value={patientData.fullName ?? ''}
               onChange={(e) => setPatientData('fullName', e.target.value)}
               className="print:print-input"
+              disabled={isFinalized}
             />
           </div>
 
@@ -41,6 +42,7 @@ export function PatientForm() {
                 value={patientData.age ?? ''}
                 onChange={(e) => setPatientData('age', e.target.value)}
                 className="print:print-input"
+                disabled={isFinalized}
               />
             </div>
              <div className="space-y-2">
@@ -53,6 +55,7 @@ export function PatientForm() {
                       'w-full justify-start text-left font-normal print:print-input',
                       !patientData.dob && 'text-muted-foreground'
                     )}
+                    disabled={isFinalized}
                   >
                     <CalendarIcon className="mr-2 h-4 w-4" />
                     {patientData.dob ? format(new Date(patientData.dob), 'PPP') : <span>Pick a date</span>}
@@ -64,6 +67,7 @@ export function PatientForm() {
                     selected={patientData.dob ? new Date(patientData.dob) : undefined}
                     onSelect={(date) => setPatientData('dob', date)}
                     initialFocus
+                    disabled={isFinalized}
                   />
                 </PopoverContent>
               </Popover>
@@ -76,6 +80,7 @@ export function PatientForm() {
               value={patientData.sex ?? ''}
               onValueChange={(value) => setPatientData('sex', value)}
               className="flex items-center space-x-4 pt-2 print:print-radio-group"
+              disabled={isFinalized}
             >
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="Femenino" id="female" />
@@ -99,6 +104,7 @@ export function PatientForm() {
               value={patientData.address ?? ''}
               onChange={(e) => setPatientData('address', e.target.value)}
               className="print:print-input"
+              disabled={isFinalized}
             />
           </div>
 
@@ -109,6 +115,7 @@ export function PatientForm() {
               value={patientData.phone ?? ''}
               onChange={(e) => setPatientData('phone', e.target.value)}
               className="print:print-input"
+              disabled={isFinalized}
             />
           </div>
 
@@ -120,6 +127,7 @@ export function PatientForm() {
               value={patientData.email ?? ''}
               onChange={(e) => setPatientData('email', e.target.value)}
               className="print:print-input"
+              disabled={isFinalized}
             />
           </div>
 
@@ -130,6 +138,7 @@ export function PatientForm() {
               value={patientData.occupation ?? ''}
               onChange={(e) => setPatientData('occupation', e.target.value)}
               className="print:print-input"
+              disabled={isFinalized}
             />
           </div>
 
@@ -140,6 +149,7 @@ export function PatientForm() {
               value={patientData.maritalStatus ?? ''}
               onChange={(e) => setPatientData('maritalStatus', e.target.value)}
               className="print:print-input"
+              disabled={isFinalized}
             />
           </div>
 
@@ -150,6 +160,7 @@ export function PatientForm() {
               value={patientData.curp ?? ''}
               onChange={(e) => setPatientData('curp', e.target.value)}
               className="print:print-input"
+              disabled={isFinalized}
             />
           </div>
 
@@ -160,6 +171,7 @@ export function PatientForm() {
               value={patientData.tutor ?? ''}
               onChange={(e) => setPatientData('tutor', e.target.value)}
               className="print:print-input"
+              disabled={isFinalized}
             />
           </div>
         </div>

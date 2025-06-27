@@ -22,7 +22,7 @@ const PageContent = () => (
 );
 
 export default function Home() {
-  const { patientId, generatePatientId } = useClinicalHistoryStore();
+  const { patientId, generatePatientId, isFinalized, finalizeHistory } = useClinicalHistoryStore();
 
   useEffect(() => {
     if (!patientId) {
@@ -54,6 +54,13 @@ export default function Home() {
         <main className="container mx-auto p-4 md:p-8">
             <div className="max-w-4xl mx-auto">
               <PageContent />
+              {!isFinalized && (
+                <div className="flex justify-end pt-6 print:hidden">
+                  <Button size="lg" onClick={finalizeHistory}>
+                    Finalizar
+                  </Button>
+                </div>
+              )}
             </div>
         </main>
       </div>

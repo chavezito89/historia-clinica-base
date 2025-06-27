@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 
 export function ChiefComplaintForm() {
-  const { chiefComplaint, setChiefComplaint } = useClinicalHistoryStore();
+  const { chiefComplaint, setChiefComplaint, isFinalized } = useClinicalHistoryStore();
 
   return (
     <Card className="print:print-card">
@@ -23,6 +23,7 @@ export function ChiefComplaintForm() {
             value={chiefComplaint ?? ''}
             onChange={(e) => setChiefComplaint(e.target.value)}
             className="print:print-textarea"
+            disabled={isFinalized}
           />
         </div>
       </CardContent>
