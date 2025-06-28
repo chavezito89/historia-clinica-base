@@ -150,7 +150,7 @@ export function OralExamForm() {
                                 Abrir Odontograma
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className="max-w-7xl h-[90vh] flex flex-col">
+                        <DialogContent className="max-w-[95vw] w-[95vw] h-[95vh] flex flex-col">
                             <DialogHeader>
                                 <DialogTitle>Odontograma Interactivo</DialogTitle>
                             </DialogHeader>
