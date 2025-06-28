@@ -3,15 +3,39 @@
 import { PageHeader } from '@/components/page-header';
 import { Button } from '@/components/ui/button';
 import { OralExamForm } from '@/components/oral-exam-form';
-import { FileText, Upload } from 'lucide-react';
+import { FileText, Upload, FileJson } from 'lucide-react';
 import { useOralExamStore } from '@/store/oral-exam-store';
+import { useClinicalHistoryStore } from '@/store/clinical-history-store';
 import { useToast } from '@/hooks/use-toast';
 import { useCallback, useRef } from 'react';
 
 export default function ExploracionBucalPage() {
-  const { importDentalState } = useOralExamStore();
+  const { importDentalState, extraoral, intraoral, higiene, dentalDiagnosis } = useOralExamStore();
+  const { patientId } = useClinicalHistoryStore();
   const { toast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleExportJson = useCallback(() => {
+    const stateToExport = {
+      extraoral,
+      intraoral,
+      higiene,
+      dentalDiagnosis,
+    };
+
+    const dataStr = JSON.stringify(stateToExport, null, 2);
+    const dataBlob = new Blob([dataStr], {type: 'application/json'});
+    const url = URL.createObjectURL(dataBlob);
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `oral-exam-${patientId || 'data'}.json`;
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }, [extraoral, intraoral, higiene, dentalDiagnosis, patientId]);
 
   const handleImportClick = useCallback(() => {
     fileInputRef.current?.click();
@@ -74,6 +98,10 @@ export default function ExploracionBucalPage() {
         >
           <Upload className="h-4 w-4" />
           <span className="hidden sm:inline">Importar Diagnóstico</span>
+        </Button>
+        <Button variant="outline" size="sm" onClick={handleExportJson} className="gap-1.5">
+            <FileJson className="h-4 w-4" />
+            <span className="hidden sm:inline">Exportar</span>
         </Button>
         <Button variant="default" size="sm" className="gap-1.5">
           <FileText className="h-4 w-4" />
