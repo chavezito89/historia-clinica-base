@@ -6,6 +6,7 @@ export interface BudgetItem {
   treatment: string;
   quantity: number;
   unitPrice: number;
+  currency: 'MXN' | 'USD';
   discount: { type: 'percentage' | 'amount'; value: number };
   total: number;
 }
@@ -15,30 +16,34 @@ interface DiagnosisData {
   [key: string]: any;
 }
 
+const calculateTotal = (
+  item: Omit<BudgetItem, 'id' | 'treatment' | 'total'>
+): number => {
+  const baseTotal = item.quantity * item.unitPrice;
+  if (item.discount.type === 'percentage') {
+    const discountAmount = baseTotal * (item.discount.value / 100);
+    return Math.max(0, baseTotal - discountAmount);
+  }
+  return Math.max(0, baseTotal - item.discount.value);
+};
+
+
 export interface TreatmentPlanState {
   diagnosis: string[];
   budgetItems: BudgetItem[];
-  currency: 'MXN' | 'USD';
   globalDiscount: { type: 'percentage' | 'amount'; value: number };
   
-  setCurrency: (currency: 'MXN' | 'USD') => void;
   importDiagnosis: (jsonString: string) => boolean;
-  // Placeholder for future actions
   addBudgetItem: (item: Omit<BudgetItem, 'id' | 'total'>) => void;
-  updateBudgetItem: (id: string, updates: Partial<BudgetItem>) => void;
+  updateBudgetItem: (id: string, updates: Partial<Omit<BudgetItem, 'id' | 'total'>>) => void;
   removeBudgetItem: (id: string) => void;
   applyGlobalDiscount: (discount: { type: 'percentage' | 'amount'; value: number }) => void;
   resetState: () => void;
 }
 
-const getInitialState = (): Omit<TreatmentPlanState, 'setCurrency' | 'importDiagnosis' | 'addBudgetItem' | 'updateBudgetItem' | 'removeBudgetItem' | 'applyGlobalDiscount' | 'resetState'> => ({
+const getInitialState = (): Omit<TreatmentPlanState, 'importDiagnosis' | 'addBudgetItem' | 'updateBudgetItem' | 'removeBudgetItem' | 'applyGlobalDiscount' | 'resetState'> => ({
   diagnosis: [],
-  budgetItems: [
-      { id: '1', treatment: 'Resina Compuesta en molar 26', quantity: 1, unitPrice: 1500, discount: { type: 'percentage', value: 0 }, total: 1500 },
-      { id: '2', treatment: 'Limpieza Dental Profunda', quantity: 1, unitPrice: 1200, discount: { type: 'percentage', value: 10 }, total: 1080 },
-      { id: '3', treatment: 'Blanqueamiento Dental', quantity: 1, unitPrice: 4500, discount: { type: 'amount', value: 500 }, total: 4000 },
-  ],
-  currency: 'MXN',
+  budgetItems: [],
   globalDiscount: { type: 'percentage', value: 0 },
 });
 
@@ -47,7 +52,6 @@ export const useTreatmentPlanStore = create<TreatmentPlanState>()(
     persist(
       (set) => ({
         ...getInitialState(),
-        setCurrency: (currency) => set({ currency }),
         importDiagnosis: (jsonString: string) => {
           try {
             const parsedData = JSON.parse(jsonString);
@@ -59,16 +63,41 @@ export const useTreatmentPlanStore = create<TreatmentPlanState>()(
               .map((item: DiagnosisData) => item.description)
               .filter((desc: string | undefined): desc is string => !!desc);
             set({ diagnosis: descriptions });
-            // Here you could also auto-populate budgetItems based on diagnosis
             return true;
           } catch (e) {
             console.error('Failed to parse or process diagnosis JSON', e);
             return false;
           }
         },
-        addBudgetItem: () => { console.log('addBudgetItem not implemented'); },
-        updateBudgetItem: () => { console.log('updateBudgetItem not implemented'); },
-        removeBudgetItem: () => { console.log('removeBudgetItem not implemented'); },
+        addBudgetItem: (item) => {
+          set((state) => {
+            const newItem: BudgetItem = {
+              ...item,
+              id: new Date().getTime().toString(),
+              total: calculateTotal(item),
+            };
+            return { budgetItems: [...state.budgetItems, newItem] };
+          });
+        },
+        updateBudgetItem: (id, updates) => {
+          set((state) => ({
+            budgetItems: state.budgetItems.map((item) => {
+              if (item.id === id) {
+                const updatedItem = { ...item, ...updates };
+                return {
+                  ...updatedItem,
+                  total: calculateTotal(updatedItem),
+                };
+              }
+              return item;
+            }),
+          }));
+        },
+        removeBudgetItem: (id) => {
+          set((state) => ({
+            budgetItems: state.budgetItems.filter((item) => item.id !== id),
+          }));
+        },
         applyGlobalDiscount: () => { console.log('applyGlobalDiscount not implemented'); },
         resetState: () => set(getInitialState()),
       }),
