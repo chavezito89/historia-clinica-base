@@ -24,6 +24,7 @@ const calculateTotal = (
     const discountAmount = baseTotal * (item.discount.value / 100);
     return Math.max(0, baseTotal - discountAmount);
   }
+  // For fixed amount discount, just subtract the value
   return Math.max(0, baseTotal - item.discount.value);
 };
 
@@ -98,7 +99,9 @@ export const useTreatmentPlanStore = create<TreatmentPlanState>()(
             budgetItems: state.budgetItems.filter((item) => item.id !== id),
           }));
         },
-        applyGlobalDiscount: () => { console.log('applyGlobalDiscount not implemented'); },
+        applyGlobalDiscount: (discount) => {
+          set({ globalDiscount: discount });
+        },
         resetState: () => set(getInitialState()),
       }),
       {

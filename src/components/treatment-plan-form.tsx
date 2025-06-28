@@ -40,19 +40,26 @@ import { AddTreatmentFromListModal } from './add-treatment-from-list-modal';
 export function TreatmentPlanForm() {
     const { 
         diagnosis, 
-        budgetItems, 
+        budgetItems,
+        globalDiscount,
         importDiagnosis,
         addBudgetItem,
         updateBudgetItem,
-        removeBudgetItem, 
+        removeBudgetItem,
+        applyGlobalDiscount,
     } = useTreatmentPlanStore();
     
     const [manualTreatment, setManualTreatment] = useState('');
 
-    // State for discount dialog
+    // State for individual discount dialog
     const [discountDialogItem, setDiscountDialogItem] = useState<BudgetItem | null>(null);
     const [discountType, setDiscountType] = useState<'percentage' | 'amount'>('percentage');
     const [discountValue, setDiscountValue] = useState('0');
+
+    // State for global discount dialog
+    const [isGlobalDiscountOpen, setGlobalDiscountOpen] = useState(false);
+    const [globalDiscountType, setGlobalDiscountType] = useState<'percentage' | 'amount'>('percentage');
+    const [globalDiscountValue, setGlobalDiscountValue] = useState('0');
 
     // State for add treatment modal
     const [isAddTreatmentModalOpen, setAddTreatmentModalOpen] = useState(false);
@@ -91,6 +98,20 @@ export function TreatmentPlanForm() {
         setDiscountDialogItem(null);
     };
 
+    const openGlobalDiscountDialog = () => {
+        setGlobalDiscountType(globalDiscount.type);
+        setGlobalDiscountValue(String(globalDiscount.value));
+        setGlobalDiscountOpen(true);
+    };
+
+    const handleSaveGlobalDiscount = () => {
+        applyGlobalDiscount({
+            type: globalDiscountType,
+            value: parseFloat(globalDiscountValue) || 0,
+        });
+        setGlobalDiscountOpen(false);
+    };
+
     const totalsByCurrency = budgetItems.reduce((acc, item) => {
         if (item.currency === 'MXN' || item.currency === 'USD') {
             if (!acc[item.currency]) {
@@ -112,6 +133,8 @@ export function TreatmentPlanForm() {
             currency,
         }).format(amount);
     }
+
+    const hasMultipleCurrencies = Object.keys(totalsByCurrency).length > 1;
 
     return (
         <div className="space-y-6">
@@ -256,30 +279,50 @@ export function TreatmentPlanForm() {
                                 )}
                             </TableBody>
                             <TableFooter>
-                                {Object.entries(totalsByCurrency).map(([currency, totals]) => (
-                                    <React.Fragment key={currency}>
-                                        <TableRow className="bg-muted/30">
-                                            <TableCell colSpan={5} className="text-right font-bold text-base">Subtotal ({currency})</TableCell>
-                                            <TableCell className="text-right font-bold text-base">{formatCurrency(totals.subtotal, currency as 'MXN' | 'USD')}</TableCell>
-                                            <TableCell />
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell colSpan={4} />
-                                            <TableCell className="text-right">Desc. Global (0%)</TableCell>
-                                            <TableCell className="text-right">- {formatCurrency(0, currency as 'MXN' | 'USD')}</TableCell>
-                                            <TableCell />
-                                        </TableRow>
-                                        <TableRow className="bg-muted/50">
-                                            <TableCell colSpan={5} className="text-right font-bold text-lg">Total ({currency})</TableCell>
-                                            <TableCell className="text-right font-bold text-lg">{formatCurrency(totals.total, currency as 'MXN' | 'USD')}</TableCell>
-                                            <TableCell />
-                                        </TableRow>
-                                    </React.Fragment>
-                                ))}
+                                {Object.entries(totalsByCurrency).map(([currency, totals]) => {
+                                    const currencyKey = currency as 'MXN' | 'USD';
+                                    
+                                    let globalDiscountDisplay = `(${globalDiscount.value}${globalDiscount.type === 'percentage' ? '%' : ''})`;
+                                    if (globalDiscount.value === 0) {
+                                        globalDiscountDisplay = '(0%)';
+                                    } else if (hasMultipleCurrencies && globalDiscount.type === 'amount') {
+                                        globalDiscountDisplay = `(No aplicable)`;
+                                    }
+
+                                    let globalDiscountAmount = 0;
+                                    if (globalDiscount.type === 'percentage') {
+                                        globalDiscountAmount = totals.total * (globalDiscount.value / 100);
+                                    } else if (globalDiscount.type === 'amount' && !hasMultipleCurrencies) {
+                                        globalDiscountAmount = globalDiscount.value;
+                                    }
+
+                                    const finalTotal = totals.total - globalDiscountAmount;
+
+                                    return (
+                                        <React.Fragment key={currency}>
+                                            <TableRow className="bg-muted/30">
+                                                <TableCell colSpan={5} className="text-right font-bold text-base">Subtotal ({currency})</TableCell>
+                                                <TableCell className="text-right font-bold text-base">{formatCurrency(totals.subtotal, currencyKey)}</TableCell>
+                                                <TableCell />
+                                            </TableRow>
+                                            <TableRow>
+                                                <TableCell colSpan={4} />
+                                                <TableCell className="text-right">Desc. Global {globalDiscountDisplay}</TableCell>
+                                                <TableCell className="text-right">- {formatCurrency(globalDiscountAmount, currencyKey)}</TableCell>
+                                                <TableCell />
+                                            </TableRow>
+                                            <TableRow className="bg-muted/50">
+                                                <TableCell colSpan={5} className="text-right font-bold text-lg">Total ({currency})</TableCell>
+                                                <TableCell className="text-right font-bold text-lg">{formatCurrency(finalTotal, currencyKey)}</TableCell>
+                                                <TableCell />
+                                            </TableRow>
+                                        </React.Fragment>
+                                    )
+                                })}
                                 {Object.keys(totalsByCurrency).length > 0 && (
                                      <TableRow>
                                         <TableCell colSpan={7} className="text-right">
-                                            <Button variant="outline" size="sm" className="mt-2">Aplicar Descuento Global</Button>
+                                            <Button variant="outline" size="sm" className="mt-2" onClick={openGlobalDiscountDialog}>Aplicar Descuento Global</Button>
                                         </TableCell>
                                     </TableRow>
                                 )}
@@ -298,11 +341,11 @@ export function TreatmentPlanForm() {
                 </CardContent>
             </Card>
 
-            {/* Discount Dialog */}
+            {/* Individual Discount Dialog */}
             <Dialog open={!!discountDialogItem} onOpenChange={(open) => !open && setDiscountDialogItem(null)}>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>Aplicar Descuento</DialogTitle>
+                        <DialogTitle>Aplicar Descuento a Tratamiento</DialogTitle>
                     </DialogHeader>
                     <div className="space-y-4 py-4">
                         <p className="font-medium">{discountDialogItem?.treatment}</p>
@@ -336,6 +379,50 @@ export function TreatmentPlanForm() {
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
+
+            {/* Global Discount Dialog */}
+            <Dialog open={isGlobalDiscountOpen} onOpenChange={setGlobalDiscountOpen}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Aplicar Descuento Global</DialogTitle>
+                    </DialogHeader>
+                    <div className="space-y-4 py-4">
+                         <RadioGroup value={globalDiscountType} onValueChange={(val: 'percentage' | 'amount') => setGlobalDiscountType(val)} className="flex items-center gap-4">
+                           <div className="flex items-center space-x-2">
+                                <RadioGroupItem value="percentage" id="g-percentage" />
+                                <Label htmlFor="g-percentage">Porcentaje (%)</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <RadioGroupItem value="amount" id="g-amount" disabled={hasMultipleCurrencies} />
+                                <Label htmlFor="g-amount" className={hasMultipleCurrencies ? "text-muted-foreground" : ""}>Monto fijo ($)</Label>
+                            </div>
+                        </RadioGroup>
+                        {hasMultipleCurrencies && globalDiscountType === 'amount' && (
+                            <p className="text-xs text-destructive">No se puede aplicar un descuento de monto fijo con múltiples monedas.</p>
+                        )}
+                        <div className="relative">
+                           <Input 
+                                type="number"
+                                value={globalDiscountValue}
+                                onChange={(e) => setGlobalDiscountValue(e.target.value)}
+                                className="pr-8"
+                           />
+                           <span className="absolute inset-y-0 right-3 flex items-center text-muted-foreground text-sm">
+                                {globalDiscountType === 'percentage' ? '%' : '$'}
+                           </span>
+                        </div>
+                    </div>
+                    <DialogFooter>
+                        <DialogClose asChild>
+                            <Button variant="ghost">Cancelar</Button>
+                        </DialogClose>
+                        <Button onClick={handleSaveGlobalDiscount} disabled={hasMultipleCurrencies && globalDiscountType === 'amount'}>
+                            Guardar Descuento
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
 
             <AddTreatmentFromListModal 
                 isOpen={isAddTreatmentModalOpen}
