@@ -98,6 +98,9 @@ export function TreatmentPlanForm() {
     
 
     const formatCurrency = (amount: number, currency: 'MXN' | 'USD') => {
+        if (!currency) {
+            return new Intl.NumberFormat('es-MX').format(amount);
+        }
         return new Intl.NumberFormat('es-MX', {
             style: 'currency',
             currency,
