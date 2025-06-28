@@ -1,9 +1,12 @@
 'use client';
 
 import { PageHeader } from '@/components/page-header';
+import { PricesModal } from '@/components/prices-modal';
 import { TreatmentPlanForm } from '@/components/treatment-plan-form';
+import { useUiStore } from '@/store/ui-store';
 
 export default function PlanDeTratamientoPage() {
+    const { isPricesModalOpen, togglePricesModal } = useUiStore();
     return (
         <>
             <PageHeader title="Plan de Tratamiento" />
@@ -12,6 +15,10 @@ export default function PlanDeTratamientoPage() {
                     <TreatmentPlanForm />
                 </div>
             </main>
+            <PricesModal 
+                isOpen={isPricesModalOpen}
+                onOpenChange={() => togglePricesModal()}
+            />
         </>
     );
 }

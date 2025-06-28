@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation';
 import { useCallback, useRef, useState } from 'react';
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
-import { Upload, FileJson, Printer, RotateCcw, XCircle, Plus } from 'lucide-react';
+import { Upload, FileJson, Printer, RotateCcw, XCircle, Plus, Tags } from 'lucide-react';
 import { useClinicalHistoryStore } from '@/store/clinical-history-store';
 import { useOralExamStore } from '@/store/oral-exam-store';
 import { useToast } from '@/hooks/use-toast';
@@ -18,10 +18,12 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { SidebarGroup } from './ui/sidebar';
+import { useUiStore } from '@/store/ui-store';
 
 export function PageActions() {
     const pathname = usePathname();
     const { toast } = useToast();
+    const { togglePricesModal } = useUiStore();
 
     // Refs for file inputs
     const clinicalHistoryInputRef = useRef<HTMLInputElement>(null);
@@ -207,28 +209,13 @@ export function PageActions() {
                 </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-                <SidebarMenuButton onClick={() => alert('Función no implementada')}>
-                    <Plus /> Agregar Tratamiento
+                <SidebarMenuButton onClick={() => togglePricesModal(true)}>
+                    <Tags /> Tratamientos
                 </SidebarMenuButton>
             </SidebarMenuItem>
         </>
     );
     
-    const renderPreciosActions = () => (
-        <>
-            <SidebarMenuItem>
-                <SidebarMenuButton onClick={() => alert('Función no implementada')}>
-                    <Plus /> Agregar Tratamiento
-                </SidebarMenuButton>
-            </SidebarMenuItem>
-            <SidebarMenuItem>
-                <SidebarMenuButton onClick={() => alert('Función no implementada')}>
-                    <FileJson /> Exportar Precios
-                </SidebarMenuButton>
-            </SidebarMenuItem>
-        </>
-    );
-
     const renderPlaceholderActions = () => (
         <SidebarMenuItem>
             <SidebarMenuButton disabled>
@@ -246,9 +233,6 @@ export function PageActions() {
         }
         if (pathname.startsWith('/plan-de-tratamiento')) {
             return renderPlanDeTratamientoActions();
-        }
-        if (pathname.startsWith('/precios')) {
-            return renderPreciosActions();
         }
         return renderPlaceholderActions();
     };

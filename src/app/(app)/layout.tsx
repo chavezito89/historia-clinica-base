@@ -22,7 +22,6 @@ const navItems = [
   { href: '/historia-clinica', label: 'Historia Clínica', icon: ClipboardPlus },
   { href: '/exploracion-bucal', label: 'Exploración Bucal', icon: Stethoscope },
   { href: '/plan-de-tratamiento', label: 'Plan de Tratamiento', icon: ListChecks },
-  { href: '/precios', label: 'Precios', icon: Tags },
   { href: '/consentimientos-informados', label: 'Consentimientos', icon: FileText },
   { href: '/rx-y-estudios', label: 'RX y Estudios', icon: FileScan },
   { href: '/progreso-por-cita', label: 'Progreso por Cita', icon: CalendarClock },
