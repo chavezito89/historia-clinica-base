@@ -11,7 +11,9 @@ import { Button } from '@/components/ui/button';
 import { FileText } from 'lucide-react';
 import {
     Dialog,
+    DialogClose,
     DialogContent,
+    DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -161,6 +163,11 @@ export function OralExamForm() {
                                     title="Odontograma Interactivo"
                                 />
                             </div>
+                            <DialogFooter>
+                                <DialogClose asChild>
+                                    <Button>Guardar</Button>
+                                </DialogClose>
+                            </DialogFooter>
                         </DialogContent>
                     </Dialog>
                 </CardHeader>
