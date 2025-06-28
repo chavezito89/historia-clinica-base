@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation';
 import { useCallback, useRef, useState } from 'react';
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
-import { Upload, FileJson, Printer, RotateCcw, FileText, XCircle, DollarSign } from 'lucide-react';
+import { Upload, FileJson, Printer, RotateCcw, XCircle, Plus } from 'lucide-react';
 import { useClinicalHistoryStore } from '@/store/clinical-history-store';
 import { useOralExamStore } from '@/store/oral-exam-store';
 import { useToast } from '@/hooks/use-toast';
@@ -195,11 +195,33 @@ export function PageActions() {
     );
 
     const renderPlanDeTratamientoActions = () => (
-        <SidebarMenuItem>
-            <SidebarMenuButton>
-                <DollarSign /> Establecer precios
-            </SidebarMenuButton>
-        </SidebarMenuItem>
+        <>
+            <SidebarMenuItem>
+                <SidebarMenuButton onClick={() => alert('Función no implementada')}>
+                    <Upload /> Importar Plan
+                </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+                <SidebarMenuButton onClick={() => alert('Función no implementada')}>
+                    <FileJson /> Exportar Plan
+                </SidebarMenuButton>
+            </SidebarMenuItem>
+        </>
+    );
+    
+    const renderPreciosActions = () => (
+        <>
+            <SidebarMenuItem>
+                <SidebarMenuButton onClick={() => alert('Función no implementada')}>
+                    <Plus /> Agregar Tratamiento
+                </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+                <SidebarMenuButton onClick={() => alert('Función no implementada')}>
+                    <FileJson /> Exportar Precios
+                </SidebarMenuButton>
+            </SidebarMenuItem>
+        </>
     );
 
     const renderPlaceholderActions = () => (
@@ -219,6 +241,9 @@ export function PageActions() {
         }
         if (pathname.startsWith('/plan-de-tratamiento')) {
             return renderPlanDeTratamientoActions();
+        }
+        if (pathname.startsWith('/precios')) {
+            return renderPreciosActions();
         }
         return renderPlaceholderActions();
     };
