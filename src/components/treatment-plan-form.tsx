@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState } from 'react';
@@ -88,17 +89,19 @@ export function TreatmentPlanForm() {
     };
 
     const totalsByCurrency = budgetItems.reduce((acc, item) => {
-        if (!acc[item.currency]) {
-            acc[item.currency] = { subtotal: 0, total: 0 };
+        if (item.currency === 'MXN' || item.currency === 'USD') {
+            if (!acc[item.currency]) {
+                acc[item.currency] = { subtotal: 0, total: 0 };
+            }
+            acc[item.currency].subtotal += item.quantity * item.unitPrice;
+            acc[item.currency].total += item.total;
         }
-        acc[item.currency].subtotal += item.quantity * item.unitPrice;
-        acc[item.currency].total += item.total;
         return acc;
     }, {} as Record<'MXN' | 'USD', { subtotal: number; total: number }>);
     
 
     const formatCurrency = (amount: number, currency: 'MXN' | 'USD') => {
-        if (!currency) {
+        if (currency !== 'MXN' && currency !== 'USD') {
             return new Intl.NumberFormat('es-MX').format(amount);
         }
         return new Intl.NumberFormat('es-MX', {
