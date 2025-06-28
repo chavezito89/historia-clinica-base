@@ -9,6 +9,13 @@ import type { ChangeEvent } from 'react';
 import type { OralExamSlice, OralExamState } from '@/store/oral-exam-store';
 import { Button } from '@/components/ui/button';
 import { FileText } from 'lucide-react';
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
 
 interface FormRadioGroupProps {
   section: OralExamSlice;
@@ -136,10 +143,26 @@ export function OralExamForm() {
             <Card>
                 <CardHeader className="flex flex-row items-center justify-between">
                     <CardTitle>4. Estado Dental General</CardTitle>
-                    <Button>
-                        <FileText className="mr-2 h-4 w-4" />
-                        Abrir Odontograma
-                    </Button>
+                    <Dialog>
+                        <DialogTrigger asChild>
+                            <Button>
+                                <FileText className="mr-2 h-4 w-4" />
+                                Abrir Odontograma
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-7xl h-[90vh] flex flex-col">
+                            <DialogHeader>
+                                <DialogTitle>Odontograma Interactivo</DialogTitle>
+                            </DialogHeader>
+                            <div className="flex-grow">
+                                <iframe 
+                                    src="https://preview--dental-chart-pwa-app.lovable.app/"
+                                    className="w-full h-full border-0 rounded-md"
+                                    title="Odontograma Interactivo"
+                                />
+                            </div>
+                        </DialogContent>
+                    </Dialog>
                 </CardHeader>
                 <CardContent>
                     {dentalDiagnosis.length > 0 ? (
