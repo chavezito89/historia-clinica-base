@@ -7,6 +7,8 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Textarea } from '@/components/ui/textarea';
 import type { ChangeEvent } from 'react';
 import type { OralExamSlice, OralExamState } from '@/store/oral-exam-store';
+import { Button } from '@/components/ui/button';
+import { FileText } from 'lucide-react';
 
 interface FormRadioGroupProps {
   section: OralExamSlice;
@@ -132,8 +134,12 @@ export function OralExamForm() {
             </Card>
 
             <Card>
-                <CardHeader>
+                <CardHeader className="flex flex-row items-center justify-between">
                     <CardTitle>4. Estado Dental General</CardTitle>
+                    <Button>
+                        <FileText className="mr-2 h-4 w-4" />
+                        Abrir Odontograma
+                    </Button>
                 </CardHeader>
                 <CardContent>
                     {dentalDiagnosis.length > 0 ? (

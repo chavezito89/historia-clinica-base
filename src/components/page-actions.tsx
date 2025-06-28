@@ -191,11 +191,6 @@ export function PageActions() {
                     <FileJson /> Exportar
                 </SidebarMenuButton>
             </SidebarMenuItem>
-            <SidebarMenuItem>
-                <SidebarMenuButton>
-                    <FileText /> Odontograma
-                </SidebarMenuButton>
-            </SidebarMenuItem>
         </>
     );
 
