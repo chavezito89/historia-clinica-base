@@ -98,7 +98,7 @@ export function TreatmentPlanForm() {
                     </div>
 
                     <div className="border p-4 rounded-lg space-y-4">
-                        <h3 className="font-medium text-foreground">Añadir Tratamientos Manuales</h3>
+                        <h3 className="font-medium text-foreground">Añadir Tratamientos</h3>
                         <div className="flex items-end gap-2">
                             <div className="flex-grow space-y-2">
                                 <Label htmlFor="manual-treatment">Descripción del tratamiento</Label>
