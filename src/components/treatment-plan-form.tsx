@@ -35,7 +35,7 @@ import {
 import { BadgeDollarSign, FileText, Percent, PlusCircle, Trash2 } from 'lucide-react';
 import { RadioGroup, RadioGroupItem } from './ui/radio-group';
 import { Textarea } from './ui/textarea';
-import { cn } from '@/lib/utils';
+import { AddTreatmentFromListModal } from './add-treatment-from-list-modal';
 
 export function TreatmentPlanForm() {
     const { 
@@ -53,6 +53,9 @@ export function TreatmentPlanForm() {
     const [discountDialogItem, setDiscountDialogItem] = useState<BudgetItem | null>(null);
     const [discountType, setDiscountType] = useState<'percentage' | 'amount'>('percentage');
     const [discountValue, setDiscountValue] = useState('0');
+
+    // State for add treatment modal
+    const [isAddTreatmentModalOpen, setAddTreatmentModalOpen] = useState(false);
 
     // Dummy handler for now
     const handleImportClick = () => {
@@ -189,9 +192,9 @@ export function TreatmentPlanForm() {
                          <div className="flex items-center gap-2">
                             {/* Global currency selector removed */}
                         </div>
-                        <Button variant="outline">
+                        <Button variant="outline" onClick={() => setAddTreatmentModalOpen(true)}>
                             <PlusCircle className="mr-2 h-4 w-4" />
-                            Agregar Tratamiento de Lista de Precios
+                            Agregar Tratamiento
                         </Button>
                     </div>
                     <div className="overflow-x-auto">
@@ -333,6 +336,11 @@ export function TreatmentPlanForm() {
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
+
+            <AddTreatmentFromListModal 
+                isOpen={isAddTreatmentModalOpen}
+                onOpenChange={setAddTreatmentModalOpen}
+            />
         </div>
     );
 }
