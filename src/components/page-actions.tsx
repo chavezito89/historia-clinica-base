@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation';
 import { useCallback, useRef, useState } from 'react';
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
-import { Upload, FileJson, Printer, RotateCcw, FileText, XCircle } from 'lucide-react';
+import { Upload, FileJson, Printer, RotateCcw, FileText, XCircle, DollarSign } from 'lucide-react';
 import { useClinicalHistoryStore } from '@/store/clinical-history-store';
 import { useOralExamStore } from '@/store/oral-exam-store';
 import { useToast } from '@/hooks/use-toast';
@@ -194,6 +194,14 @@ export function PageActions() {
         </>
     );
 
+    const renderPlanDeTratamientoActions = () => (
+        <SidebarMenuItem>
+            <SidebarMenuButton>
+                <DollarSign /> Establecer precios
+            </SidebarMenuButton>
+        </SidebarMenuItem>
+    );
+
     const renderPlaceholderActions = () => (
         <SidebarMenuItem>
             <SidebarMenuButton disabled>
@@ -208,6 +216,9 @@ export function PageActions() {
         }
         if (pathname.startsWith('/exploracion-bucal')) {
             return renderOralExamActions();
+        }
+        if (pathname.startsWith('/plan-de-tratamiento')) {
+            return renderPlanDeTratamientoActions();
         }
         return renderPlaceholderActions();
     };
