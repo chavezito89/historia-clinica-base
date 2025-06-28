@@ -206,6 +206,11 @@ export function PageActions() {
                     <FileJson /> Exportar Plan
                 </SidebarMenuButton>
             </SidebarMenuItem>
+            <SidebarMenuItem>
+                <SidebarMenuButton onClick={() => alert('Función no implementada')}>
+                    <Plus /> Agregar Tratamiento
+                </SidebarMenuButton>
+            </SidebarMenuItem>
         </>
     );
     
