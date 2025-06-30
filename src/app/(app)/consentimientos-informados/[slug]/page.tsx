@@ -10,7 +10,6 @@ import { useClinicStore } from '@/store/clinic-store';
 import { consentFormsData } from '@/data/consent-forms';
 import { ConsentContentRenderer } from '@/components/consent-content-renderer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { slugify } from '@/lib/utils';
 
 export default function ConsentimientoPage() {
     const params = useParams<{ slug: string }>();
@@ -34,7 +33,7 @@ export default function ConsentimientoPage() {
         setPatientSignature('');
     }, [resetConsentState, slug]);
 
-    const consentData = consentFormsData.find(form => slugify(form.title) === slug);
+    const consentData = consentFormsData.find(form => form.slug === slug);
     const title = consentData?.title || defaultTitle;
 
     const ConsentContent = () => {
