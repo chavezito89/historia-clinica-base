@@ -89,7 +89,7 @@ export const consentFormsData: ConsentFormContent[] = [
         title: 'Aceptación del tratamiento',
         content: [
             'Acepto y me comprometo a seguir responsablemente las recomendaciones recibidas, antes y después de la intervención, así como, acudir a las citas para las revisiones postoperatorias durante el tiempo indicado.',
-            'A pesar de que no es posible garantizar resultados perfectos, se realizará todo esfuerzo razonable por asegurar que su afección sea tratada adecuadamente.',
+            'A pesar de que no es posible garantizar resultados perfectos, se realizará todo esfuerzo razonable por asegurar que su afeacción sea tratada adecuadamente.',
             'Autorizo a mi odontólogo tratante a la atención de contingencias y urgencias que puedan derivarse del tratamiento que va a realizarme.',
             'Reconozco que esta carta de consentimiento puede ser revocable siempre y cuando no haya iniciado el tratamiento. Reconozco también que el Dr. puede negarse a realizar el tratamiento si encuentra que hay mayor riesgo que beneficios para mi salud.',
             'Al firmar esta carta de consentimiento reconozco que he recibido y comprendido la información adecuada acerca del tratamiento propuesto y que han respondido todas mis preguntas.',
@@ -146,13 +146,62 @@ export const consentFormsData: ConsentFormContent[] = [
             title: 'Aceptación del tratamiento',
             content: [
                 'Acepto y me comprometo a seguir responsablemente las recomendaciones recibidas, antes y después de la intervención, así como, acudir a las citas para las revisiones postoperatorias durante el tiempo indicado.',
+                'A pesar de que no es posible garantizar resultados perfectos, se realizará todo esfuerzo razonable por asegurar que su afeacción sea tratada adecuadamente.',
+                'Autorizo a mi odontólogo tratante a la atención de contingencias y urgencias que puedan derivarse del tratamiento que va a realizarme.',
+                'Reconozco que esta carta de consentimiento puede ser revocable siempre y cuando no haya iniciado el tratamiento. Reconozco también que el Dr. puede negarse a realizar el tratamiento si encuentra que hay mayor riesgo que beneficios para mi salud.',
+                'Al firmar esta carta de consentimiento reconozco que he recibido y comprendido la información adecuada acerca del tratamiento propuesto y que han respondido todas mis preguntas.'
+            ]
+        }
+    ]
+  },
+  {
+    slug: 'carillas',
+    title: 'Consentimiento Informado para Carillas',
+    authorizedAct: 'Carillas',
+    sections: [
+        {
+            title: 'Tratamiento propuesto',
+            content: [
+                'Declaro que el Dr. [*] y su equipo de ayudantes me ha informado satisfactoriamente que las carillas se usan para restaurar o mejorar la apariencia de dientes dañados, manchados, deformes o separados.',
+                'El tratamiento de carillas se hace en varias citas. Después de desgastar ligeramente la superficie anterior de los dientes con instrumentos abrasivos rotatorios y tomar la impresión (molde) de los mismos, pueden o no colocarse carillas temporales (o provisionales) mientras se fabrican las carillas finales. Debo regresar para que me pongan las carillas finales tan pronto estén listas. Los provisionales de carillas pueden caerse fácilmente, por lo que debo tener mucho cuidado al comer, morder y cepillarme los dientes. Si no regreso tan pronto me indiquen a colocarme las carillas finales, se podría deteriorar el provisional, provocando caries, fractura del diente, enfermedad de las encías (periodontal), infecciones y problemas con mí mordida, siendo necesaria la fabricación de nuevas carillas o coronas.',
+                'Las carillas se colocan de manera definitiva en una cita posterior usando un cemento especial, una vez que se haya verificado el tamaño, forma y color.'
+            ]
+        },
+        {
+            title: 'Beneficios y alternativas',
+            content: [
+                'El tratamiento propuesto tiene la intención de restaurar o mejorar la apariencia de mis dientes, así como ajustar mi mordida. Dependiendo de mis necesidades, los tratamientos alternos incluyen blanquear los dientes y/o colocar resinas compuestas directas sobre los dientes, corregir mi mordida con tratamiento de ortodoncia. Si mi caso no permite los tratamientos anteriores, no hay tratamiento alternativo.'
+            ]
+        },
+        {
+            title: 'Riesgos',
+            content: [
+                'Declaro que me han sido explicados verbalmente los posibles riesgos y complicaciones, siendo los más comunes:',
                 {
                     type: 'list',
                     items: [
-                        'A pesar de que no es posible garantizar resultados perfectos, se realizará todo esfuerzo razonable por asegurar que su afeacción sea tratada adecuadamente.',
-                        'Autorizo a mi odontólogo tratante a la atención de contingencias y urgencias que puedan derivarse del tratamiento que va a realizarme.'
+                        { title: '1. Reacción a la anestesia y/o a los sedantes:', text: 'Aunque el diente ya tiene endodoncia, puede ser necesario que me apliquen una anestesia local y, en caso de estar muy nervioso, posiblemente deba tomar un sedante (tranquilizante) para estar cómodo durante el tratamiento. Los anestésicos que me aplicarán son muy seguros, pero en ocasiones poco frecuentes puede haber una reacción alérgica a la anestesia, la cual puede requerir de atención médica de emergencia. El efecto de la anestesia puede reducir mi capacidad para deglutir, lo cual aumenta los riesgos de tragar objetos extraños durante el tratamiento. Una vez que ha terminado el efecto de la anestesia, puedo tener una molestia pasajera en el lugar donde se me aplicó la anestesia. Si me dan un sedante puedo tener mareo temporal o reducir mi coordinación, por lo que debo asistir con un acompañante y no debo manejar ningún vehículo.' },
+                        { title: '2. Sensibilidad de los dientes:', text: 'Aunque con las carillas es poco frecuente, preparar mis dientes puede irritar el tejido nervioso (pulpa dental) que se encuentra en el centro de estos, provocando sensibilidad al calor, al frío o a la presión. Tratar dicha sensibilidad puede implicar el uso de pastas de dientes especiales o posiblemente tratar la pulpa misma si no hay mejoría (tratamiento de endodoncia).' },
+                        { title: '3. Mandíbula con contractura o adolorida:', text: 'Al mantener la boca abierta durante el tratamiento puede provocarme dolor y contractura temporal de la mandíbula, y puede ser difícil abrir la boca de manera normal varios días posteriores al tratamiento. Puede ser necesario jalar los labios para realizar el tratamiento, lo que puede provocar que mis comisuras de la boca queden rojas o partidas durante varios días.' },
+                        { title: '4. Cambios en la mordida:', text: 'Una carilla puede alterar mi mordida y hacer que los dientes queden adoloridos. Esto puede requerir el ajuste de mi mordida, rebajando una pequeña área de la carilla o del diente antagonista (con el que choca la carilla).' },
+                        { title: '5. Enfermedad periodontal:', text: 'La orilla inferior de una carilla está usualmente diseñada para colocarse por debajo de la encía, lo cual puede aumentar los riesgos de irritación de la misma, infección o caries. El cepillado adecuado y el uso de hilo dental en casa, una dieta saludable y limpiezas profesionales regulares son esenciales para ayudar a prevenir estos problemas.' },
+                        { title: '6. Desgaste o fractura.', text: 'Si tengo apretamiento o rechinamiento (bruxismo) de mis dientes, es posible que haya desgaste o fractura de las carillas o de mis dientes. Debo usar un aparato llamado guarda oclusal para disminuir la posibilidad que esto me ocurra.' }
                     ]
-                },
+                }
+            ]
+        },
+        {
+            title: 'Consecuencias de no realizar el tratamiento',
+            content: [
+                'Al ser un tratamiento en su mayoría estético, los problemas existentes causados por la forma o posición de sus dientes podrían ocasionar molestias futuras. Si los dientes están encimados, podría formarse más fácilmente caries entre ellos. Los dientes ya cariados, quebrados o rotos con restauraciones previas inadecuadas podrían continuar deteriorándose, provocando dolor, más caries y requerir de tratamientos más extensos..'
+            ]
+        },
+        {
+            title: 'Aceptación del tratamiento',
+            content: [
+                'Acepto y me comprometo a seguir responsablemente las recomendaciones recibidas, antes y después de la intervención, así como, acudir a las citas para las revisiones postoperatorias durante el tiempo indicado.',
+                'A pesar de que no es posible garantizar resultados perfectos, se realizará todo esfuerzo razonable por asegurar que su afección sea tratada adecuadamente.',
+                'Autorizo a mi odontólogo tratante a la atención de contingencias y urgencias que puedan derivarse del tratamiento que va a realizarme.',
                 'Reconozco que esta carta de consentimiento puede ser revocable siempre y cuando no haya iniciado el tratamiento. Reconozco también que el Dr. puede negarse a realizar el tratamiento si encuentra que hay mayor riesgo que beneficios para mi salud.',
                 'Al firmar esta carta de consentimiento reconozco que he recibido y comprendido la información adecuada acerca del tratamiento propuesto y que han respondido todas mis preguntas.'
             ]
