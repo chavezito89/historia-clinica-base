@@ -5,7 +5,7 @@ import { useClinicStore } from '@/store/clinic-store';
 import { Logo } from './icons/logo';
 
 export function PrintHeader() {
-  const { clinicInfo } = useClinicStore();
+  const { clinicInfo, doctorInfo } = useClinicStore();
   const [currentDate, setCurrentDate] = useState('');
 
   useEffect(() => {
@@ -18,11 +18,12 @@ export function PrintHeader() {
 
   return (
     <header className="border-b-2 border-black pb-4">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-start">
         <div className="flex items-center gap-4">
           <Logo className="h-16 w-16 text-black" />
           <div>
             <h1 className="text-2xl font-bold">{clinicInfo.name}</h1>
+            <p className="font-semibold text-base">{doctorInfo.name}</p>
             <p className="text-sm">{clinicInfo.address}</p>
             <p className="text-sm">Tel: {clinicInfo.phone} | Email: {clinicInfo.email}</p>
           </div>

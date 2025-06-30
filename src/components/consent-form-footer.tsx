@@ -9,12 +9,11 @@ import { useClinicStore } from '@/store/clinic-store';
 
 export function ConsentFormFooter() {
     const { 
-        doctorSignature, setDoctorSignature,
         termsAccepted, setTermsAccepted,
     } = useConsentStore();
     
     const { patientData, setPatientData } = useClinicalHistoryStore();
-    const { clinicInfo } = useClinicStore();
+    const { doctorInfo, updateDoctorInfo } = useClinicStore();
 
     return (
         <footer className="space-y-8 mt-8 print:mt-16">
@@ -38,10 +37,10 @@ export function ConsentFormFooter() {
                     disabled={!termsAccepted}
                 />
                 <SignaturePad 
-                    label={`Firma del Odontólogo: ${clinicInfo.name}`}
-                    signature={doctorSignature}
-                    onSave={(sig) => setDoctorSignature(sig)}
-                    onClear={() => setDoctorSignature('')}
+                    label={`Firma del Odontólogo: ${doctorInfo.name}`}
+                    signature={doctorInfo.signature}
+                    onSave={(sig) => updateDoctorInfo({ signature: sig })}
+                    onClear={() => updateDoctorInfo({ signature: '' })}
                     disabled={!termsAccepted}
                 />
             </div>

@@ -8,7 +8,7 @@ import { es } from 'date-fns/locale';
 
 export function ConsentFormHeader() {
     const { patientId, patientData } = useClinicalHistoryStore();
-    const { clinicInfo } = useClinicStore();
+    const { clinicInfo, doctorInfo } = useClinicStore();
     const [currentDate, setCurrentDate] = useState('');
 
     useEffect(() => {
@@ -39,7 +39,7 @@ export function ConsentFormHeader() {
                     </tr>
                     <tr className="border-b">
                         <td className="font-semibold p-2 border-r">Cédula del odontólogo:</td>
-                        <td className="p-2">{clinicInfo.professionalLicense}</td>
+                        <td className="p-2">{doctorInfo.professionalLicense}</td>
                     </tr>
                     <tr className="border-b">
                         <td className="font-semibold p-2 border-r">Dirección y teléfono de la clínica:</td>
