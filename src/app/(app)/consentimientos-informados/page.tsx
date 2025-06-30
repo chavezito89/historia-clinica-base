@@ -9,11 +9,11 @@ import {
     Crown,
     XCircle,
     XOctagon,
-    Spline,
-    Wand2,
-    Construction,
+    BrainCircuit,
+    ShieldCheck,
+    Wrench,
     Droplets,
-    Scissors,
+    Slice,
     Icon,
     Search,
 } from 'lucide-react';
@@ -28,11 +28,11 @@ const consentTypes: { title: string; icon: React.ForwardRefExoticComponent<Omit<
     { title: 'Coronas y puentes fijos', icon: Crown },
     { title: 'Extracción dental', icon: XCircle },
     { title: 'Extracción de terceros molares y dientes retenidos', icon: XOctagon },
-    { title: 'Endodoncia', icon: Spline },
-    { title: 'Profilaxis', icon: Wand2 },
-    { title: 'Reconstrucción y endoposte', icon: Construction },
+    { title: 'Endodoncia', icon: BrainCircuit },
+    { title: 'Profilaxis', icon: ShieldCheck },
+    { title: 'Reconstrucción y endoposte', icon: Wrench },
     { title: 'Tratamiento periodontal no quirurgico', icon: Droplets },
-    { title: 'Tratamiento periodontal quirurgico', icon: Scissors },
+    { title: 'Tratamiento periodontal quirurgico', icon: Slice },
 ];
 
 export default function ConsentimientosInformadosPage() {
