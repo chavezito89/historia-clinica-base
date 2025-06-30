@@ -70,7 +70,7 @@ export default function ConsentimientosInformadosPage() {
                                         >
                                             <Card className="group-hover:bg-accent group-hover:text-accent-foreground transition-colors h-full">
                                                 <CardHeader className="flex flex-row items-center gap-4 space-y-0 p-4">
-                                                    <consent.icon className="h-8 w-8 text-primary group-hover:text-inherit transition-colors" />
+                                                    <consent.icon className="h-8 w-8 shrink-0 text-primary group-hover:text-inherit transition-colors" />
                                                     <p className="text-base font-medium">{consent.title}</p>
                                                 </CardHeader>
                                             </Card>
