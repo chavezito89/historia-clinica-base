@@ -169,6 +169,68 @@ export function TreatmentPlanForm() {
 
     const hasMultipleCurrencies = Object.keys(totalsByCurrency).length > 1;
 
+    const subtotalRows: React.ReactNode[] = [];
+    const individualDiscountRows: React.ReactNode[] = [];
+    const globalDiscountRows: React.ReactNode[] = [];
+    const totalRows: React.ReactNode[] = [];
+
+    Object.entries(totalsByCurrency).forEach(([currency, totals]) => {
+        const currencyKey = currency as 'MXN' | 'USD';
+        
+        const individualDiscountTotal = totals.subtotal - totals.subtotalAfterIndividualDiscounts;
+        const hasIndividualDiscounts = individualDiscountTotal > 0.001;
+
+        let globalDiscountAmount = 0;
+        if (globalDiscount.type === 'percentage') {
+            globalDiscountAmount = totals.subtotalAfterIndividualDiscounts * (globalDiscount.value / 100);
+        } else if (globalDiscount.type === 'amount' && !hasMultipleCurrencies) {
+            globalDiscountAmount = globalDiscount.value;
+        }
+        const hasGlobalDiscount = globalDiscount.value > 0;
+
+        const finalTotal = totals.subtotalAfterIndividualDiscounts - globalDiscountAmount;
+
+        subtotalRows.push(
+            <TableRow key={`${currency}-subtotal`}>
+                <TableCell colSpan={5} className="text-right">Subtotal ({currency})</TableCell>
+                <TableCell className="text-right">{formatCurrency(totals.subtotal, currencyKey)}</TableCell>
+                <TableCell />
+            </TableRow>
+        );
+
+        if (hasIndividualDiscounts) {
+            individualDiscountRows.push(
+                <TableRow key={`${currency}-ind-discount`}>
+                    <TableCell colSpan={5} className="text-right text-sm text-muted-foreground">Descuentos Individuales ({currency})</TableCell>
+                    <TableCell className="text-right text-sm text-muted-foreground">- {formatCurrency(individualDiscountTotal, currencyKey)}</TableCell>
+                    <TableCell />
+                </TableRow>
+            );
+        }
+
+        if (hasGlobalDiscount) {
+            let globalDiscountDisplay = `(${globalDiscount.value}${globalDiscount.type === 'percentage' ? '%' : ''})`;
+            if (hasMultipleCurrencies && globalDiscount.type === 'amount') {
+                globalDiscountDisplay = `(No aplicable)`;
+            }
+            globalDiscountRows.push(
+                <TableRow key={`${currency}-global-discount`}>
+                    <TableCell colSpan={5} className="text-right text-sm text-muted-foreground">Descuento Global {globalDiscountDisplay} ({currency})</TableCell>
+                    <TableCell className="text-right text-sm text-muted-foreground">- {formatCurrency(globalDiscountAmount, currencyKey)}</TableCell>
+                    <TableCell />
+                </TableRow>
+            );
+        }
+
+        totalRows.push(
+            <TableRow key={`${currency}-total`} className="bg-muted/50">
+                <TableCell colSpan={5} className="text-right font-bold text-lg">Total ({currency})</TableCell>
+                <TableCell className="text-right font-bold text-lg">{formatCurrency(finalTotal, currencyKey)}</TableCell>
+                <TableCell />
+            </TableRow>
+        );
+    });
+
     return (
         <div className="space-y-6">
             <Card>
@@ -312,57 +374,13 @@ export function TreatmentPlanForm() {
                                 )}
                             </TableBody>
                             <TableFooter>
-                                {Object.entries(totalsByCurrency).map(([currency, totals]) => {
-                                    const currencyKey = currency as 'MXN' | 'USD';
-                                    
-                                    let globalDiscountDisplay = `(${globalDiscount.value}${globalDiscount.type === 'percentage' ? '%' : ''})`;
-                                    if (hasMultipleCurrencies && globalDiscount.type === 'amount') {
-                                        globalDiscountDisplay = `(No aplicable)`;
-                                    }
-
-                                    const individualDiscountTotal = totals.subtotal - totals.subtotalAfterIndividualDiscounts;
-                                    const hasIndividualDiscounts = individualDiscountTotal > 0.001;
-
-                                    let globalDiscountAmount = 0;
-                                    if (globalDiscount.type === 'percentage') {
-                                        globalDiscountAmount = totals.subtotalAfterIndividualDiscounts * (globalDiscount.value / 100);
-                                    } else if (globalDiscount.type === 'amount' && !hasMultipleCurrencies) {
-                                        globalDiscountAmount = globalDiscount.value;
-                                    }
-
-                                    const finalTotal = totals.subtotalAfterIndividualDiscounts - globalDiscountAmount;
-
-                                    return (
-                                        <React.Fragment key={currency}>
-                                            <TableRow>
-                                                <TableCell colSpan={5} className="text-right">Subtotal ({currency})</TableCell>
-                                                <TableCell className="text-right">{formatCurrency(totals.subtotal, currencyKey)}</TableCell>
-                                                <TableCell />
-                                            </TableRow>
-                                            {hasIndividualDiscounts && (
-                                                <TableRow>
-                                                    <TableCell colSpan={5} className="text-right text-sm text-muted-foreground">Descuentos Individuales</TableCell>
-                                                    <TableCell className="text-right text-sm text-muted-foreground">- {formatCurrency(individualDiscountTotal, currencyKey)}</TableCell>
-                                                    <TableCell />
-                                                </TableRow>
-                                            )}
-                                            {globalDiscount.value > 0 && (
-                                                <TableRow>
-                                                    <TableCell colSpan={5} className="text-right text-sm text-muted-foreground">Descuento Global {globalDiscountDisplay}</TableCell>
-                                                    <TableCell className="text-right text-sm text-muted-foreground">- {formatCurrency(globalDiscountAmount, currencyKey)}</TableCell>
-                                                    <TableCell />
-                                                </TableRow>
-                                            )}
-                                            <TableRow className="bg-muted/50">
-                                                <TableCell colSpan={5} className="text-right font-bold text-lg">Total ({currency})</TableCell>
-                                                <TableCell className="text-right font-bold text-lg">{formatCurrency(finalTotal, currencyKey)}</TableCell>
-                                                <TableCell />
-                                            </TableRow>
-                                        </React.Fragment>
-                                    )
-                                })}
+                                {subtotalRows}
+                                {individualDiscountRows.length > 0 && <>{individualDiscountRows}</>}
+                                {globalDiscountRows.length > 0 && <>{globalDiscountRows}</>}
+                                {totalRows}
+                                
                                 {Object.keys(totalsByCurrency).length > 0 && (
-                                     <TableRow>
+                                    <TableRow>
                                         <TableCell colSpan={7} className="text-right">
                                             <Button variant="outline" size="sm" className="mt-2" onClick={openGlobalDiscountDialog}>Aplicar Descuento Global</Button>
                                         </TableCell>
