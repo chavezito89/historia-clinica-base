@@ -149,14 +149,14 @@ export function TreatmentPlanForm() {
         if (item.currency === 'MXN' || item.currency === 'USD') {
             const currencyKey = item.currency;
             if (!acc[currencyKey]) {
-                acc[currencyKey] = { subtotal: 0, subtotalAfterIndividualDiscounts: 0 };
+                acc[currencyKey] = { subtotal: 0, totalAfterIndividualDiscounts: 0 };
             }
-            const itemSubtotal = item.quantity * item.unitPrice;
+            const itemSubtotal = (Number(item.quantity) || 0) * (Number(item.unitPrice) || 0);
             acc[currencyKey].subtotal += itemSubtotal;
-            acc[currencyKey].subtotalAfterIndividualDiscounts += item.total;
+            acc[currencyKey].totalAfterIndividualDiscounts += item.total;
         }
         return acc;
-    }, {} as Record<'MXN' | 'USD', { subtotal: number; subtotalAfterIndividualDiscounts: number; }>);
+    }, {} as Record<'MXN' | 'USD', { subtotal: number; totalAfterIndividualDiscounts: number; }>);
     
 
     const formatCurrency = (amount: number, currency: 'MXN' | 'USD') => {
@@ -171,53 +171,85 @@ export function TreatmentPlanForm() {
 
     const hasMultipleCurrencies = Object.keys(totalsByCurrency).length > 1;
 
-    const summaryRows: React.ReactNode[] = [];
+    const renderSummaryRows = () => {
+        const rows: React.ReactNode[] = [];
+        const allCurrenciesSubtotalAfterIndividualDiscounts = Object.values(totalsByCurrency).reduce((sum, current) => sum + current.totalAfterIndividualDiscounts, 0);
 
-    Object.entries(totalsByCurrency).forEach(([currency, totals]) => {
-        const currencyKey = currency as 'MXN' | 'USD';
-        
-        const individualDiscountTotal = totals.subtotal - totals.subtotalAfterIndividualDiscounts;
-        const hasIndividualDiscounts = individualDiscountTotal > 0.001;
-
-        let globalDiscountAmount = 0;
-        if (globalDiscount.type === 'percentage') {
-            globalDiscountAmount = totals.subtotalAfterIndividualDiscounts * (globalDiscount.value / 100);
-        } else if (globalDiscount.type === 'amount' && !hasMultipleCurrencies) {
-            globalDiscountAmount = globalDiscount.value;
-        }
-        const hasGlobalDiscount = globalDiscount.value > 0;
-
-        const finalTotal = totals.subtotalAfterIndividualDiscounts - globalDiscountAmount;
-
-        summaryRows.push(
-            <React.Fragment key={`${currency}-summary`}>
-                <TableRow>
-                    <TableCell colSpan={5} className="text-right text-muted-foreground">Subtotal ({currency})</TableCell>
-                    <TableCell className="text-right text-muted-foreground">{formatCurrency(totals.subtotal, currencyKey)}</TableCell>
+        Object.entries(totalsByCurrency).forEach(([currency, totals]) => {
+            const currencyKey = currency as 'MXN' | 'USD';
+            rows.push(
+                <TableRow key={`${currency}-subtotal`}>
+                    <TableCell colSpan={5} className="text-right">Subtotal ({currency})</TableCell>
+                    <TableCell className="text-right">{formatCurrency(totals.subtotal, currencyKey)}</TableCell>
                     <TableCell />
                 </TableRow>
-                {hasIndividualDiscounts && (
-                    <TableRow>
-                        <TableCell colSpan={5} className="text-right text-sm text-muted-foreground">Descuentos Individuales ({currency})</TableCell>
-                        <TableCell className="text-right text-sm text-muted-foreground">- {formatCurrency(individualDiscountTotal, currencyKey)}</TableCell>
+            );
+
+            const individualDiscountTotal = totals.subtotal - totals.totalAfterIndividualDiscounts;
+            if (individualDiscountTotal > 0.001) {
+                 rows.push(
+                    <TableRow key={`${currency}-individual-discount`} className="text-sm">
+                        <TableCell colSpan={5} className="text-right text-muted-foreground">Descuentos Individuales ({currency})</TableCell>
+                        <TableCell className="text-right text-muted-foreground">- {formatCurrency(individualDiscountTotal, currencyKey)}</TableCell>
                         <TableCell />
                     </TableRow>
-                )}
-                 {hasGlobalDiscount && (
-                    <TableRow>
-                        <TableCell colSpan={5} className="text-right text-sm text-muted-foreground">Descuento Global ({currency})</TableCell>
-                        <TableCell className="text-right text-sm text-muted-foreground">- {formatCurrency(globalDiscountAmount, currencyKey)}</TableCell>
+                );
+            }
+        });
+
+        if (globalDiscount.value > 0) {
+            if (globalDiscount.type === 'percentage') {
+                rows.push(
+                    <TableRow key="global-discount-percentage-title" className="text-sm">
+                         <TableCell colSpan={5} className="text-right text-muted-foreground pt-4">Descuento Global ({globalDiscount.value}%)</TableCell>
+                         <TableCell />
+                         <TableCell />
+                    </TableRow>
+                );
+                Object.entries(totalsByCurrency).forEach(([currency, totals]) => {
+                    const discountAmount = totals.totalAfterIndividualDiscounts * (globalDiscount.value / 100);
+                     rows.push(
+                        <TableRow key={`global-discount-${currency}`} className="text-sm">
+                            <TableCell colSpan={5} className="text-right text-muted-foreground pl-12">Total Descuento ({currency})</TableCell>
+                            <TableCell className="text-right text-muted-foreground">- {formatCurrency(discountAmount, currency as 'MXN' | 'USD')}</TableCell>
+                            <TableCell />
+                        </TableRow>
+                    );
+                });
+            } else if (globalDiscount.type === 'amount' && !hasMultipleCurrencies) {
+                const currencyKey = Object.keys(totalsByCurrency)[0] as 'MXN' | 'USD';
+                rows.push(
+                    <TableRow key="global-discount-amount" className="text-sm">
+                        <TableCell colSpan={5} className="text-right text-muted-foreground pt-4">Descuento Global ({currencyKey})</TableCell>
+                        <TableCell className="text-right text-muted-foreground">- {formatCurrency(globalDiscount.value, currencyKey)}</TableCell>
                         <TableCell />
                     </TableRow>
-                )}
-                <TableRow className="bg-muted/50">
-                    <TableCell colSpan={5} className="text-right font-bold">Total ({currency})</TableCell>
+                );
+            }
+        }
+
+        rows.push(<TableRow key="separator"><TableCell colSpan={7} className="py-2" /></TableRow>);
+
+        Object.entries(totalsByCurrency).forEach(([currency, totals]) => {
+            const currencyKey = currency as 'MXN' | 'USD';
+            let finalTotal = totals.totalAfterIndividualDiscounts;
+            if (globalDiscount.type === 'percentage') {
+                finalTotal -= finalTotal * (globalDiscount.value / 100);
+            } else if (globalDiscount.type === 'amount' && !hasMultipleCurrencies) {
+                finalTotal -= globalDiscount.value;
+            }
+
+            rows.push(
+                <TableRow key={`${currency}-total`} className="bg-muted/50">
+                    <TableCell colSpan={5} className="text-right font-bold">Total a Pagar ({currency})</TableCell>
                     <TableCell className="text-right font-bold">{formatCurrency(finalTotal, currencyKey)}</TableCell>
                     <TableCell />
                 </TableRow>
-            </React.Fragment>
-        );
-    });
+            );
+        });
+
+        return rows;
+    }
 
     return (
         <div className="space-y-6">
@@ -321,10 +353,24 @@ export function TreatmentPlanForm() {
                                     <TableRow key={item.id}>
                                         <TableCell className="font-medium">{item.treatment}</TableCell>
                                         <TableCell>
-                                            <Input type="number" value={item.quantity} onFocus={(e) => e.target.select()} onChange={(e) => updateBudgetItem(item.id, { quantity: parseInt(e.target.value) || 0 })} className="w-20 mx-auto text-center" />
+                                            <Input 
+                                                type="number" 
+                                                value={item.quantity} 
+                                                onFocus={(e) => { if (Number(e.target.value) === 0) updateBudgetItem(item.id, { quantity: '' })}}
+                                                onBlur={(e) => { if (e.target.value === '') updateBudgetItem(item.id, { quantity: 0 })}}
+                                                onChange={(e) => updateBudgetItem(item.id, { quantity: e.target.value })} 
+                                                className="w-20 mx-auto text-center" 
+                                            />
                                         </TableCell>
                                         <TableCell>
-                                            <Input type="number" value={item.unitPrice} onFocus={(e) => e.target.select()} onChange={(e) => updateBudgetItem(item.id, { unitPrice: parseFloat(e.target.value) || 0 })} className="w-28 ml-auto text-right" />
+                                            <Input 
+                                                type="number" 
+                                                value={item.unitPrice} 
+                                                onFocus={(e) => { if (Number(e.target.value) === 0) updateBudgetItem(item.id, { unitPrice: '' })}}
+                                                onBlur={(e) => { if (e.target.value === '') updateBudgetItem(item.id, { unitPrice: 0 })}}
+                                                onChange={(e) => updateBudgetItem(item.id, { unitPrice: e.target.value })} 
+                                                className="w-28 ml-auto text-right" 
+                                            />
                                         </TableCell>
                                         <TableCell>
                                             <Select value={item.currency} onValueChange={(value: 'MXN' | 'USD') => updateBudgetItem(item.id, { currency: value })}>
@@ -362,7 +408,7 @@ export function TreatmentPlanForm() {
                                 )}
                             </TableBody>
                             <TableFooter>
-                                {summaryRows}
+                                {renderSummaryRows()}
                                 
                                 {Object.keys(totalsByCurrency).length > 0 && (
                                     <TableRow>

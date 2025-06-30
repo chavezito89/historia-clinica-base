@@ -5,8 +5,8 @@ import type { PriceItem } from './pricing-store';
 export interface BudgetItem {
   id: string;
   treatment: string;
-  quantity: number;
-  unitPrice: number;
+  quantity: number | string;
+  unitPrice: number | string;
   currency: 'MXN' | 'USD';
   discount: { type: 'percentage' | 'amount'; value: number };
   total: number;
@@ -14,13 +14,13 @@ export interface BudgetItem {
 
 interface DiagnosisData {
   description: string;
-  [key: string]: any;
+  [key:string]: any;
 }
 
 const calculateTotal = (
   item: Omit<BudgetItem, 'id' | 'treatment' | 'total'>
 ): number => {
-  const baseTotal = item.quantity * item.unitPrice;
+  const baseTotal = (Number(item.quantity) || 0) * (Number(item.unitPrice) || 0);
   if (item.discount.type === 'percentage') {
     const discountAmount = baseTotal * (item.discount.value / 100);
     return Math.max(0, baseTotal - discountAmount);
