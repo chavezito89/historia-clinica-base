@@ -56,8 +56,8 @@ export const useTreatmentPlanStore = create<TreatmentPlanState>()(
         importDiagnosis: (jsonString: string) => {
           try {
             const parsedData = JSON.parse(jsonString);
-            if (parsedData.type !== 'diagnosis' || !Array.isArray(parsedData.data)) {
-              console.error("Invalid diagnosis JSON format.");
+            if ((parsedData.type !== 'treatment' && parsedData.type !== 'diagnosis') || !Array.isArray(parsedData.data)) {
+              console.error("Invalid diagnosis/treatment JSON format. Expected 'type: \"treatment\"' or 'type: \"diagnosis\"'.");
               return false;
             }
             const descriptions: string[] = parsedData.data
@@ -66,7 +66,7 @@ export const useTreatmentPlanStore = create<TreatmentPlanState>()(
             set({ diagnosis: descriptions });
             return true;
           } catch (e) {
-            console.error('Failed to parse or process diagnosis JSON', e);
+            console.error('Failed to parse or process diagnosis/treatment JSON', e);
             return false;
           }
         },

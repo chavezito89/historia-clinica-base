@@ -87,10 +87,10 @@ export const useOralExamStore = create<OralExamState>()(
             const parsedData = JSON.parse(jsonString);
 
             if (
-              parsedData.type !== 'diagnosis' ||
+              (parsedData.type !== 'diagnosis' && parsedData.type !== 'treatment') ||
               !Array.isArray(parsedData.data)
             ) {
-              console.error("Invalid diagnosis JSON format.");
+              console.error("Invalid diagnosis/treatment JSON format. Expected 'type: \"treatment\"' or 'type: \"diagnosis\"'.");
               return false;
             }
 
@@ -101,7 +101,7 @@ export const useOralExamStore = create<OralExamState>()(
             set({ dentalDiagnosis: descriptions });
             return true;
           } catch (e) {
-            console.error('Failed to parse or process diagnosis JSON', e);
+            console.error('Failed to parse or process diagnosis/treatment JSON', e);
             return false;
           }
         },
