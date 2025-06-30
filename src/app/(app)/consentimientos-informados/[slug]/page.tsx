@@ -10,10 +10,11 @@ export default function ConsentimientoPage({ params }: { params: { slug: string 
     const searchParams = useSearchParams();
     const title = searchParams.get('title') || 'Consentimiento Informado';
     const { resetConsentState } = useConsentStore();
+    const { slug } = params;
 
     useEffect(() => {
         resetConsentState();
-    }, [resetConsentState, params.slug]);
+    }, [resetConsentState, slug]);
 
     // This is where we would fetch and display the specific content for each consent type.
     // For now, it's a placeholder.
