@@ -7,11 +7,15 @@ import { useEffect } from 'react';
 import { useConsentStore } from '@/store/consent-store';
 import { Button } from '@/components/ui/button';
 import { useClinicStore } from '@/store/clinic-store';
+import { consentFormsData } from '@/data/consent-forms';
+import { ConsentContentRenderer } from '@/components/consent-content-renderer';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function ConsentimientoPage() {
     const params = useParams<{ slug: string }>();
     const searchParams = useSearchParams();
-    const title = searchParams.get('title') || 'Consentimiento Informado';
+    const defaultTitle = searchParams.get('title') || 'Consentimiento Informado';
+    
     const { 
         resetConsentState,
         isFinalized,
@@ -26,20 +30,24 @@ export default function ConsentimientoPage() {
         resetConsentState();
     }, [resetConsentState, slug]);
 
-    // This is where we would fetch and display the specific content for each consent type.
-    // For now, it's a placeholder.
-    const ConsentContent = () => (
-        <div>
-            <h3 className="font-bold text-base mb-4">{title}</h3>
-            <p>
-                Este es el espacio donde se detallará la información específica del procedimiento de <strong>{title}</strong>. 
-                Aquí se explicarán los beneficios, riesgos, alternativas y el procedimiento en sí.
-            </p>
-            <p>
-                Por ahora, este es un texto de ejemplo. La funcionalidad completa para cada tipo de consentimiento se implementará a continuación.
-            </p>
-        </div>
-    );
+    const consentData = consentFormsData.find(form => form.slug === slug);
+    const title = consentData?.title || defaultTitle;
+
+    const ConsentContent = () => {
+        if (!consentData) {
+            return (
+                 <Card className="mt-8">
+                    <CardHeader>
+                        <CardTitle>Contenido no disponible</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <p>El contenido para este consentimiento informado aún no ha sido agregado. Estará disponible próximamente.</p>
+                    </CardContent>
+                </Card>
+            );
+        }
+        return <ConsentContentRenderer data={consentData} doctorName={doctorInfo.name} />;
+    };
 
     return (
         <>
