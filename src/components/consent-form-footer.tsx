@@ -34,6 +34,10 @@ export function ConsentFormFooter() {
 
     const isDecisionDisabled = isFinalized || !hasAcknowledged;
 
+    const acceptanceText = 'He leído todo el documento y doy mi consentimiento para el tratamiento propuesto.';
+    const rejectionText = 'Marcar solo en caso de no aceptar el tratamiento propuesto. No otorgo mi consentimiento para que se lleve a cabo el tratamiento descrito en el presente documento aun cuando fui informado de los riesgos y las posibles consecuencias que pueden causar a mi salud el hecho de que no se practique el tratamiento propuesto por el Odontólogo.';
+
+
     return (
         <footer className="space-y-8 mt-8 print:mt-16">
             <div className="space-y-6 print:hidden">
@@ -61,7 +65,7 @@ export function ConsentFormFooter() {
                             disabled={isDecisionDisabled}
                         />
                         <Label htmlFor="consent-accepted" className={`cursor-pointer text-sm font-normal ${isDecisionDisabled ? 'text-muted-foreground' : ''}`}>
-                            Doy mi consentimiento para el tratamiento propuesto.
+                            {acceptanceText}
                         </Label>
                     </div>
                     <div className="flex items-start space-x-3">
@@ -72,7 +76,7 @@ export function ConsentFormFooter() {
                             disabled={isDecisionDisabled}
                         />
                         <Label htmlFor="consent-rejected" className={`cursor-pointer text-sm font-normal ${isDecisionDisabled ? 'text-muted-foreground' : ''}`}>
-                            NO otorgo mi consentimiento para el tratamiento propuesto.
+                            {rejectionText}
                         </Label>
                     </div>
                 </div>
@@ -81,10 +85,10 @@ export function ConsentFormFooter() {
             <div className="hidden print:block space-y-4 text-sm">
                  {hasAcknowledged && <p><strong>Declaración:</strong> He leído y comprendido la información, los riesgos y los beneficios descritos en este documento.</p>}
                 {consentDecision === 'accepted' && (
-                    <p><strong>Decisión:</strong> <strong>Doy mi consentimiento</strong> para el tratamiento propuesto.</p>
+                    <p><strong>Decisión:</strong> {acceptanceText}</p>
                 )}
                 {consentDecision === 'rejected' && (
-                    <p><strong>Decisión:</strong> <strong>NO otorgo mi consentimiento</strong> para el tratamiento propuesto.</p>
+                    <p><strong>Decisión:</strong> {rejectionText}</p>
                 )}
             </div>
             
