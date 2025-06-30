@@ -22,6 +22,8 @@ export function ConsentFormFooter() {
     const handleDecisionChange = (decision: 'accepted' | 'rejected') => {
         if (isFinalized) return;
         
+        // If clicking the same checkbox, uncheck it (set to null).
+        // Otherwise, set the new decision, making them mutually exclusive.
         if (consentDecision === decision) {
             setConsentDecision(null);
         } else {
