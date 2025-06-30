@@ -21,7 +21,8 @@ export default function ConsentimientoPage() {
         isFinalized,
         finalizeConsent,
         patientSignature,
-        consentDecision
+        consentDecision,
+        hasAcknowledged,
     } = useConsentStore();
     const { doctorInfo } = useClinicStore();
     const slug = params.slug;
@@ -62,7 +63,7 @@ export default function ConsentimientoPage() {
                             <Button
                                 size="lg"
                                 onClick={finalizeConsent}
-                                disabled={!patientSignature || !consentDecision || !doctorInfo.signature}
+                                disabled={!patientSignature || !consentDecision || !doctorInfo.signature || !hasAcknowledged}
                             >
                                 Finalizar
                             </Button>

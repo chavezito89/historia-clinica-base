@@ -6,9 +6,12 @@ import { SignaturePad } from './signature-pad';
 import { Checkbox } from './ui/checkbox';
 import { Label } from './ui/label';
 import { useClinicStore } from '@/store/clinic-store';
+import { Separator } from './ui/separator';
 
 export function ConsentFormFooter() {
     const { 
+        hasAcknowledged,
+        setHasAcknowledged,
         patientSignature,
         setPatientSignature,
         consentDecision,
@@ -20,10 +23,8 @@ export function ConsentFormFooter() {
     const { doctorInfo, updateDoctorInfo } = useClinicStore();
 
     const handleDecisionChange = (decision: 'accepted' | 'rejected') => {
-        if (isFinalized) return;
+        if (isFinalized || !hasAcknowledged) return;
         
-        // If clicking the same checkbox, uncheck it (set to null).
-        // Otherwise, set the new decision, making them mutually exclusive.
         if (consentDecision === decision) {
             setConsentDecision(null);
         } else {
@@ -31,39 +32,59 @@ export function ConsentFormFooter() {
         }
     };
 
+    const isDecisionDisabled = isFinalized || !hasAcknowledged;
+
     return (
         <footer className="space-y-8 mt-8 print:mt-16">
-            <div className="space-y-4 print:hidden">
+            <div className="space-y-6 print:hidden">
                 <div className="flex items-start space-x-3">
                     <Checkbox
-                        id="consent-accepted"
-                        checked={consentDecision === 'accepted'}
-                        onCheckedChange={() => handleDecisionChange('accepted')}
+                        id="terms-acknowledged"
+                        checked={hasAcknowledged}
+                        onCheckedChange={(checked) => setHasAcknowledged(Boolean(checked))}
                         disabled={isFinalized}
                     />
-                    <Label htmlFor="consent-accepted" className="cursor-pointer text-sm font-normal">
-                        He leído todo el documento y doy mi consentimiento para el tratamiento propuesto.
+                    <Label htmlFor="terms-acknowledged" className="cursor-pointer text-sm font-normal">
+                        He leído y comprendido la información, los riesgos y los beneficios descritos en este documento.
                     </Label>
                 </div>
-                <div className="flex items-start space-x-3">
-                    <Checkbox
-                        id="consent-rejected"
-                        checked={consentDecision === 'rejected'}
-                        onCheckedChange={() => handleDecisionChange('rejected')}
-                        disabled={isFinalized}
-                    />
-                    <Label htmlFor="consent-rejected" className="cursor-pointer text-sm font-normal">
-                        Marcar solo en caso de no aceptar el tratamiento propuesto. No otorgo mi consentimiento para que se lleve a cabo el tratamiento descrito en el presente documento aun cuando fui informado de los riesgos y las posibles consecuencias que pueden causar a mi salud el hecho de que no se practique el tratamiento propuesto por el Odontólogo.
-                    </Label>
+
+                <Separator />
+                
+                <div className="space-y-4">
+                    <p className="text-sm font-medium text-foreground">Una vez leído el documento, por favor seleccione una opción:</p>
+                    <div className="flex items-start space-x-3">
+                        <Checkbox
+                            id="consent-accepted"
+                            checked={consentDecision === 'accepted'}
+                            onCheckedChange={() => handleDecisionChange('accepted')}
+                            disabled={isDecisionDisabled}
+                        />
+                        <Label htmlFor="consent-accepted" className={`cursor-pointer text-sm font-normal ${isDecisionDisabled ? 'text-muted-foreground' : ''}`}>
+                            Doy mi consentimiento para el tratamiento propuesto.
+                        </Label>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                        <Checkbox
+                            id="consent-rejected"
+                            checked={consentDecision === 'rejected'}
+                            onCheckedChange={() => handleDecisionChange('rejected')}
+                            disabled={isDecisionDisabled}
+                        />
+                        <Label htmlFor="consent-rejected" className={`cursor-pointer text-sm font-normal ${isDecisionDisabled ? 'text-muted-foreground' : ''}`}>
+                            NO otorgo mi consentimiento para el tratamiento propuesto.
+                        </Label>
+                    </div>
                 </div>
             </div>
 
             <div className="hidden print:block space-y-4 text-sm">
+                 {hasAcknowledged && <p><strong>Declaración:</strong> He leído y comprendido la información, los riesgos y los beneficios descritos en este documento.</p>}
                 {consentDecision === 'accepted' && (
-                    <p><strong>Decisión:</strong> He leído todo el documento y <strong>doy mi consentimiento</strong> para el tratamiento propuesto.</p>
+                    <p><strong>Decisión:</strong> <strong>Doy mi consentimiento</strong> para el tratamiento propuesto.</p>
                 )}
                 {consentDecision === 'rejected' && (
-                    <p><strong>Decisión:</strong> He leído todo el documento y <strong>NO otorgo mi consentimiento</strong> para el tratamiento propuesto.</p>
+                    <p><strong>Decisión:</strong> <strong>NO otorgo mi consentimiento</strong> para el tratamiento propuesto.</p>
                 )}
             </div>
             
@@ -73,7 +94,7 @@ export function ConsentFormFooter() {
                     signature={patientSignature}
                     onSave={(sig) => setPatientSignature(sig)}
                     onClear={() => setPatientSignature('')}
-                    disabled={isFinalized}
+                    disabled={isFinalized || !hasAcknowledged}
                 />
                 <SignaturePad 
                     label={`Firma del Odontólogo: ${doctorInfo.name}`}
