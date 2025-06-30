@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { useTreatmentPlanStore, type BudgetItem } from '@/store/treatment-plan-store';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -36,6 +36,7 @@ import { BadgeDollarSign, FileText, Percent, PlusCircle, Trash2 } from 'lucide-r
 import { RadioGroup, RadioGroupItem } from './ui/radio-group';
 import { Textarea } from './ui/textarea';
 import { AddTreatmentFromListModal } from './add-treatment-from-list-modal';
+import { useToast } from '@/hooks/use-toast';
 
 export function TreatmentPlanForm() {
     const { 
@@ -64,10 +65,40 @@ export function TreatmentPlanForm() {
     // State for add treatment modal
     const [isAddTreatmentModalOpen, setAddTreatmentModalOpen] = useState(false);
 
-    // Dummy handler for now
-    const handleImportClick = () => {
-        alert("Importar diagnóstico desde archivo JSON.");
-    };
+    const diagnosisInputRef = useRef<HTMLInputElement>(null);
+    const { toast } = useToast();
+
+    const handleImportClick = useCallback(() => {
+        diagnosisInputRef.current?.click();
+    }, []);
+
+    const handleDiagnosisFileChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            const file = event.target.files?.[0];
+            if (!file) return;
+    
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const text = e.target?.result;
+                    if (typeof text === 'string') {
+                        const success = importDiagnosis(text);
+                        if (success) {
+                            toast({ title: 'Importación exitosa', description: 'El diagnóstico se ha cargado correctamente.' });
+                        } else {
+                            throw new Error('El archivo JSON no es un diagnóstico válido o está corrupto.');
+                        }
+                    }
+                } catch (error: any) {
+                    toast({ variant: 'destructive', title: 'Error de importación', description: error.message || 'No se pudo procesar el archivo.' });
+                }
+            };
+            reader.onerror = () => toast({ variant: 'destructive', title: 'Error de lectura', description: 'No se pudo leer el archivo seleccionado.' });
+            reader.readAsText(file);
+            event.target.value = '';
+        },
+        [importDiagnosis, toast]
+    );
 
     const handleAddManualTreatment = () => {
         if (!manualTreatment.trim()) return;
@@ -427,6 +458,14 @@ export function TreatmentPlanForm() {
             <AddTreatmentFromListModal 
                 isOpen={isAddTreatmentModalOpen}
                 onOpenChange={setAddTreatmentModalOpen}
+            />
+
+            <input
+                type="file"
+                ref={diagnosisInputRef}
+                className="hidden"
+                accept=".json"
+                onChange={handleDiagnosisFileChange}
             />
         </div>
     );
