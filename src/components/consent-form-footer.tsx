@@ -39,14 +39,14 @@ export function ConsentFormFooter() {
                     signature={patientSignature}
                     onSave={(sig) => setPatientSignature(sig)}
                     onClear={() => setPatientSignature('')}
-                    disabled={!termsAccepted || isFinalized}
+                    disabled={isFinalized}
                 />
                 <SignaturePad 
                     label={`Firma del Odontólogo: ${doctorInfo.name}`}
                     signature={doctorInfo.signature}
                     onSave={(sig) => updateDoctorInfo({ signature: sig })}
                     onClear={() => updateDoctorInfo({ signature: '' })}
-                    disabled={!termsAccepted || isFinalized}
+                    disabled={isFinalized}
                 />
             </div>
         </footer>
