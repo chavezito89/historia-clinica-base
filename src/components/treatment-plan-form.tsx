@@ -315,7 +315,7 @@ export function TreatmentPlanForm() {
                                     rows={2}
                                 />
                             </div>
-                            <Button onClick={handleAddManualTreatment}><PlusCircle className="mr-2 h-4 w-4" /> Agregar</Button>
+                            <Button onClick={handleAddManualTreatment}><PlusCircle className="mr-2 h-4 w-4" /> Añadir Tratamiento</Button>
                         </div>
                     </div>
                 </CardContent>
@@ -332,7 +332,7 @@ export function TreatmentPlanForm() {
                         </div>
                         <Button variant="outline" onClick={() => setAddTreatmentModalOpen(true)}>
                             <PlusCircle className="mr-2 h-4 w-4" />
-                            Agregar Tratamiento
+                            Añadir Tratamiento
                         </Button>
                     </div>
                     <div className="overflow-x-auto">
