@@ -39,28 +39,6 @@ export default function ConsentimientoPage() {
     const consentData = consentFormsData.find(form => slugify(form.slug) === slug);
     const title = consentData?.title || defaultTitle;
 
-    const ConsentContent = () => {
-        if (!consentData) {
-            return (
-                 <Card className="mt-8">
-                    <CardHeader>
-                        <CardTitle>Contenido no disponible</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <p>El contenido para este consentimiento informado aún no ha sido agregado. Estará disponible próximamente.</p>
-                    </CardContent>
-                </Card>
-            );
-        }
-        return <ConsentContentRenderer 
-            data={consentData} 
-            doctorName={doctorInfo.name} 
-            customRisks={customRisks}
-            onCustomRisksChange={setCustomRisks}
-            isFinalized={isFinalized}
-        />;
-    };
-
     return (
         <>
             <PageHeader title={title} />
@@ -70,7 +48,24 @@ export default function ConsentimientoPage() {
                         patientSignature={patientSignature}
                         setPatientSignature={setPatientSignature}
                    >
-                        <ConsentContent />
+                        {consentData ? (
+                            <ConsentContentRenderer 
+                                data={consentData} 
+                                doctorName={doctorInfo.name} 
+                                customRisks={customRisks}
+                                onCustomRisksChange={setCustomRisks}
+                                isFinalized={isFinalized}
+                            />
+                        ) : (
+                            <Card className="mt-8">
+                                <CardHeader>
+                                    <CardTitle>Contenido no disponible</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <p>El contenido para este consentimiento informado aún no ha sido agregado. Estará disponible próximamente.</p>
+                                </CardContent>
+                            </Card>
+                        )}
                    </ConsentForm>
                    {!isFinalized && (
                         <div className="flex justify-end pt-6 print:hidden">
