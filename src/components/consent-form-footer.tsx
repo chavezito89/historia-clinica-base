@@ -8,12 +8,15 @@ import { Label } from './ui/label';
 import { useClinicStore } from '@/store/clinic-store';
 import { Separator } from './ui/separator';
 
-export function ConsentFormFooter() {
+interface ConsentFormFooterProps {
+    patientSignature: string;
+    setPatientSignature: (signature: string) => void;
+}
+
+export function ConsentFormFooter({ patientSignature, setPatientSignature }: ConsentFormFooterProps) {
     const { 
         hasAcknowledged,
         setHasAcknowledged,
-        patientSignature,
-        setPatientSignature,
         consentDecision,
         setConsentDecision,
         isFinalized,

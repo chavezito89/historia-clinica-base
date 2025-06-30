@@ -3,7 +3,7 @@
 import { useSearchParams, useParams } from 'next/navigation';
 import { PageHeader } from '@/components/page-header';
 import { ConsentForm } from '@/components/consent-form';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useConsentStore } from '@/store/consent-store';
 import { Button } from '@/components/ui/button';
 import { useClinicStore } from '@/store/clinic-store';
@@ -16,11 +16,12 @@ export default function ConsentimientoPage() {
     const searchParams = useSearchParams();
     const defaultTitle = searchParams.get('title') || 'Consentimiento Informado';
     
+    const [patientSignature, setPatientSignature] = useState('');
+
     const { 
         resetConsentState,
         isFinalized,
         finalizeConsent,
-        patientSignature,
         consentDecision,
         hasAcknowledged,
     } = useConsentStore();
@@ -29,6 +30,7 @@ export default function ConsentimientoPage() {
 
     useEffect(() => {
         resetConsentState();
+        setPatientSignature('');
     }, [resetConsentState, slug]);
 
     const consentData = consentFormsData.find(form => form.slug === slug);
@@ -55,7 +57,10 @@ export default function ConsentimientoPage() {
             <PageHeader title={title} />
             <main className="container mx-auto p-4 md:p-8">
                 <div className="max-w-4xl mx-auto">
-                   <ConsentForm>
+                   <ConsentForm
+                        patientSignature={patientSignature}
+                        setPatientSignature={setPatientSignature}
+                   >
                         <ConsentContent />
                    </ConsentForm>
                    {!isFinalized && (
