@@ -13,6 +13,7 @@ export function ConsentFormFooter() {
         setPatientSignature,
         termsAccepted, 
         setTermsAccepted,
+        isFinalized,
     } = useConsentStore();
     
     const { patientData } = useClinicalHistoryStore();
@@ -25,6 +26,7 @@ export function ConsentFormFooter() {
                     id="terms" 
                     checked={termsAccepted}
                     onCheckedChange={(checked) => setTermsAccepted(!!checked)}
+                    disabled={isFinalized}
                 />
                 <Label htmlFor="terms" className="cursor-pointer">
                     He leído y comprendido los términos y condiciones.
@@ -37,14 +39,14 @@ export function ConsentFormFooter() {
                     signature={patientSignature}
                     onSave={(sig) => setPatientSignature(sig)}
                     onClear={() => setPatientSignature('')}
-                    disabled={!termsAccepted}
+                    disabled={!termsAccepted || isFinalized}
                 />
                 <SignaturePad 
                     label={`Firma del Odontólogo: ${doctorInfo.name}`}
                     signature={doctorInfo.signature}
                     onSave={(sig) => updateDoctorInfo({ signature: sig })}
                     onClear={() => updateDoctorInfo({ signature: '' })}
-                    disabled={!termsAccepted}
+                    disabled={!termsAccepted || isFinalized}
                 />
             </div>
         </footer>

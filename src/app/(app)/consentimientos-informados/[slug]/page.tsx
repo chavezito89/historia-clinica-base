@@ -5,12 +5,21 @@ import { PageHeader } from '@/components/page-header';
 import { ConsentForm } from '@/components/consent-form';
 import { useEffect } from 'react';
 import { useConsentStore } from '@/store/consent-store';
+import { Button } from '@/components/ui/button';
+import { useClinicStore } from '@/store/clinic-store';
 
 export default function ConsentimientoPage() {
     const params = useParams<{ slug: string }>();
     const searchParams = useSearchParams();
     const title = searchParams.get('title') || 'Consentimiento Informado';
-    const { resetConsentState } = useConsentStore();
+    const { 
+        resetConsentState,
+        isFinalized,
+        finalizeConsent,
+        patientSignature,
+        termsAccepted
+    } = useConsentStore();
+    const { doctorInfo } = useClinicStore();
     const slug = params.slug;
 
     useEffect(() => {
@@ -40,6 +49,17 @@ export default function ConsentimientoPage() {
                    <ConsentForm>
                         <ConsentContent />
                    </ConsentForm>
+                   {!isFinalized && (
+                        <div className="flex justify-end pt-6 print:hidden">
+                            <Button
+                                size="lg"
+                                onClick={finalizeConsent}
+                                disabled={!patientSignature || !termsAccepted || !doctorInfo.signature}
+                            >
+                                Finalizar
+                            </Button>
+                        </div>
+                    )}
                 </div>
             </main>
         </>

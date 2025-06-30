@@ -20,9 +20,12 @@ export function SignaturePad({ label, signature, onSave, onClear, disabled = fal
     const canvasId = `signature-canvas-${label.replace(/\s+/g, '-')}`;
 
     useEffect(() => {
-        // Ensure canvas is empty before loading new data
-        if (sigPadRef.current && signature && sigPadRef.current.isEmpty()) {
-            sigPadRef.current.fromDataURL(signature);
+        if (sigPadRef.current) {
+            if (signature && sigPadRef.current.isEmpty()) {
+                sigPadRef.current.fromDataURL(signature);
+            } else if (!signature) {
+                sigPadRef.current.clear();
+            }
         }
     }, [signature]);
 
