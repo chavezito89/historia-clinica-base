@@ -23,7 +23,7 @@ export function ConsentFormFooter() {
     const { doctorInfo, updateDoctorInfo } = useClinicStore();
 
     const handleDecisionChange = (decision: 'accepted' | 'rejected') => {
-        if (isFinalized || !hasAcknowledged) return;
+        if (isFinalized) return;
         
         if (consentDecision === decision) {
             setConsentDecision(null);
@@ -32,8 +32,6 @@ export function ConsentFormFooter() {
         }
     };
 
-    const isDecisionDisabled = isFinalized || !hasAcknowledged;
-
     const acceptanceText = 'He leído todo el documento y doy mi consentimiento para el tratamiento propuesto.';
     const rejectionText = 'Marcar solo en caso de no aceptar el tratamiento propuesto. No otorgo mi consentimiento para que se lleve a cabo el tratamiento descrito en el presente documento aun cuando fui informado de los riesgos y las posibles consecuencias que pueden causar a mi salud el hecho de que no se practique el tratamiento propuesto por el Odontólogo.';
 
@@ -41,20 +39,6 @@ export function ConsentFormFooter() {
     return (
         <footer className="space-y-8 mt-8 print:mt-16">
             <div className="space-y-6 print:hidden">
-                <div className="flex items-start space-x-3">
-                    <Checkbox
-                        id="terms-acknowledged"
-                        checked={hasAcknowledged}
-                        onCheckedChange={(checked) => setHasAcknowledged(Boolean(checked))}
-                        disabled={isFinalized}
-                    />
-                    <Label htmlFor="terms-acknowledged" className="cursor-pointer text-sm font-normal">
-                        He leído y comprendido la información, los riesgos y los beneficios descritos en este documento.
-                    </Label>
-                </div>
-
-                <Separator />
-                
                 <div className="space-y-4">
                     <p className="text-sm font-medium text-foreground">Una vez leído el documento, por favor seleccione una opción:</p>
                     <div className="flex items-start space-x-3">
@@ -62,9 +46,9 @@ export function ConsentFormFooter() {
                             id="consent-accepted"
                             checked={consentDecision === 'accepted'}
                             onCheckedChange={() => handleDecisionChange('accepted')}
-                            disabled={isDecisionDisabled}
+                            disabled={isFinalized}
                         />
-                        <Label htmlFor="consent-accepted" className={`cursor-pointer text-sm font-normal ${isDecisionDisabled ? 'text-muted-foreground' : ''}`}>
+                        <Label htmlFor="consent-accepted" className={`cursor-pointer text-sm font-normal ${isFinalized ? 'text-muted-foreground' : ''}`}>
                             {acceptanceText}
                         </Label>
                     </div>
@@ -73,17 +57,31 @@ export function ConsentFormFooter() {
                             id="consent-rejected"
                             checked={consentDecision === 'rejected'}
                             onCheckedChange={() => handleDecisionChange('rejected')}
-                            disabled={isDecisionDisabled}
+                            disabled={isFinalized}
                         />
-                        <Label htmlFor="consent-rejected" className={`cursor-pointer text-sm font-normal ${isDecisionDisabled ? 'text-muted-foreground' : ''}`}>
+                        <Label htmlFor="consent-rejected" className={`cursor-pointer text-sm font-normal ${isFinalized ? 'text-muted-foreground' : ''}`}>
                             {rejectionText}
                         </Label>
                     </div>
                 </div>
+
+                <Separator />
+                
+                <div className="flex items-start space-x-3">
+                    <Checkbox
+                        id="terms-acknowledged"
+                        checked={hasAcknowledged}
+                        onCheckedChange={(checked) => setHasAcknowledged(Boolean(checked))}
+                        disabled={isFinalized}
+                    />
+                    <Label htmlFor="terms-acknowledged" className="cursor-pointer text-sm font-normal">
+                        He leído y acepto los términos y condiciones.
+                    </Label>
+                </div>
             </div>
 
             <div className="hidden print:block space-y-4 text-sm">
-                 {hasAcknowledged && <p><strong>Declaración:</strong> He leído y comprendido la información, los riesgos y los beneficios descritos en este documento.</p>}
+                 {hasAcknowledged && <p><strong>Declaración:</strong> He leído y acepto los términos y condiciones.</p>}
                 {consentDecision === 'accepted' && (
                     <p><strong>Decisión:</strong> {acceptanceText}</p>
                 )}
@@ -98,7 +96,7 @@ export function ConsentFormFooter() {
                     signature={patientSignature}
                     onSave={(sig) => setPatientSignature(sig)}
                     onClear={() => setPatientSignature('')}
-                    disabled={isFinalized || !hasAcknowledged}
+                    disabled={isFinalized}
                 />
                 <SignaturePad 
                     label={`Firma del Odontólogo: ${doctorInfo.name}`}
