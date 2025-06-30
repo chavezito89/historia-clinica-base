@@ -1,16 +1,17 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useParams } from 'next/navigation';
 import { PageHeader } from '@/components/page-header';
 import { ConsentForm } from '@/components/consent-form';
 import { useEffect } from 'react';
 import { useConsentStore } from '@/store/consent-store';
 
-export default function ConsentimientoPage({ params }: { params: { slug: string } }) {
+export default function ConsentimientoPage() {
+    const params = useParams<{ slug: string }>();
     const searchParams = useSearchParams();
     const title = searchParams.get('title') || 'Consentimiento Informado';
     const { resetConsentState } = useConsentStore();
-    const { slug } = params;
+    const slug = params.slug;
 
     useEffect(() => {
         resetConsentState();
