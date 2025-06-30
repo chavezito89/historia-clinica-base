@@ -37,6 +37,7 @@ import { RadioGroup, RadioGroupItem } from './ui/radio-group';
 import { Textarea } from './ui/textarea';
 import { AddTreatmentFromListModal } from './add-treatment-from-list-modal';
 import { useToast } from '@/hooks/use-toast';
+import { usePricingStore } from '@/store/pricing-store';
 
 export function TreatmentPlanForm() {
     const { 
@@ -67,6 +68,7 @@ export function TreatmentPlanForm() {
 
     const diagnosisInputRef = useRef<HTMLInputElement>(null);
     const { toast } = useToast();
+    const { priceList } = usePricingStore();
 
     const handleImportClick = useCallback(() => {
         diagnosisInputRef.current?.click();
@@ -82,9 +84,9 @@ export function TreatmentPlanForm() {
                 try {
                     const text = e.target?.result;
                     if (typeof text === 'string') {
-                        const success = importDiagnosis(text);
+                        const success = importDiagnosis(text, priceList);
                         if (success) {
-                            toast({ title: 'Importación exitosa', description: 'El diagnóstico se ha cargado correctamente.' });
+                            toast({ title: 'Importación exitosa', description: 'El diagnóstico y presupuesto se han cargado automáticamente.' });
                         } else {
                             throw new Error('El archivo JSON no es un diagnóstico válido o está corrupto.');
                         }
@@ -97,7 +99,7 @@ export function TreatmentPlanForm() {
             reader.readAsText(file);
             event.target.value = '';
         },
-        [importDiagnosis, toast]
+        [importDiagnosis, toast, priceList]
     );
 
     const handleAddManualTreatment = () => {

@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
+import type { PriceItem } from './pricing-store';
 
 export interface BudgetItem {
   id: string;
@@ -35,7 +36,7 @@ export interface TreatmentPlanState {
   budgetItems: BudgetItem[];
   globalDiscount: { type: 'percentage' | 'amount'; value: number };
   
-  importDiagnosis: (jsonString: string) => boolean;
+  importDiagnosis: (jsonString: string, priceList: PriceItem[]) => boolean;
   addBudgetItem: (item: Omit<BudgetItem, 'id' | 'total'>) => void;
   updateBudgetItem: (id: string, updates: Partial<Omit<BudgetItem, 'id' | 'total'>>) => void;
   removeBudgetItem: (id: string) => void;
@@ -54,17 +55,52 @@ export const useTreatmentPlanStore = create<TreatmentPlanState>()(
     persist(
       (set) => ({
         ...getInitialState(),
-        importDiagnosis: (jsonString: string) => {
+        importDiagnosis: (jsonString: string, priceList: PriceItem[]) => {
           try {
             const parsedData = JSON.parse(jsonString);
             if ((parsedData.type !== 'treatment' && parsedData.type !== 'diagnosis') || !Array.isArray(parsedData.data)) {
-              console.error("Invalid diagnosis/treatment JSON format. Expected 'type: \"treatment\"' or 'type: \"diagnosis\"'.");
+              console.error("Invalid diagnosis/treatment JSON format.");
               return false;
             }
+            
             const descriptions: string[] = parsedData.data
               .map((item: DiagnosisData) => item.description)
               .filter((desc: string | undefined): desc is string => !!desc);
-            set({ diagnosis: descriptions });
+
+            const treatmentCounts = new Map<string, number>();
+            descriptions.forEach(desc => {
+              const parts = desc.split(': ');
+              if (parts.length > 1) {
+                const treatmentName = parts[1].trim();
+                treatmentCounts.set(treatmentName, (treatmentCounts.get(treatmentName) || 0) + 1);
+              }
+            });
+
+            const newBudgetItems: BudgetItem[] = [];
+            for (const [treatmentName, quantity] of treatmentCounts.entries()) {
+              const priceListItem = priceList.find(p => p.name.toLowerCase() === treatmentName.toLowerCase());
+              
+              const newItemData = {
+                treatment: treatmentName,
+                quantity: quantity,
+                unitPrice: priceListItem?.price ?? 0,
+                currency: priceListItem?.currency ?? 'MXN',
+                discount: { type: 'percentage' as const, value: 0 },
+              };
+    
+              const newBudgetItem: BudgetItem = {
+                ...newItemData,
+                id: `${new Date().getTime()}-${treatmentName.replace(/\s/g, '')}`,
+                total: calculateTotal(newItemData),
+              };
+              newBudgetItems.push(newBudgetItem);
+            }
+
+            set({ 
+              diagnosis: descriptions,
+              budgetItems: newBudgetItems,
+              globalDiscount: { type: 'percentage', value: 0 },
+            });
             return true;
           } catch (e) {
             console.error('Failed to parse or process diagnosis/treatment JSON', e);
