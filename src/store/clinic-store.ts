@@ -6,6 +6,7 @@ export interface ClinicInfo {
   address: string;
   phone: string;
   email: string;
+  logo: string;
 }
 
 export interface DoctorInfo {
@@ -32,6 +33,7 @@ const getInitialState = (): Pick<ClinicState, 'clinicInfo' | 'doctorInfo'> => ({
     address: '123 Smile Street, Toothville, MD 12345',
     phone: '555-123-4567',
     email: 'contact@dentalhistory.pro',
+    logo: '',
   },
   doctorInfo: {
     name: 'Dr. Alan Grant',

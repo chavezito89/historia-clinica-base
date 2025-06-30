@@ -20,7 +20,11 @@ export function PrintHeader() {
     <header className="border-b-2 border-black pb-4">
       <div className="flex justify-between items-start">
         <div className="flex items-center gap-4">
-          <Logo className="h-16 w-16 text-black" />
+          {clinicInfo.logo ? (
+            <img src={clinicInfo.logo} alt="Logo de la clínica" className="h-16 w-16 object-contain" />
+          ) : (
+            <Logo className="h-16 w-16 text-black" />
+          )}
           <div>
             <h1 className="text-2xl font-bold">{clinicInfo.name}</h1>
             <p className="font-semibold text-base">{doctorInfo.name}</p>
