@@ -654,4 +654,66 @@ export const consentFormsData: ConsentFormContent[] = [
         }
     ]
   },
+  {
+    slug: 'tratamiento-periodontal-quirurgico',
+    title: 'Tratamiento periodontal quirurgico',
+    authorizedAct: 'Tratamiento periodontal quirúrgico.',
+    sections: [
+        {
+            title: 'Tratamiento propuesto',
+            content: [
+                'Declaro que el Dr. [*] y su equipo de ayudantes me ha informado satisfactoriamente que el tratamiento periodontal quirúrgico puede requerir de varios procedimientos para tratar la encía inflamada o infectada, así como limpiar y restaurar dientes o hueso dañados por la enfermedad periodontal. Estos procedimientos pueden ser:',
+                {
+                    type: 'list',
+                    items: [
+                        'Si se formaron bolsas periodontales muy grandes, se debe reducir su tamaño, recortando parte de la encía (gingivectomía).',
+                        'Otro tratamiento consiste en abrir y levantar una pequeña área de la encía (colgajo) alrededor del diente para quitar el tejido enfermo y limpiar las superficies de los dientes.También puede ser necesario alisar y darle nueva forma al hueso (cirugía ósea), para que la encía enferma pueda sanar y se vuelva a adherir al hueso y alrededor de los dientes.',
+                        'Puede requerirse hacer un injerto de hueso, cuando éste se haya deteriorado debido a la enfermedad periodontal. Y, si los dientes tienen movilidad por la pérdida de hueso, pueden colocarse aparatos o materiales de fijación temporal o permanentemente llamados férulas.',
+                        'Remover tejido enfermo dejará expuesta la raíz de mis dientes. Para tratar esta condición puedo necesitar el desplazamiento de la encía para cubrir la superficie expuesta de la raíz o colocar y unir una pieza de encía tomada de otra parte de su boca (injerto gingival).'
+                    ]
+                },
+                'El éxito de este tratamiento depende en gran parte de sus esfuerzos por recibir limpiezas regulares como se le indica, cepillarse y usar hilo dental diariamente en su casa, seguir una dieta sana, evitar productos como el tabaco y seguir otras recomendaciones.'
+            ]
+        },
+        {
+            title: 'Beneficios y alternativas',
+            content: [
+                'El tratamiento periodontal quirúrgico puede ayudarme a crear un ámbito limpio en el que sus encías puedan sanar. También, ayuda a reducir las posibilidades de mayor irritación o infección de la encía, facilitando mantener mis dientes limpios. Debido a mi afección, no hay tratamientos alternos para tratar la enfermedad periodontal severa y conservar los dientes afectados. Dependiendo de la gravedad de mi afección actual, de mis problemas médicos actuales o de los medicamentos que esté tomando, estos métodos por sí solos pueden no revertir completamente los efectos de la enfermedad periodontal o prevenir problemas en el futuro. Los dientes que se aflojen como resultado de la enfermedad periodontal pueden ser extraídos, y se requiere requerir reemplazar el diente o los dientes con un puente fijo o removible, con una dentadura o con dientes artificiales fijados al hueso, llamados implantes.'
+            ]
+        },
+        {
+            title: 'Riesgos',
+            content: [
+                'Declaro que me han sido explicados verbalmente los posibles riesgos y complicaciones, siendo los más comunes:',
+                {
+                    type: 'list',
+                    items: [
+                        { title: '1. Reacción a la anestesia y/o a los sedantes:', text: 'Se me aplicará una anestesia local y, en caso de estar muy nervioso, posiblemente deba tomar un sedante (tranquilizante) para estar cómodo durante el tratamiento. Los anestésicos que me aplicarán son muy seguros, pero en ocasiones poco frecuentes puede haber una reacción alérgica a la anestesia, la cual puede requerir de atención médica de emergencia. El efecto de la anestesia puede reducir mi capacidad para deglutir, lo cual aumenta los riesgos de tragar objetos extraños durante el tratamiento. Una vez que ha terminado el efecto de la anestesia, puedo tener una molestia pasajera en el lugar donde se me aplicó la anestesia. Si me dan un sedante puedo tener mareo temporal o reducir mi coordinación, por lo que debo asistir con un acompañante y no debo manejar ningún vehículo.' },
+                        { title: '2. Mandíbula con contractura o adolorida:', text: 'Al mantener la boca abierta durante el tratamiento puede provocarme dolor y contractura temporal de la mandíbula, y puede ser difícil abrir la boca de manera normal durante varios días posteriores al tratamiento. Puede ser necesario jalar los labios para realizar el tratamiento, lo que puede provocar que mis comisuras de la boca queden rojas o partidas durante varios días.' },
+                        { title: '3. Inflamación,molestia,infección y sangrado:', text: 'Puede haber dolor,inflamación y molestia durante varios días,los cuales pueden ser tratados con analgésicos sin aspirina. También puede producirse una infección después del tratamiento, la cual será tratada con antibióticos. En ocasiones poco frecuentes después del tratamiento puedo experimentar sangrado. Si no informé que uso medicamentos que afectan la coagulación o tomé aspirina antes o después de la endodoncia hay riesgo de que el sangrado no se detenga y requiera la atención en un hospital. Siempre debo notificar inmediatamente al doctor en caso de presentar cualquiera de estas situaciones.' },
+                        { title: '4. Sensibilidad al calor y al frío:', text: 'Mientras las encías sanan pueden retraerse, dejando expuesta parte de la raíz, lo cual podría hacer que los dientes sean más sensibles al calor o al frío.' },
+                        { title: '5. Raíces y márgenes de coronas expuestos:', text: 'La eliminación quirúrgica de encía alrededor de sus dientes puede hacerlos parecer un poco más largos una vez que el tratamiento es completado. Eliminar la encía de alrededor de los dientes con coronas puede crear un espacio entre la orilla más baja de la corona y la línea de la encía. Dependiendo de la afección, quizá sea necesario un tratamiento adicional para proteger esas áreas o mejorar la apariencia de estos dientes.' },
+                        { title: '6. Cambios en las sensaciones nerviosas:', text: 'Los nervios que controlan las sensaciones en los dientes, encías, y labios inferiores, así como lengua y mentón pasan por dentro de la mandíbula. Dependiendo del diente o dientes a ser extraídos (en particular dientes inferiores o terceros molares), en ocasiones quizá sea imposible evitar tocar, mover, estirar, lesionar o cortar un nervio. Esto podría cambiar la sensación normal en cualquiera de estas áreas, provocando hormigueo, adormecimiento o comezón (parestesia) o pérdida de toda sensación (anestesia). Estos cambios podrán durar desde varias semanas hasta varios meses o, en algunos casos, indefinidamente.' }
+                    ]
+                }
+            ]
+        },
+        {
+            title: 'Consecuencias de no realizar el tratamiento',
+            content: [
+                'Este tratamiento me ayudará a mejorar la afección y reducir la posibilidad de que la enfermedad se extienda. Si no me hacen el tratamiento o si lo interrumpo y no lo termino, la afección podría continuar y empeorar, lo que provocaría más inflamación e infección de la encía, caries dental por arriba y por debajo de la línea de la encía, deterioro del hueso que rodea los dientes y la pérdida de éstos.'
+            ]
+        },
+        {
+            title: 'Aceptación del tratamiento',
+            content: [
+                'Acepto y me comprometo a seguir responsablemente las recomendaciones recibidas, antes y después de la intervención, así como, acudir a las citas para las revisiones postoperatorias durante el tiempo indicado.',
+                'A pesar de que no es posible garantizar resultados perfectos, se realizará todo esfuerzo razonable por asegurar que su afección sea tratada adecuadamente.',
+                'Autorizo a mi odontólogo tratante a la atención de contingencias y urgencias que puedan derivarse del tratamiento que va a realizarme.',
+                'Reconozco que esta carta de consentimiento puede ser revocable siempre y cuando no haya iniciado el tratamiento. Reconozco también que el Dr. puede negarse a realizar el tratamiento si encuentra que hay mayor riesgo que beneficios para mi salud.',
+                'Al firmar esta carta de consentimiento reconozco que he recibido y comprendido la información adecuada acerca del tratamiento propuesto y que han respondido todas mis preguntas.'
+            ]
+        }
+    ]
+  },
 ];
