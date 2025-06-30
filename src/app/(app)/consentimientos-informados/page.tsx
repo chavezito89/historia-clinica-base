@@ -4,16 +4,7 @@ import { PageHeader } from '@/components/page-header';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import {
     Baby,
-    Sparkles,
-    Layers,
-    Crown,
-    XCircle,
-    XOctagon,
-    BrainCircuit,
-    ShieldCheck,
-    Wrench,
-    Droplets,
-    Slice,
+    CircleArrowRight,
     Icon,
     Search,
 } from 'lucide-react';
@@ -23,16 +14,16 @@ import { Input } from '@/components/ui/input';
 
 const consentTypes: { title: string; icon: React.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React.RefAttributes<Icon>> }[] = [
     { title: 'Paciente menor de edad', icon: Baby },
-    { title: 'Blanqueamiento', icon: Sparkles },
-    { title: 'Carillas', icon: Layers },
-    { title: 'Coronas y puentes fijos', icon: Crown },
-    { title: 'Extracción dental', icon: XCircle },
-    { title: 'Extracción de terceros molares y dientes retenidos', icon: XOctagon },
-    { title: 'Endodoncia', icon: BrainCircuit },
-    { title: 'Profilaxis', icon: ShieldCheck },
-    { title: 'Reconstrucción y endoposte', icon: Wrench },
-    { title: 'Tratamiento periodontal no quirurgico', icon: Droplets },
-    { title: 'Tratamiento periodontal quirurgico', icon: Slice },
+    { title: 'Blanqueamiento', icon: CircleArrowRight },
+    { title: 'Carillas', icon: CircleArrowRight },
+    { title: 'Coronas y puentes fijos', icon: CircleArrowRight },
+    { title: 'Extracción dental', icon: CircleArrowRight },
+    { title: 'Extracción de terceros molares y dientes retenidos', icon: CircleArrowRight },
+    { title: 'Endodoncia', icon: CircleArrowRight },
+    { title: 'Profilaxis', icon: CircleArrowRight },
+    { title: 'Reconstrucción y endoposte', icon: CircleArrowRight },
+    { title: 'Tratamiento periodontal no quirurgico', icon: CircleArrowRight },
+    { title: 'Tratamiento periodontal quirurgico', icon: CircleArrowRight },
 ];
 
 export default function ConsentimientosInformadosPage() {
