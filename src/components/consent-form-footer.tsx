@@ -9,10 +9,13 @@ import { useClinicStore } from '@/store/clinic-store';
 
 export function ConsentFormFooter() {
     const { 
-        termsAccepted, setTermsAccepted,
+        patientSignature,
+        setPatientSignature,
+        termsAccepted, 
+        setTermsAccepted,
     } = useConsentStore();
     
-    const { patientData, setPatientData } = useClinicalHistoryStore();
+    const { patientData } = useClinicalHistoryStore();
     const { doctorInfo, updateDoctorInfo } = useClinicStore();
 
     return (
@@ -31,9 +34,9 @@ export function ConsentFormFooter() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                 <SignaturePad 
                     label={patientData.tutor ? `Firma del Tutor: ${patientData.tutor || ''}` : `Firma del Paciente: ${patientData.fullName || ''}`}
-                    signature={patientData.signature}
-                    onSave={(sig) => setPatientData('signature', sig)}
-                    onClear={() => setPatientData('signature', '')}
+                    signature={patientSignature}
+                    onSave={(sig) => setPatientSignature(sig)}
+                    onClear={() => setPatientSignature('')}
                     disabled={!termsAccepted}
                 />
                 <SignaturePad 

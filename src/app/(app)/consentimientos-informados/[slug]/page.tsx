@@ -3,10 +3,17 @@
 import { useSearchParams } from 'next/navigation';
 import { PageHeader } from '@/components/page-header';
 import { ConsentForm } from '@/components/consent-form';
+import { useEffect } from 'react';
+import { useConsentStore } from '@/store/consent-store';
 
 export default function ConsentimientoPage({ params }: { params: { slug: string } }) {
     const searchParams = useSearchParams();
     const title = searchParams.get('title') || 'Consentimiento Informado';
+    const { resetConsentState } = useConsentStore();
+
+    useEffect(() => {
+        resetConsentState();
+    }, [resetConsentState, params.slug]);
 
     // This is where we would fetch and display the specific content for each consent type.
     // For now, it's a placeholder.
