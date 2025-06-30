@@ -1,7 +1,7 @@
 
 
 // A content block can be a simple string (paragraph) or a list of strings.
-type ContentItem = string | { type: 'list'; items: (string | { title: string; text: string; sublist?: string[] })[] };
+type ContentItem = string | { type: 'list'; items: (string | { title: string; text: string; sublist?: string[] })[] } | { type: 'textarea'; placeholder: string };
 
 export interface ConsentSection {
   title: string;
@@ -327,7 +327,11 @@ export const consentFormsData: ConsentFormContent[] = [
               { title: '11. Sinusitis.', text: 'Se me ha explicado que, si tengo sinusitis previa, aunque no esté manifiesta, ésta puede activarse o agravarse después de la extracción de dientes superiores. En caso de tener sinusitis previa, es preferible que ésta sea controlada por mi médico antes de la extracción, a menos que sea necesaria por una urgencia.' },
             ],
           },
-          'El Odontólogo me ha explicado que mi caso en particular puede presentar estos riesgos:\n_______________________________________________________________________________\n_______________________________________________________________________________\n_______________________________________________________________________________\n_______________________________________________________________________________',
+          'El Odontólogo me ha explicado que mi caso en particular puede presentar estos riesgos:',
+          { 
+            type: 'textarea', 
+            placeholder: 'Especifique aquí los riesgos particulares del caso...' 
+          }
         ],
       },
       {

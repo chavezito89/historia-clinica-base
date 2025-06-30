@@ -2,17 +2,21 @@
 
 import type { ConsentFormContent } from "@/data/consent-forms";
 import React from "react";
+import { Textarea } from "./ui/textarea";
 
 interface ConsentContentRendererProps {
     data: ConsentFormContent;
     doctorName: string;
+    customRisks: string;
+    onCustomRisksChange: (value: string) => void;
+    isFinalized: boolean;
 }
 
 const replacePlaceholders = (text: string, doctorName: string) => {
     return text.replace(/\[\*\]/g, doctorName || '_______');
 }
 
-export function ConsentContentRenderer({ data, doctorName }: ConsentContentRendererProps) {
+export function ConsentContentRenderer({ data, doctorName, customRisks, onCustomRisksChange, isFinalized }: ConsentContentRendererProps) {
     return (
         <div className="space-y-6">
             {data.authorizedAct && (
@@ -50,6 +54,23 @@ export function ConsentContentRenderer({ data, doctorName }: ConsentContentRende
                                     })}
                                 </ul>
                             );
+                        }
+                        if (item.type === 'textarea') {
+                            return (
+                                <div key={itemIndex}>
+                                    <Textarea
+                                        placeholder={item.placeholder}
+                                        className="print:hidden mt-2"
+                                        value={customRisks}
+                                        onChange={(e) => onCustomRisksChange(e.target.value)}
+                                        disabled={isFinalized}
+                                        rows={4}
+                                    />
+                                    <div className="hidden print:block text-sm p-2 border border-input rounded-md min-h-[80px] mt-2">
+                                        {customRisks || <span className="text-muted-foreground">{item.placeholder}</span>}
+                                    </div>
+                                </div>
+                            )
                         }
                         return null;
                     })}
