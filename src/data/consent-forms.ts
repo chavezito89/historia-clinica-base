@@ -413,6 +413,62 @@ export const consentFormsData: ConsentFormContent[] = [
       }
     ]
   },
+  {
+    slug: 'endodoncia',
+    title: 'Consentimiento Informado para Endodoncia',
+    authorizedAct: 'Endodoncia',
+    sections: [
+        {
+            title: 'Tratamiento propuesto',
+            content: [
+                'Declaro que el Dr. [*] y su equipo de ayudantes me ha informado satisfactoriamente que el tratamiento de endodoncia implica aliviar el dolor y la incomodidad al remover el tejido nervioso (pulpa dental) localizado en el centro del diente, y su raíz o raíces (conducto radicular). Dependiendo el caso, el tratamiento se lleva a cabo en una o varias citas. Después de la aplicación de anestesia, consiste en perforar la superficie del diente para exponer la pulpa dental, la cual se retira con instrumentos muy finos. Puede utilizarse medicamento para esterilizar el interior del diente y prevenir infecciones futuras. Cada conducto radicular se limpia y se rellena con gutapercha (material parecido a la goma) y un cemento. Pueden ser necesarias una o varias radiografías en cada uno de los pasos del tratamiento. La cavidad del diente se tapa con una curación temporal. Puede ser necesaria la medicación con antibióticos y/o analgésicos.',
+                'Una vez terminado el tratamiento de endodoncia, debo regresar inmediatamente para completar el tratamiento restaurativo. La curación temporal dura corto tiempo, y si no regreso como se me indica, para sellar el diente con una restauración definitiva o corona, podría provocar el deterioro de la curación, resultando en caries, fractura, infección, enfermedad periodontal y la posible pérdida prematura del diente.',
+                'No está recomendado restaurar los dientes posteriores con amalgama o resina porque pueden fracturarse, la restauración definitiva más frecuente para protegerlos es una corona o un onlay (restauración parcial que cubre la cara masticatoria del diente). Si la endodoncia fue en un diente anterior (de enfrente), donde las fuerzas masticatorias son menores y el daño en el diente es pequeño, entonces podrían colocarme una resina. Si mi diente con endodoncia está muy destruido, debe hacerse una reconstrucción o se inserta un perno de metal o fibra de vidrio (endoposte) en el conducto para ayudar a restaurar el diente. En una cita posterior se coloca una corona o una restauración para fortalecer y restaurar el diente.'
+            ]
+        },
+        {
+            title: 'Beneficios y alternativas',
+            content: [
+                'El tratamiento de endodoncia tiene la finalidad de permitirme conservar mi diente más tiempo, lo cual me ayudará a mantener mi mordida natural y el sano funcionamiento de mis mandíbulas. La alternativa de tratamiento es la extracción de mi diente. Esta alternativa requiere reemplazar el diente extraído con un puente fijo o uno removible, o con un diente artificial fijado al hueso mediante un implante. Si no me hago el reemplazo del diente extraído, los dientes pueden cambiar de posición, modificando mi mordida.'
+            ]
+        },
+        {
+            title: 'Riesgos',
+            content: [
+                'Declaro que me han sido explicados verbalmente los posibles riesgos y complicaciones, siendo los más comunes:',
+                {
+                    type: 'list',
+                    items: [
+                        { title: '1. Reacción a la anestesia y/o a los sedantes:', text: 'Aunque el diente ya tiene endodoncia, puede ser necesario que me apliquen una anestesia local y, en caso de estar muy nervioso, posiblemente deba tomar un sedante (tranquilizante) para estar cómodo durante el tratamiento. Los anestésicos que me aplicarán son muy seguros, pero en ocasiones poco frecuentes puede haber una reacción alérgica a la anestesia, la cual puede requerir de atención médica de emergencia. El efecto de la anestesia puede reducir mi capacidad para deglutir, lo cual aumenta los riesgos de tragar objetos extraños durante el tratamiento. Una vez que ha terminado el efecto de la anestesia, puedo tener una molestia pasajera en el lugar donde se me aplicó la anestesia. Si me dan un sedante puedo tener mareo temporal o reducir mi coordinación, por lo que debo asistir con un acompañante y no debo manejar ningún vehículo.' },
+                        { title: '2. Mandíbula con contractura o adolorida:', text: 'Al mantener la boca abierta durante el tratamiento puede provocarme dolor y contractura temporal de la mandíbula, y puede ser difícil abrir la boca de manera normal durante varios días posteriores al tratamiento. Puede ser necesario jalar los labios para realizar el tratamiento, lo que puede provocar que mis comisuras de la boca queden rojas o partidas durante varios días.' },
+                        { title: '3. Inflamación, molestia, infección y sangrado:', text: 'Puede haber dolor, inflamación y molestia durante varios días, los cuales pueden ser tratados con analgésicos sin aspirina. También puede producirse una infección después del tratamiento, la cual será tratada con antibióticos. En raras ocasiones, después del tratamiento puedo experimentar sangrado. Si no informé que uso medicamentos que afectan la coagulación o tomé aspirina antes o después de la endodoncia hay riesgo de que el sangrado no se detenga y requiera la atención en un hospital. Siempre debo notificar inmediatamente al doctor en caso de presentar cualquiera de estas situaciones.' },
+                        { title: '4. Remoción incompleta de la pulpa.', text: 'Los conductos radiculares estrechos, curvos o calcificados pueden evitar que se remueva toda la pulpa inflamada o infectada. Dejar algo de pulpa en el conducto radicular puede provocar que mis síntomas continúen o empeoren, lo cual puede requerir un procedimiento adicional llamado apicectomía. A través de una pequeña incisión en las encías y del hueso, se retira la pulpa restante y se sella el conducto radicular. Una apicectomía también puede ser necesaria si mis síntomas continúan y mi diente no sana' },
+                        { title: '5. Instrumento roto:', text: 'Ocasionalmente, un instrumento de endodoncia, al ser muy fino, puede fracturarse en un conducto radicular estrecho, curvo o calcificado.Dependiendo de su ubicación, el fragmento puede ser removido o quizá pueda ser necesario sellarlo en el conducto radicular (estos instrumentos están hechos de acero inoxidable, no tóxico, lo cual no causa ningún daño). También puede ser necesario realizarme una apicectomía para sellar el conducto radicular.' },
+                        { title: '6. Exceso de obturación:', text: 'Como resultado de rellenar en exceso el conducto radicular por la formación incompleta de su diente o de un absceso en la parte final del diente (ápice), quizá pueda existir un espacio entre el conducto radicular y el hueso o el tejido circundante del diente. En la mayor parte de los casos el exceso de obturación no produce complicaciones. En caso de presentarse una complicación, la apicectomía puede ser necesaria para retirar la obturación sobrante y sellar el conducto radicular.' },
+                        { title: '7. Necesidad de tratamiento posterior:', text: 'Los dientes con tratamiento de endodoncia son más propensos a quebrarse o fracturarse, por lo que se necesita una restauración final como onlay, corona, puente o dentadura parcial. Si tengo enfermedad de las encías (periodontal), podría perder mi diente, aunque el tratamiento de endodoncia haya sido exitoso.' },
+                        { title: '8. Necesidad de retratamiento de endodoncia y/o cirugía de endodoncia.', text: 'En ocasiones poco frecuentes, aunque el tratamiento de endodoncia, la reconstrucción y la restauración definitiva hayan sido exitosos, pueden presentarse nuevamente los síntomas de dolor, inflamación e infección. En estos casos me deben hacer un retratamiento de endodoncia, siendo necesario que me quiten la restauración final, la reconstrucción/endoposte y la gutapercha y en otras ocasiones eliminar la parte final de la(s) raíz (raíces) afectada(s). Durante el retiro, éstos pueden dañarse, quedando inservibles y la raíz del diente puede romperse, siendo necesaria la extracción.' }
+                    ]
+                }
+            ]
+        },
+        {
+            title: 'Consecuencias de no realizar el tratamiento',
+            content: [
+                'Este tratamiento me ayudará a aliviar mis síntomas. Si no se me realiza el tratamiento de endodoncia, la molestia, dolor, infección puede continuar, formando abscesos en el tejido y hueso alrededor de los dientes, pérdida de éstos e incluso enfrentar el riesgo de una infección que se extienda a otras zonas de la cara, el cuello y del cuerpo, que pueden causar la muerte si no se atienden.'
+            ]
+        },
+        {
+            title: 'Aceptación del tratamiento',
+            content: [
+                'Acepto y me comprometo a seguir responsablemente las recomendaciones recibidas, antes y después de la intervención, así como, acudir a las citas para las revisiones postoperatorias durante el tiempo indicado.',
+                'A pesar de que no es posible garantizar resultados perfectos, se realizará todo esfuerzo razonable por asegurar que su afección sea tratad a adecuadamente.',
+                'Autorizo a mi odontólogo tratante a la atención de contingencias y urgencias que puedan derivarse del tratamiento que va a realizarme.',
+                'Reconozco que esta carta de consentimiento puede ser revocable siempre y cuando no haya iniciado el tratamiento. Reconozco también que el Dr. puede negarse a realizar el tratamiento si encuentra que hay mayor riesgo que beneficios para mi salud.',
+                'Al firmar esta carta de consentimiento reconozco que he recibido y comprendido la información adecuada acerca del tratamiento propuesto y que han respondido todas mis preguntas'
+            ]
+        }
+    ]
+  },
 ];
 
     
