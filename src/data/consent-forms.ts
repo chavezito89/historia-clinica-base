@@ -97,4 +97,66 @@ export const consentFormsData: ConsentFormContent[] = [
       }
     ],
   },
+  {
+    slug: 'blanqueamiento',
+    title: 'Consentimiento Informado para Blanqueamiento',
+    authorizedAct: 'Blanqueamiento dental en consultorio',
+    sections: [
+        {
+            title: 'Tratamiento propuesto',
+            content: [
+                'Declaro que el Dr. [*] y su equipo de ayudantes me ha informado satisfactoriamente que el blanqueamiento dental está diseñado para aclarar el color de los dientes. Este tratamiento puede realizarse en una o varias visitas dependiendo de cómo respondan mis dientes al gel blanqueador. Cada cita toma como una hora y durante este tiempo se aplica una protección a las encías, se aplica el gel blanqueador y se puede usar o no una luz especial.'
+            ]
+        },
+        {
+            title: 'Beneficios y Alternativas',
+            content: [
+                'El blanqueamiento es un tratamiento de elección para conseguir un tono más claro de mis dientes. Este cambio de tono se puede lograr en la mayor parte de los casos, pero los resultados no pueden garantizarse. Los dientes amarillo oscuro o amarillo-café tienden a tener mejores resultados que personas con dientes grises o azul grisáceos. Cuando un blanqueamiento se hace apropiadamente, no va a dañar mis dientes, encías o tejidos blandos.',
+                'Los dientes con muchos colores, especialmente si se han manchado con tetraciclinas (grupo de antibióticos), no se blanquean muy bien. Los dientes que tienen muchas obturaciones (tapaduras de caries), caries, despostilladuras, etc. es mejor tratarlos con restauraciones como resinas, carillas o coronas. El blanqueamiento dental puede ayudar a uniformar el tono de todos los dientes antes de hacer las restauraciones.',
+                'Los inconvenientes son que deberá tener la boca abierta durante el procedimiento.'
+            ]
+        },
+        {
+            title: 'Riesgos',
+            content: [
+                'Declaro que me han sido explicados verbalmente los posibles riesgos y complicaciones que incluyen, pero no están limitadas a lo siguiente:',
+                {
+                    type: 'list',
+                    items: [
+                        { title: '1. Sensibilidad / Dolor en los Dientes.', text: 'Durante las primeras 24 horas después del blanqueamiento, puedo experimentar sensibilidad o dolor pasajero, que es usualmente leve si los dientes no son normalmente sensibles. Esta sensibilidad o dolor generalmente va a quitarse en los siguientes uno o dos días. Si los dientes son sensibles, el blanqueamiento puede hacerlos más sensibles por un periodo largo de tiempo. Si esto ocurre, se puede posponer el blanqueamiento hasta que el doctor termine el tratamiento de dessensibilización de los mismos (si esto es posible). Si mis dientes están sensibles después del blanqueamiento, pueden recetarme algún analgésico, lo cual generalmente es efectivo para estar más cómodo hasta que la sensibilidad de los dientes regrese a su normalidad.' },
+                        { title: '2. Irritación de encías/ cachetes (carillos) / labios.', text: 'Es posible que durante el procedimiento haya contacto del material blanqueador con la encía, labios o cachetes (carrillos) produciendo áreas blancas y ardor. Esto suele desaparecer en poco tiempo.' },
+                        { title: '3. Efecto en caries o restauraciones dentales (obturaciones).', text: 'Las restauraciones dentales existentes no se blanquean por lo que habrá diferencias de tonos entre las resinas y los dientes. Después del blanqueamiento se deben sustituir las resinas por otras con el tono apropiado. Realizar una nueva restauración dental puede implicar retirar parte de diente sano. Si la restauración es extensa o algo profunda, el poner una nueva resina podría provocar la necesidad de una endodoncia y un onlay o corona. Si hay caries expuestas o restauraciones desajustadas, el material de blanqueamiento puede penetrar al diente produciendo dolor considerable. En estos casos se deberán eliminar las caries o volver a hacer las restauraciones dentales con filtración antes del blanqueamiento.' },
+                        { title: '4. Labios secos o partidos.', text: 'El tratamiento de blanqueamiento requiere de tarda una hora en promedio que la boca debe mantenerse abierta continuamente. Esto provoca resequedad en los labios, cachetes (carrillos) o labios partidos, Se deberá aplicar bálsamo labial, vaselina o crema con vitamina E.' },
+                        { title: '5. Sensibilidad en dientes con Abrasión / erosión cervical.', text: 'Esta es una condición en la que la línea de la encía se ha retraído, exponiendo la raíz del diente que es más oscura por la falta de esmalte. Estas áreas expuestas dejan que el gel utilizado penetre al diente y cause sensibilidad. Si los dientes tienen abrasión o erosión cervical, estas áreas serán protegidas con una barrera protectora antes del blanqueamiento por lo cual podrá observarse una diferencia en el tono.' },
+                        { title: '6. Resorción de la raíz.', text: 'Consiste en la pérdida relativamente lenta de una porción de la raíz de un diente (y posible pérdida del diente). Esta condición sucede más frecuentemente en pacientes que han recibido un blanqueamiento después del tratamiento de endodoncia.' },
+                        { title: '7. Recaída.', text: 'Después del tratamiento de blanqueamiento, los pigmentos que se encuentran en los alimentos y bebidas van a volver a manchar los dientes. A esto se le llama recaída de un blanqueamiento. Podemos ayudar a reducir la recaída cepillando los dientes con pasta dental todos los días después de cada comida.' },
+                        { title: '8. Inconformidad en el resultado del tratamiento - Nivel de blanqueamiento.', text: 'No hay un método para saber qué tan blancos quedarán los dientes después del blanqueamiento. Usualmente una sesión en el consultorio dental blanquea los dientes, pero se pueden requerir sesiones adicionales.' },
+                    ]
+                }
+            ]
+        },
+        {
+            title: 'Consecuencias de no realizar el tratamiento',
+            content: [
+                'Este tratamiento tiene fines estéticos y me ayudará a que los dientes se vean más claros. Si no me hacen el tratamiento o si lo interrumpo y no lo termino, los dientes continuarán estando en un tono más obscuro.',
+                'Si me colocan restauraciones color diente y posteriormente decido hacerme el blanqueamiento, deberán cambiarse de acuerdo con el nuevo tono de los dientes.'
+            ]
+        },
+        {
+            title: 'Aceptación del tratamiento',
+            content: [
+                'Acepto y me comprometo a seguir responsablemente las recomendaciones recibidas, antes y después de la intervención, así como, acudir a las citas para las revisiones postoperatorias durante el tiempo indicado.',
+                {
+                    type: 'list',
+                    items: [
+                        'A pesar de que no es posible garantizar resultados perfectos, se realizará todo esfuerzo razonable por asegurar que su afeacción sea tratada adecuadamente.',
+                        'Autorizo a mi odontólogo tratante a la atención de contingencias y urgencias que puedan derivarse del tratamiento que va a realizarme.'
+                    ]
+                },
+                'Reconozco que esta carta de consentimiento puede ser revocable siempre y cuando no haya iniciado el tratamiento. Reconozco también que el Dr. puede negarse a realizar el tratamiento si encuentra que hay mayor riesgo que beneficios para mi salud.',
+                'Al firmar esta carta de consentimiento reconozco que he recibido y comprendido la información adecuada acerca del tratamiento propuesto y que han respondido todas mis preguntas.'
+            ]
+        }
+    ]
+  },
 ];
