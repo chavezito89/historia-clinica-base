@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { SidebarGroup } from './ui/sidebar';
 import { useUiStore } from '@/store/ui-store';
+import { useTreatmentPlanStore } from '@/store/treatment-plan-store';
 
 export function PageActions() {
     const pathname = usePathname();
@@ -52,6 +53,9 @@ export function PageActions() {
         importDentalState: importOralExam,
     } = useOralExamStore();
     const { patientId: oralExamPatientId } = useClinicalHistoryStore();
+
+    // Treatment Plan Store
+    const { budgetItems, globalDiscount } = useTreatmentPlanStore();
 
     // Handlers for Clinical History
     const handlePrint = useCallback(() => window.print(), []);
@@ -156,6 +160,21 @@ export function PageActions() {
         [importOralExam, toast]
     );
 
+    // Handlers for Treatment Plan
+    const handleExportTreatmentPlan = useCallback(() => {
+        const stateToExport = { budgetItems, globalDiscount };
+        const dataStr = JSON.stringify(stateToExport, null, 2);
+        const dataBlob = new Blob([dataStr], {type: 'application/json'});
+        const url = URL.createObjectURL(dataBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `treatment-plan-${oralExamPatientId || 'data'}.json`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    }, [budgetItems, globalDiscount, oralExamPatientId]);
+
     const renderClinicalHistoryActions = () => (
         <>
             <SidebarMenuItem>
@@ -204,7 +223,7 @@ export function PageActions() {
                 </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-                <SidebarMenuButton onClick={() => alert('Función no implementada')}>
+                <SidebarMenuButton onClick={handleExportTreatmentPlan}>
                     <FileJson /> Exportar Plan
                 </SidebarMenuButton>
             </SidebarMenuItem>
