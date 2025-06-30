@@ -1,5 +1,3 @@
-
-
 // A content block can be a simple string (paragraph) or a list of strings.
 type ContentItem = string | { type: 'list'; items: (string | { title: string; text: string; sublist?: string[] })[] } | { type: 'textarea'; placeholder: string };
 
@@ -461,7 +459,7 @@ export const consentFormsData: ConsentFormContent[] = [
             title: 'Aceptación del tratamiento',
             content: [
                 'Acepto y me comprometo a seguir responsablemente las recomendaciones recibidas, antes y después de la intervención, así como, acudir a las citas para las revisiones postoperatorias durante el tiempo indicado.',
-                'A pesar de que no es posible garantizar resultados perfectos, se realizará todo esfuerzo razonable por asegurar que su afección sea tratad a adecuadamente.',
+                'A pesar de que no es posible garantizar resultados perfectos, se realizará todo esfuerzo razonable por asegurar que su afección sea tratada adecuadamente.',
                 'Autorizo a mi odontólogo tratante a la atención de contingencias y urgencias que puedan derivarse del tratamiento que va a realizarme.',
                 'Reconozco que esta carta de consentimiento puede ser revocable siempre y cuando no haya iniciado el tratamiento. Reconozco también que el Dr. puede negarse a realizar el tratamiento si encuentra que hay mayor riesgo que beneficios para mi salud.',
                 'Al firmar esta carta de consentimiento reconozco que he recibido y comprendido la información adecuada acerca del tratamiento propuesto y que han respondido todas mis preguntas'
@@ -531,6 +529,117 @@ export const consentFormsData: ConsentFormContent[] = [
             title: 'Consecuencias de no realizar el tratamiento',
             content: [
                 'Si no se realiza la profilaxis, el sarro y los problemas existentes pueden ocasionar molestias futuras y posibles daños en el hueso que está alrededor de mis dientes y encías, requiriendo de tratamientos posteriores más complicados y costosos. Los dientes cariados, quebrados o rotos y con restauraciones previas inadecuadas continúan deteriorándose, formándose más caries, provocando dolor, infección, daño del hueso alrededor del diente y la pérdida prematura del mismo.'
+            ]
+        },
+        {
+            title: 'Aceptación del tratamiento',
+            content: [
+                'Acepto y me comprometo a seguir responsablemente las recomendaciones recibidas, antes y después de la intervención, así como, acudir a las citas para las revisiones postoperatorias durante el tiempo indicado.',
+                'A pesar de que no es posible garantizar resultados perfectos, se realizará todo esfuerzo razonable por asegurar que su afección sea tratada adecuadamente.',
+                'Autorizo a mi odontólogo tratante a la atención de contingencias y urgencias que puedan derivarse del tratamiento que va a realizarme.',
+                'Reconozco que esta carta de consentimiento puede ser revocable siempre y cuando no haya iniciado el tratamiento. Reconozco también que el Dr. puede negarse a realizar el tratamiento si encuentra que hay mayor riesgo que beneficios para mi salud.',
+                'Al firmar esta carta de consentimiento reconozco que he recibido y comprendido la información adecuada acerca del tratamiento propuesto y que han respondido todas mis preguntas.'
+            ]
+        }
+    ]
+  },
+  {
+    slug: 'reconstruccion-y-endoposte',
+    title: 'Reconstrucción y endoposte',
+    authorizedAct: 'Reconstrucciones y Endopostes.',
+    sections: [
+      {
+        title: 'Tratamiento propuesto',
+        content: [
+          'Declaro que el Dr. [*] y su equipo de ayudantes me ha informado satisfactoriamente que las reconstrucciones o endopostes son necesarios cuando los dientes están muy destruidos o tienen tratamiento de endodoncia y es necesario crear un soporte para retener la corona o el puente fijo.',
+          {
+            type: 'list',
+            items: [
+                'El tratamiento de reconstrucción consta de 1 cita: a) Se limpia la parte interna del diente o se retira parte del material de relleno usado en la endodoncia; b) Se aplica una resina o cemento especial para formar la base de soporte necesaria y se procede a hacer la preparación para la corona.',
+                'El tratamiento de endoposte se realiza en 1 o 2 citas: a) Se retira parte del material de relleno usado en la endodoncia; b) Se fija con cemento un poste metálico o de fibra de vidrio en el interior de la raíz y un material que forma la base de soporte necesaria y se procede a hacer la preparación para la corona.'
+            ]
+          },
+        ]
+      },
+      {
+        title: 'Beneficios y alternativas',
+        content: [
+          'El tratamiento propuesto tiene la intención de reconstruir los dientes destruidos y crear un soporte para retener la corona o el puente fijo.La alternativa de tratamiento para los dientes dañados consiste en extraerlos y colocar un puente removible. Los dientes posteriores con tratamiento de endodoncia se vuelven frágiles, por lo que las amalgamas, resinas e incrustaciones no son alternativas de tratamiento.',
+        ]
+      },
+      {
+        title: 'Riesgos',
+        content: [
+          'Declaro que me han sido explicados verbalmente los posibles riesgos y complicaciones, siendo los más comunes:',
+          {
+            type: 'list',
+            items: [
+              { title: '1. Reacción a la anestesia y/o a los sedantes:', text: 'Aunque el diente ya tiene endodoncia, puede ser necesario que me apliquen una anestesia local y, en caso de estar muy nervioso, posiblemente deba tomar un sedante (tranquilizante) para estar cómodo durante el tratamiento. Los anestésicos que me aplicarán son muy seguros, pero en ocasiones poco frecuentes puede haber una reacción alérgica a la anestesia, la cual puede requerir de atención médica de emergencia. El efecto de la anestesia puede reducir mi capacidad para deglutir, lo cual aumenta los riesgos de tragar objetos extraños durante el tratamiento. Una vez que ha terminado el efecto de la anestesia, puedo tener una molestia pasajera en el lugar donde se me aplicó la anestesia. Si me dan un sedante puedo tener mareo temporal o reducir mi coordinación, por lo que debo asistir con un acompañante y no debo manejar ningún vehículo.' },
+              { title: '2. Mandíbula con contractura o adolorida:', text: 'Al mantener la boca abierta durante el tratamiento puede provocarme dolor y contractura temporal de la mandíbula, y puede ser difícil abrir la boca de manera normal durante varios días posteriores al tratamiento. Puede ser necesario jalar los labios para realizar el tratamiento, lo que puede provocar que mis comisuras de la boca queden rojas o partidas durante varios días.' },
+              { title: '3. Fractura de partes del diente.', text: 'Pueden romperse partes del diente al hacer la limpieza previa a la reconstrucción. En estos casos puede ser necesaria la colocación de un endoposte.' },
+              { title: '4. Fractura de la raíz.', text: 'La colocación de un endoposte es bastante segura, pero en ocasiones poco frecuentes pueden formarse agrietamientos en la raíz, los cuales continúan lentamente hasta generar una fractura de la raíz después de unas semanas o uno o varios años.' }
+            ]
+          }
+        ]
+      },
+      {
+        title: 'Consecuencias de no realizar el tratamiento',
+        content: [
+          'Para los dientes que tuvieron tratamiento de endodoncia, el no hacer la reconstrucción o endoposte y no colocar una corona o puente, produce contaminación y posible infección, fractura que provocar dolor, daño en el hueso alrededor del diente y la necesidad de extracción o pérdida del mismo.'
+        ]
+      },
+      {
+        title: 'Aceptación del tratamiento',
+        content: [
+          'Acepto y me comprometo a seguir responsablemente las recomendaciones recibidas, antes y después de la intervención, así como, acudir a las citas para las revisiones postoperatorias durante el tiempo indicado.',
+          'A pesar de que no es posible garantizar resultados perfectos, se realizará todo esfuerzo razonable por asegurar que su afección sea tratada adecuadamente.',
+          'Autorizo a mi odontólogo tratante a la atención de contingencias y urgencias que puedan derivarse del tratamiento que va a realizarme.',
+          'Reconozco que esta carta de consentimiento puede ser revocable siempre y cuando no haya iniciado el tratamiento. Reconozco también que el Dr. puede negarse a realizar el tratamiento si encuentra que hay mayor riesgo que beneficios para mi salud.',
+          'Al firmar esta carta de consentimiento reconozco que he recibido y comprendido la información adecuada acerca del tratamiento propuesto y que han respondido todas mis preguntas.'
+        ]
+      }
+    ]
+  },
+  {
+    slug: 'tratamiento-periodontal-no-quirurgico',
+    title: 'Tratamiento Periodontal no Quirúrgico',
+    authorizedAct: 'Tratamiento Periodontal no Quirúrgico (Raspado y Alisado Radicular).',
+    sections: [
+        {
+            title: 'Tratamiento propuesto',
+            content: [
+                'Declaro que el Dr. [*] y su equipo de ayudantes me ha informado satisfactoriamente que el tratamiento periodontal no quirúrgico consiste en el raspado y alisado radicular de mis dientes. La finalidad de este tratamiento es remover los depósitos de sarro y placa que se encuentran en la superficie de los dientes y por debajo de las encías, así como para alisar las superficies de las raíces.',
+                'Para el raspado y alisado radicular se utilizan instrumentos manuales y ultrasónicos por debajo de mis encías. Es probable que el tratamiento requiera de más de una cita para que el tratamiento sea efectivo.'
+            ]
+        },
+        {
+            title: 'Beneficios y alternativas',
+            content: [
+                'La eliminación de sarro por debajo de mis encías y el alisado de las raíces ayudará a mejorar mi salud periodontal. Si mantengo el cuidado de mi boca con cepillado, uso de hilo dental y los aditamentos especiales que me recomienden podré conservar la salud de mis dientes. Una vez que termine mi tratamiento, será necesario que asista a citas periódicas (usualmente cada 3-4 meses) con la finalidad de mantener la salud de mis encías, hueso y dientes.',
+                'No existen alternativas al raspado y alisado radicular. Si el daño producido por el sarro en mis dientes y encías es muy grande, puedo necesitar un tratamiento quirúrgico de Periodoncia.'
+            ]
+        },
+        {
+            title: 'Riesgos',
+            content: [
+                'Declaro que me han sido explicados verbalmente los posibles riesgos y complicaciones, siendo los más comunes:',
+                {
+                    type: 'list',
+                    items: [
+                        { title: '1. Reacción a la anestesia y/o a los sedantes:', text: 'Se me aplicará una anestesia local y, en caso de estar muy nervioso, posiblemente deba tomar un sedante (tranquilizante) para estar cómodo durante el tratamiento. Los anestésicos que me aplicarán son muy seguros, pero en ocasiones poco frecuentes puede haber una reacción alérgica a la anestesia, la cual puede requerir de atención médica de emergencia. El efecto de la anestesia puede reducir mi capacidad para deglutir, lo cual aumenta los riesgos de tragar objetos extraños durante el tratamiento. Una vez que ha terminado el efecto de la anestesia, puedo tener una molestia pasajera en el lugar donde se me aplicó la anestesia. Si me dan un sedante puedo tener mareo temporal o reducir mi coordinación, por lo que debo asistir con un acompañante y no debo manejar ningún vehículo.' },
+                        { title: '2. Mandíbula con contractura o adolorida:', text: 'Al mantener la boca abierta durante el tratamiento puede provocarme dolor y contractura temporal de la mandíbula, y puede ser difícil abrir la boca de manera normal durante varios días posteriores al tratamiento. Puede ser necesario jalar los labios para realizar el tratamiento, lo que puede provocar que mis comisuras de la boca queden rojas o partidas durante varios días.' },
+                        { title: '3. Sangrado:', text: 'Los instrumentos que se usan durante el raspado y alisado radicular tocan mis encías. Mis encías pueden sangrar en forma pasajera. Si no informé que uso medicamentos o padezco una enfermedad que afectan la coagulación o tomé aspirina antes o después de la extracción hay riesgo de que el sangrado no se detenga y requiera la atención en un hospital.' },
+                        { title: '4. Sensibilidad al calor y al frío:', text: 'Después del raspado y alisado radicular, mientras mis encías sanan, pueden retraerse un poco, dejando expuesta parte de la raíz, lo cual podría hacer que los dientes sean más sensibles al calor o al frío. Generalmente, esta sensibilidad desaparece después de algunas semanas y se puede tratar con pastas especiales.' },
+                        { title: '5. Dolor o Incomodidad:', text: 'Mis dientes y encías pueden estar adoloridos durante varios días después del tratamiento. El Doctor me recomendará tomar algún analgésico para controlar las molestias. Si el dolor persiste o es severo debo notificar inmediatamente al Doctor.' },
+                        { title: '6. Infección:', text: 'En raras ocasiones, después del tratamiento puedo experimentar una infección, la cual será tratada con antibióticos.' }
+                    ]
+                }
+            ]
+        },
+        {
+            title: 'Consecuencias de no realizar el tratamiento',
+            content: [
+                'Si el tratamiento periodontal no es realizado, continuaré teniendo problemas de salud en mis encías, que pueden incluir una infección y deterioro del hueso de soporte de mis dientes, lo que puede provocar que se aflojen y la pérdida prematura de los mismos. Las infecciones periodontales no tratadas pueden estar asociadas con problemas médicos más serios como la enfermedad cardiaca, embolia cerebral o apoplejía, diabetes, problemas respiratorios y en mujeres embarazadas, bebés de bajo peso al nacer o nacimientos prematuros.'
             ]
         },
         {
