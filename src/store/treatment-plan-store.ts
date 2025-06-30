@@ -63,17 +63,37 @@ export const useTreatmentPlanStore = create<TreatmentPlanState>()(
               return false;
             }
             
-            const descriptions: string[] = parsedData.data
+            const diagnosisDescriptions: string[] = parsedData.data
               .map((item: DiagnosisData) => item.description)
               .filter((desc: string | undefined): desc is string => !!desc);
 
             const treatmentCounts = new Map<string, number>();
-            descriptions.forEach(desc => {
-              const parts = desc.split(': ');
-              if (parts.length > 1) {
-                const treatmentName = parts[1].trim();
-                treatmentCounts.set(treatmentName, (treatmentCounts.get(treatmentName) || 0) + 1);
+
+            parsedData.data.forEach((item: any) => {
+              if (!item.description) {
+                return;
               }
+              
+              const descriptionParts = item.description.split(': ');
+              if (descriptionParts.length < 2) {
+                return;
+              }
+              const treatmentName = descriptionParts[1].trim();
+
+              let quantity = 1;
+
+              if (item.type === 'bridge' && item.displayRange) {
+                const rangeParts = item.displayRange.split('-');
+                if (rangeParts.length === 2) {
+                  const start = parseInt(rangeParts[0], 10);
+                  const end = parseInt(rangeParts[1], 10);
+                  if (!isNaN(start) && !isNaN(end)) {
+                    quantity = Math.abs(start - end) + 1;
+                  }
+                }
+              }
+
+              treatmentCounts.set(treatmentName, (treatmentCounts.get(treatmentName) || 0) + quantity);
             });
 
             const newBudgetItems: BudgetItem[] = [];
@@ -97,7 +117,7 @@ export const useTreatmentPlanStore = create<TreatmentPlanState>()(
             }
 
             set({ 
-              diagnosis: descriptions,
+              diagnosis: diagnosisDescriptions,
               budgetItems: newBudgetItems,
               globalDiscount: { type: 'percentage', value: 0 },
             });
