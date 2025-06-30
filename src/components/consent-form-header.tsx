@@ -38,6 +38,10 @@ export function ConsentFormHeader() {
                         <td className="p-2">{patientId || ''}</td>
                     </tr>
                     <tr className="border-b">
+                        <td className="font-semibold p-2 border-r">Nombre del Odontólogo:</td>
+                        <td className="p-2">{doctorInfo.name}</td>
+                    </tr>
+                    <tr className="border-b">
                         <td className="font-semibold p-2 border-r">Cédula del odontólogo:</td>
                         <td className="p-2">{doctorInfo.professionalLicense}</td>
                     </tr>
