@@ -3,4 +3,5 @@ export const clinicInfo = {
   address: '123 Smile Street, Toothville, MD 12345',
   phone: '555-123-4567',
   email: 'contact@dentalhistory.pro',
+  professionalLicense: '12345678',
 };

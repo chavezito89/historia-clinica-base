@@ -11,6 +11,8 @@ import {
 import type { LucideProps } from 'lucide-react';
 import React, { useState, useMemo } from 'react';
 import { Input } from '@/components/ui/input';
+import Link from 'next/link';
+import { slugify } from '@/lib/utils';
 
 const consentTypes: { title: string; icon: React.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React.RefAttributes<Icon>> }[] = [
     { title: 'Paciente menor de edad', icon: Baby },
@@ -63,10 +65,13 @@ export default function ConsentimientosInformadosPage() {
                             {filteredConsentTypes.length > 0 ? (
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                     {filteredConsentTypes.map((consent) => (
-                                        <button
+                                        <Link
                                             key={consent.title}
+                                            href={{
+                                                pathname: `/consentimientos-informados/${slugify(consent.title)}`,
+                                                query: { title: consent.title },
+                                            }}
                                             className="text-left w-full rounded-lg overflow-hidden group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                                            onClick={() => { /* Placeholder for future action */ }}
                                         >
                                             <Card className="group-hover:bg-accent group-hover:text-accent-foreground transition-colors h-full">
                                                 <CardHeader className="flex flex-row items-center gap-4 space-y-0 p-4">
@@ -74,7 +79,7 @@ export default function ConsentimientosInformadosPage() {
                                                     <p className="text-base font-medium">{consent.title}</p>
                                                 </CardHeader>
                                             </Card>
-                                        </button>
+                                        </Link>
                                     ))}
                                 </div>
                             ) : (
