@@ -78,7 +78,12 @@ export const useTreatmentPlanStore = create<TreatmentPlanState>()(
               if (descriptionParts.length < 2) {
                 return;
               }
-              const treatmentName = descriptionParts[1].trim();
+              
+              let treatmentName = descriptionParts[1].trim();
+
+              if (treatmentName.toLowerCase().startsWith('resina')) {
+                treatmentName = 'Resina';
+              }
 
               let quantity = 1;
 
