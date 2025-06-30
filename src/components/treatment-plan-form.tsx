@@ -171,10 +171,7 @@ export function TreatmentPlanForm() {
 
     const hasMultipleCurrencies = Object.keys(totalsByCurrency).length > 1;
 
-    const subtotalRows: React.ReactNode[] = [];
-    const individualDiscountRows: React.ReactNode[] = [];
-    const globalDiscountRows: React.ReactNode[] = [];
-    const totalRows: React.ReactNode[] = [];
+    const summaryRows: React.ReactNode[] = [];
 
     Object.entries(totalsByCurrency).forEach(([currency, totals]) => {
         const currencyKey = currency as 'MXN' | 'USD';
@@ -192,44 +189,33 @@ export function TreatmentPlanForm() {
 
         const finalTotal = totals.subtotalAfterIndividualDiscounts - globalDiscountAmount;
 
-        subtotalRows.push(
-            <TableRow key={`${currency}-subtotal`}>
-                <TableCell colSpan={5} className="text-right">Subtotal ({currency})</TableCell>
-                <TableCell className="text-right">{formatCurrency(totals.subtotal, currencyKey)}</TableCell>
-                <TableCell />
-            </TableRow>
-        );
-
-        if (hasIndividualDiscounts) {
-            individualDiscountRows.push(
-                <TableRow key={`${currency}-ind-discount`}>
-                    <TableCell colSpan={5} className="text-right text-sm text-muted-foreground">Descuentos Individuales ({currency})</TableCell>
-                    <TableCell className="text-right text-sm text-muted-foreground">- {formatCurrency(individualDiscountTotal, currencyKey)}</TableCell>
+        summaryRows.push(
+            <React.Fragment key={`${currency}-summary`}>
+                <TableRow>
+                    <TableCell colSpan={5} className="text-right text-muted-foreground">Subtotal ({currency})</TableCell>
+                    <TableCell className="text-right text-muted-foreground">{formatCurrency(totals.subtotal, currencyKey)}</TableCell>
                     <TableCell />
                 </TableRow>
-            );
-        }
-
-        if (hasGlobalDiscount) {
-            let globalDiscountDisplay = `(${globalDiscount.value}${globalDiscount.type === 'percentage' ? '%' : ''})`;
-            if (hasMultipleCurrencies && globalDiscount.type === 'amount') {
-                globalDiscountDisplay = `(No aplicable)`;
-            }
-            globalDiscountRows.push(
-                <TableRow key={`${currency}-global-discount`}>
-                    <TableCell colSpan={5} className="text-right text-sm text-muted-foreground">Descuento Global {globalDiscountDisplay} ({currency})</TableCell>
-                    <TableCell className="text-right text-sm text-muted-foreground">- {formatCurrency(globalDiscountAmount, currencyKey)}</TableCell>
+                {hasIndividualDiscounts && (
+                    <TableRow>
+                        <TableCell colSpan={5} className="text-right text-sm text-muted-foreground">Descuentos Individuales ({currency})</TableCell>
+                        <TableCell className="text-right text-sm text-muted-foreground">- {formatCurrency(individualDiscountTotal, currencyKey)}</TableCell>
+                        <TableCell />
+                    </TableRow>
+                )}
+                 {hasGlobalDiscount && (
+                    <TableRow>
+                        <TableCell colSpan={5} className="text-right text-sm text-muted-foreground">Descuento Global ({currency})</TableCell>
+                        <TableCell className="text-right text-sm text-muted-foreground">- {formatCurrency(globalDiscountAmount, currencyKey)}</TableCell>
+                        <TableCell />
+                    </TableRow>
+                )}
+                <TableRow className="bg-muted/50">
+                    <TableCell colSpan={5} className="text-right font-bold">Total ({currency})</TableCell>
+                    <TableCell className="text-right font-bold">{formatCurrency(finalTotal, currencyKey)}</TableCell>
                     <TableCell />
                 </TableRow>
-            );
-        }
-
-        totalRows.push(
-            <TableRow key={`${currency}-total`} className="bg-muted/50">
-                <TableCell colSpan={5} className="text-right font-bold text-lg">Total ({currency})</TableCell>
-                <TableCell className="text-right font-bold text-lg">{formatCurrency(finalTotal, currencyKey)}</TableCell>
-                <TableCell />
-            </TableRow>
+            </React.Fragment>
         );
     });
 
@@ -285,7 +271,7 @@ export function TreatmentPlanForm() {
                     </div>
 
                     <div className="border p-4 rounded-lg space-y-4">
-                        <h3 className="font-medium text-foreground">Añadir Tratamientos</h3>
+                        <h3 className="font-medium text-foreground">Añadir Tratamientos Manuales</h3>
                         <div className="flex items-end gap-2">
                             <div className="flex-grow space-y-2">
                                 <Label htmlFor="manual-treatment">Descripción del tratamiento</Label>
@@ -335,10 +321,10 @@ export function TreatmentPlanForm() {
                                     <TableRow key={item.id}>
                                         <TableCell className="font-medium">{item.treatment}</TableCell>
                                         <TableCell>
-                                            <Input type="number" value={item.quantity} onChange={(e) => updateBudgetItem(item.id, { quantity: parseInt(e.target.value) || 0 })} className="w-20 mx-auto text-center" />
+                                            <Input type="number" value={item.quantity} onFocus={(e) => e.target.select()} onChange={(e) => updateBudgetItem(item.id, { quantity: parseInt(e.target.value) || 0 })} className="w-20 mx-auto text-center" />
                                         </TableCell>
                                         <TableCell>
-                                            <Input type="number" value={item.unitPrice} onChange={(e) => updateBudgetItem(item.id, { unitPrice: parseFloat(e.target.value) || 0 })} className="w-28 ml-auto text-right" />
+                                            <Input type="number" value={item.unitPrice} onFocus={(e) => e.target.select()} onChange={(e) => updateBudgetItem(item.id, { unitPrice: parseFloat(e.target.value) || 0 })} className="w-28 ml-auto text-right" />
                                         </TableCell>
                                         <TableCell>
                                             <Select value={item.currency} onValueChange={(value: 'MXN' | 'USD') => updateBudgetItem(item.id, { currency: value })}>
@@ -376,10 +362,7 @@ export function TreatmentPlanForm() {
                                 )}
                             </TableBody>
                             <TableFooter>
-                                {subtotalRows}
-                                {individualDiscountRows.length > 0 && <>{individualDiscountRows}</>}
-                                {globalDiscountRows.length > 0 && <>{globalDiscountRows}</>}
-                                {totalRows}
+                                {summaryRows}
                                 
                                 {Object.keys(totalsByCurrency).length > 0 && (
                                     <TableRow>
