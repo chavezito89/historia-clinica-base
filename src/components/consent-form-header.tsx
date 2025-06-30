@@ -1,13 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { clinicInfo } from '@/config/clinic';
+import { useClinicStore } from '@/store/clinic-store';
 import { useClinicalHistoryStore } from '@/store/clinical-history-store';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 
 export function ConsentFormHeader() {
     const { patientId, patientData } = useClinicalHistoryStore();
+    const { clinicInfo } = useClinicStore();
     const [currentDate, setCurrentDate] = useState('');
 
     useEffect(() => {

@@ -5,7 +5,7 @@ import { useClinicalHistoryStore } from '@/store/clinical-history-store';
 import { SignaturePad } from './signature-pad';
 import { Checkbox } from './ui/checkbox';
 import { Label } from './ui/label';
-import { clinicInfo } from '@/config/clinic';
+import { useClinicStore } from '@/store/clinic-store';
 
 export function ConsentFormFooter() {
     const { 
@@ -14,6 +14,7 @@ export function ConsentFormFooter() {
     } = useConsentStore();
     
     const { patientData, setPatientData } = useClinicalHistoryStore();
+    const { clinicInfo } = useClinicStore();
 
     return (
         <footer className="space-y-8 mt-8 print:mt-16">

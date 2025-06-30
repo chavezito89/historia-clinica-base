@@ -1,10 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { clinicInfo } from '@/config/clinic';
+import { useClinicStore } from '@/store/clinic-store';
 import { Logo } from './icons/logo';
 
 export function PrintHeader() {
+  const { clinicInfo } = useClinicStore();
   const [currentDate, setCurrentDate] = useState('');
 
   useEffect(() => {

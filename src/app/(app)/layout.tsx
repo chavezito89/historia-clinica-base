@@ -10,11 +10,12 @@ import {
   SidebarInset,
   SidebarHeader,
   SidebarFooter,
+  SidebarSeparator,
 } from '@/components/ui/sidebar';
 import { Logo } from '@/components/icons/logo';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { ClipboardPlus, Stethoscope, ListChecks, FileText, FileScan, CalendarClock, Tags } from 'lucide-react';
+import { ClipboardPlus, Stethoscope, ListChecks, FileText, FileScan, CalendarClock, Settings } from 'lucide-react';
 import React from 'react';
 import { PageActions } from '@/components/page-actions';
 
@@ -26,6 +27,9 @@ const navItems = [
   { href: '/rx-y-estudios', label: 'RX y Estudios', icon: FileScan },
   { href: '/progreso-por-cita', label: 'Progreso por Cita', icon: CalendarClock },
 ];
+
+const settingsNavItem = { href: '/configuracion', label: 'Configuración', icon: Settings };
+
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -56,6 +60,17 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </SidebarMenu>
         </SidebarContent>
         <SidebarFooter>
+          <SidebarMenu>
+             <SidebarMenuItem>
+                <SidebarMenuButton asChild isActive={pathname.startsWith(settingsNavItem.href)} tooltip={settingsNavItem.label}>
+                  <Link href={settingsNavItem.href}>
+                    <settingsNavItem.icon />
+                    {settingsNavItem.label}
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+          </SidebarMenu>
+          <SidebarSeparator />
           <PageActions />
         </SidebarFooter>
       </Sidebar>
