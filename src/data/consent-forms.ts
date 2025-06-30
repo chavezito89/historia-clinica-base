@@ -101,7 +101,7 @@ export const consentFormsData: ConsentFormContent[] = [
   },
   {
     slug: 'blanqueamiento',
-    title: 'Consentimiento Informado para Blanqueamiento',
+    title: 'Blanqueamiento',
     authorizedAct: 'Blanqueamiento dental en consultorio',
     sections: [
         {
@@ -158,7 +158,7 @@ export const consentFormsData: ConsentFormContent[] = [
   },
   {
     slug: 'carillas',
-    title: 'Consentimiento Informado para Carillas',
+    title: 'Carillas',
     authorizedAct: 'Carillas',
     sections: [
         {
@@ -212,7 +212,7 @@ export const consentFormsData: ConsentFormContent[] = [
   },
   {
     slug: 'coronas-y-puentes-fijos',
-    title: 'Consentimiento Informado para Coronas y Puentes Fijos',
+    title: 'Coronas y puentes fijos',
     authorizedAct: 'Coronas y puentes fijos.',
     sections: [
       {
@@ -292,7 +292,7 @@ export const consentFormsData: ConsentFormContent[] = [
   },
   {
     slug: 'extraccion-dental',
-    title: 'Consentimiento Informado para Extracción Dental',
+    title: 'Extracción dental',
     authorizedAct: 'Extracción Dental.',
     sections: [
       {
@@ -415,7 +415,7 @@ export const consentFormsData: ConsentFormContent[] = [
   },
   {
     slug: 'endodoncia',
-    title: 'Consentimiento Informado para Endodoncia',
+    title: 'Endodoncia',
     authorizedAct: 'Endodoncia',
     sections: [
         {
@@ -469,8 +469,80 @@ export const consentFormsData: ConsentFormContent[] = [
         }
     ]
   },
+  {
+    slug: 'profilaxis',
+    title: 'Profilaxis',
+    authorizedAct: 'Profilaxis, resinas y amalgamas',
+    sections: [
+        {
+            title: 'Tratamiento propuesto',
+            content: [
+                'Declaro que el Dr. [*] y su equipo de ayudantes me ha informado satisfactoriamente que requiero los tratamientos seleccionados que se mencionan a continuación:',
+                {
+                    type: 'list',
+                    items: [
+                        'Profilaxis o limpieza dental,que consiste en la eliminación de sarro,depósitos suaves,placa dentobacteriana y manchas,seguido del pulido de las superficies de los dientes.',
+                        'Selladores, para prevenir la formación de caries o detener una caries que inicia en los surcos de mis dientes. Los selladores se aplican en los surcos de mis dientes para evitar que penetren los agentes causantes de la caries.Al final puede ser necesario ajustar los puntos altos de los selladores para morder en la forma acostumbrada.',
+                        'Resinas fluidas (resinas Flow), para tratar mis dientes con inicio de caries que no ha formado ninguna cavidad. Con este tratamiento no se necesita que recorten el tejido de mi diente que está sano, solo se retira, mediante una turbina y una fresa dental, una pequeña parte que tiene inicio de caries. Después se aplica la resina fluida y se endurece con una luz especial.Al final puede ser necesario ajustar los puntos altos de la resina fluida para morder en la forma acostumbrada.',
+                        'Composites (resinas compuestas), para rellenar las cavidades que la caries ha formado en mis dientes. Para la restauración con composite se requiere remover, mediante una turbina y una fresa dental, todo el tejido del diente que se ha reblandecido y contaminado. Dependiendo de la profundidad de la cavidad, se pueden aplicar algunos cementos para recubrir el nervio (pulpa dental) de mi diente. Después se rellena la cavidad aplicando el composite en capas, que se endurecen con una luz especial. Al final puede ser necesario ajustar los puntos altos de la restauración de composite para morder en la forma acostumbrada.',
+                        'Amalgama, para rellenar las cavidades que la caries ha formado en mis dientes y no es posible colocar composite. Para la restauración con amalgama se requiere remover, mediante una turbina y una fresa dental, todo el tejido del diente que se ha reblandecido y contaminado. Dependiendo de la profundidad de la cavidad, se pueden aplicar algunos cementos para recubrir el nervio (pulpa dental) de mi diente. Después se aplica la amalgama y se espera hasta su endurecimiento.Al final puede ser necesario ajustar los puntos altos de la restauración con amalgama para morder en la forma acostumbrada.'
+                    ]
+                },
+                'Me informaron que puede haber cambios en el tratamiento dependiendo de los daños de los dientes que se encuentren durante la atención y de la evolución de mis padecimientos bucodentales particulares. Me informaron también que los tratamientos como las extracciones o los tratamientos de especialidad tienen consentimientos independientes con información más detallada y debo leerlos antes de que me realicen cualquiera de ellos.'
+            ]
+        },
+        {
+            title: 'Beneficios y alternativas',
+            content: [
+                 {
+                    type: 'list',
+                    items: [
+                        'La eliminación de sarro mediante la profilaxis ayudará a mejorar mi salud bucodental, siempre y cuando mantenga el cuidado de mi boca con cepillado y uso de hilo dental. No existen alternativas a la profilaxis. Si el daño producido por el sarro en mis dientes y encías es grande, puedo necesitar tratamientos especializados de Periodoncia.',
+                        'La aplicación de flúor refuerza la superficie externa (esmalte) sana del diente.Ayuda a prevenir la formación de cavidades por caries para que mejorar mi salud bucodental. No existen alternativas a este procedimiento. Para que la aplicación de flúor sea efectiva, es conveniente tener una alimentación con menos azúcar y carbohidratos,mantener una buena higiene bucal mediante cepillado dental con pasta fluorada, uso de hilo dental y enjuagues bucales que controlan las bacterias deteniendo el avance de la caries y pueden quedar líneas finas obscuras sin cavidad.',
+                        'Los selladores ayudan a eliminar el avance de la caries en los dientes que no tienen cavidades y así evitarme el corte tejido dental sano para hacer una cavidad. La alternativa a los selladores es una alimentación con menos azúcar y carbohidratos, mantener una buena higiene mediante cepillado dental con pasta fluorada, uso de hilo dental y enjuagues bucales que controlan las bacterias deteniendo el avance de la caries y pueden quedar líneas finas obscuras sin cavidad. Se sugieren visitas de control cada seis meses para evaluar que no se hayan formado cavidades.',
+                        'Las resinas fluidas ayudan a eliminar el avance de la caries en mis dientes que no tienen cavidades, pero tienen líneas obscuras o descalcificadas.Con este tratamiento se evitan hacer cavidades mayores y me salvan tejido dental sano. La alternativa a este tratamiento es una alimentación con menos azúcar y carbohidratos, mantener una buena higiene mediante cepillado dental con pasta fluorada, uso de hilo dental y enjuagues bucales que controlan las bacterias deteniendo el avance de la caries y pueden quedar líneas finas obscuras sin cavidad. Se sugieren visitas de control cada seis meses para evaluar que no se hayan formado cavidades.',
+                        'La restauración de mis dientes con cavidades debidas a caries, con fracturas o con restauraciones defectuosas devuelven la integridad de mis dientes y ayudan a mejorar mi salud bucodental. Las restauraciones con composite tienen un tono similar a mis dientes dando un aspecto natural. En cavidades grandes, puede ser necesaria una restauración con amalgama. Las alternativas estéticas a las amalgamas en cavidades grandes son las restauraciones indirectas (se mandan a fabricar al laboratorio dental) tales como las incrustaciones, onlays y coronas, que requieren de varias citas en las que se prepara el diente, se toman impresiones y de color, se hace la prueba y la cementación de la restauración estética.'
+                    ]
+                 }
+            ]
+        },
+        {
+            title: 'Riesgos',
+            content: [
+                'Declaro que me han sido explicados verbalmente los posibles riesgos y complicaciones, siendo los más comunes:',
+                {
+                    type: 'list',
+                    items: [
+                        { title: '1. Sangrado de encías:', text: 'Los instrumentos que se usan durante las profilaxis tocan el diente y las encías. Mis encías pueden sangrar en forma pasajera. El sarro que se encuentra sobre mis dientes y encías puede esconder problemas mayores que no pudieron identificarse totalmente durante la evaluación. Si esto ocurre posiblemente necesite una cita con el periodoncista y podría modificarse el plan de tratamiento que me propusieron inicialmente.' },
+                        { title: '2. Sensibilidad al calor y al frío:', text: 'Después de la profilaxis, mientras las encías sanan pueden retraerse, dejando expuesta parte de la raíz, lo cual podría hacer que los dientes sean más sensibles al calor o al frío.' },
+                        { title: '3. Reacción a la anestesia y/o a los sedantes:', text: 'Se me aplicará una anestesia local y, en caso de estar muy nervioso, posiblemente deba tomar un sedante (tranquilizante) para estar cómodo durante el tratamiento. Los anestésicos que me aplicarán son muy seguros, pero en ocasiones poco frecuentes puede haber una reacción alérgica a la anestesia, la cual puede requerir de atención médica de emergencia. El efecto de la anestesia puede reducir mi capacidad para deglutir, lo cual aumenta los riesgos de tragar objetos extraños durante el tratamiento. Una vez que ha terminado el efecto de la anestesia, puedo tener una molestia pasajera en el lugar donde se me aplicó la anestesia. Si me dan un sedante puedo tener mareo temporal o reducir mi coordinación, por lo que debo asistir con un acompañante y no debo manejar ningún vehículo.' },
+                        { title: '4. Mandíbula con contractura o adolorida:', text: 'Al mantener la boca abierta durante el tratamiento puede provocarme dolor y contractura temporal de la mandíbula, y puede ser difícil abrir la boca de manera normal durante varios días posteriores al tratamiento. Puede ser necesario jalar los labios para realizar el tratamiento, lo que puede provocar que mis comisuras de la boca queden rojas o partidas durante varios días.' },
+                        { title: '5. Aplicación de aislantes:', text: 'Para el tratamiento con resinas y amalgamas pueden aplicarme un plástico aislante (dique de hule) para controlar la contaminación por saliva, el cual limita el habla. En raras ocasiones puede presentarse alergia al látex.' },
+                        { title: '6. Fractura de los dientes.', text: 'Si tengo dientes con cavidades grandes o que tienen amalgamas o resinas amplias podrían estar debilitados. Al remover la parte dañada del diente y la restauración, las zonas debilitadas pueden romperse y tendrían que hacerse restauraciones más grandes para reponer las partes perdidas modificando el plan de tratamiento que me propusieron inicialmente.' },
+                        { title: '7. Irritación del nervio del diente:', text: 'Para restaurar mis dientes es necesario eliminar las partes dañadas. Esto puede irritar el tejido nervioso (pulpa dental) que se encuentra en el centro de éste, provocando sensibilidad al calor, al frío o a la presión o dolor. Puedo necesitar que le apliquen a mis dientes materiales intermedios y continuar en una cita posterior para conocer la respuesta de los dientes. En ocasiones debe hacerse el tratamiento la pulpa (tratamiento de endodoncia). Si esto ocurre, deberé tener una cita con el endodoncista y podría modificarse el plan de tratamiento que me propusieron inicialmente.' },
+                        { title: '8. Cambios en la mordida:', text: 'Cualquier tratamiento (selladores, resinas o amalgamas) pueden alterar mi mordida o hacer que mi mandíbula se sienta adolorida causando confusión con dolor de los dientes tratados. Esto puede requerir el ajuste de mi mordida,rebajando la superficie de las restauraciones que me hicieron.' },
+                        { title: '9. Desgaste o fractura.', text: 'Si tengo apretamiento o rechinamiento (bruxismo) de mis dientes, es posible que haya desgaste o fractura de las resinas, amalgamas o de mis dientes. Debo usar un aparato llamado guarda oclusal para disminuir la posibilidad que esto me ocurra.' },
+                        { title: '10. Daños a restauraciones desajustadas:', text: 'En algunos casos,los instrumentos utilizados para la profilaxis pueden desalojar las restauraciones de algunos lo cual puede requerir recolocarla o realizar una restauración posterior para repararlo.' }
+                    ]
+                }
+            ]
+        },
+        {
+            title: 'Consecuencias de no realizar el tratamiento',
+            content: [
+                'Si no se realiza la profilaxis, el sarro y los problemas existentes pueden ocasionar molestias futuras y posibles daños en el hueso que está alrededor de mis dientes y encías, requiriendo de tratamientos posteriores más complicados y costosos. Los dientes cariados, quebrados o rotos y con restauraciones previas inadecuadas continúan deteriorándose, formándose más caries, provocando dolor, infección, daño del hueso alrededor del diente y la pérdida prematura del mismo.'
+            ]
+        },
+        {
+            title: 'Aceptación del tratamiento',
+            content: [
+                'Acepto y me comprometo a seguir responsablemente las recomendaciones recibidas, antes y después de la intervención, así como, acudir a las citas para las revisiones postoperatorias durante el tiempo indicado.',
+                'A pesar de que no es posible garantizar resultados perfectos, se realizará todo esfuerzo razonable por asegurar que su afección sea tratada adecuadamente.',
+                'Autorizo a mi odontólogo tratante a la atención de contingencias y urgencias que puedan derivarse del tratamiento que va a realizarme.',
+                'Reconozco que esta carta de consentimiento puede ser revocable siempre y cuando no haya iniciado el tratamiento. Reconozco también que el Dr. puede negarse a realizar el tratamiento si encuentra que hay mayor riesgo que beneficios para mi salud.',
+                'Al firmar esta carta de consentimiento reconozco que he recibido y comprendido la información adecuada acerca del tratamiento propuesto y que han respondido todas mis preguntas.'
+            ]
+        }
+    ]
+  },
 ];
-
-    
-    
-
