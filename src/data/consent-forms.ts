@@ -146,7 +146,7 @@ export const consentFormsData: ConsentFormContent[] = [
             title: 'Aceptación del tratamiento',
             content: [
                 'Acepto y me comprometo a seguir responsablemente las recomendaciones recibidas, antes y después de la intervención, así como, acudir a las citas para las revisiones postoperatorias durante el tiempo indicado.',
-                'A pesar de que no es posible garantizar resultados perfectos, se realizará todo esfuerzo razonable por asegurar que su afeacción sea tratada adecuadamente.',
+                'A pesar de que no es posible garantizar resultados perfectos, se realizará todo esfuerzo razonable por asegurar que su afección sea tratada adecuadamente.',
                 'Autorizo a mi odontólogo tratante a la atención de contingencias y urgencias que puedan derivarse del tratamiento que va a realizarme.',
                 'Reconozco que esta carta de consentimiento puede ser revocable siempre y cuando no haya iniciado el tratamiento. Reconozco también que el Dr. puede negarse a realizar el tratamiento si encuentra que hay mayor riesgo que beneficios para mi salud.',
                 'Al firmar esta carta de consentimiento reconozco que he recibido y comprendido la información adecuada acerca del tratamiento propuesto y que han respondido todas mis preguntas.'
@@ -207,5 +207,85 @@ export const consentFormsData: ConsentFormContent[] = [
             ]
         }
     ]
+  },
+  {
+    slug: 'coronas-y-puentes-fijos',
+    title: 'Consentimiento Informado para Coronas y Puentes Fijos',
+    authorizedAct: 'Coronas y puentes fijos.',
+    sections: [
+      {
+        title: 'Tratamiento propuesto',
+        content: [
+          'Declaro que el Dr. [*] y su equipo de ayudantes me ha informado satisfactoriamente que el propósito de una corona es recubrir y fortalecer un diente dañado por caries o restauraciones previas, proteger un diente al que se le hizo tratamiento de endodoncia o mejorar la posición de la mordida. Que los puentes fijos reponen uno o varios dientes perdidos y son soportados por coronas que van en los dientes ubicados a los lados de la zona sin dientes. Las coronas y puentes fijos también se usan para restaurar o mejorar la apariencia (estética) de dientes dañados, manchados, deformes o separados que no pueden corregirse con blanqueamiento dental, resinas o carillas.',
+          'El tratamiento consta de varias citas:',
+          {
+            type: 'list',
+            items: [
+              'La preparación del diente consiste en rebajarlo un poco con fresa y pieza de mano por encima o debajo de la línea de la encía para crear una base para la corona.',
+              'Se toma la impresión (molde) de los dientes preparados, se coloca una prótesis temporal (o provisional) y se fija con cemento temporal, mientras en el laboratorio dental fabrican la corona o puente fijo. Una vez que se ha colocado el provisional, es esencial regresar para colocar la corona o puente definitivo en cuanto estén listos. Como un provisional no dura mucho tiempo, al no regresar inmediatamente, se deteriora, permitiendo la formación de caries, enfermedad de las encías (periodontal), infecciones, problemas con mi mordida y cambios en la posición de los dientes, que impiden colocar la corona, siendo necesario reiniciar con el tratamiento.',
+              'La corona o puente fijo se colocan solo después de que yo haya aprobado el tamaño, la forma y el color y se fijan (pegan) de manera definitiva con un cemento especial Una vez cementada la corona o el puente, no es posible hacer modificaciones.',
+            ],
+          },
+        ],
+      },
+      {
+        title: 'Beneficios y alternativas',
+        content: [
+          'El tratamiento propuesto tiene la intención de restaurar los dientes dañados, mejorar su apariencia y fortaleza y también ayudar a corregir la mordida. La alternativa de tratamiento para los dientes dañados consiste en extraerlos y colocar un puente removible. Para los dientes con mala posición o mordida, el tratamiento alterno es la ortodoncia. Los dientes posteriores con tratamiento de endodoncia se vuelven frágiles, por lo que las amalgamas y resinas no son alternativas de tratamiento. Si tienen poca destrucción pueden tratarse con restauraciones más conservadoras llamadas onlays.',
+          'No hay alternativas para una corona cuando se trata de proteger un diente débil y destruido al que se le ha hecho tratamiento de endodoncia. En estos casos, puede ser necesario hacer una reconstrucción o colocar un poste (endoposte) dentro de la raíz del diente antes de la preparación y colocación de la corona o puente fijo.',
+        ],
+      },
+      {
+        title: 'Riesgos',
+        content: [
+          'Declaro que me han sido explicados verbalmente los posibles riesgos y complicaciones, siendo los más comunes:',
+          {
+            type: 'list',
+            items: [
+              {
+                title: '1. Reacción a la anestesia y/o a los sedantes:',
+                text: 'Se me aplicará una anestesia local y en caso de estar muy nervioso, posiblemente deba tomar un sedante (tranquilizante) para estar cómodo durante el tratamiento. Los anestésicos que me aplicarán son muy seguros, pero en ocasiones poco frecuentes puede haber una reacción alérgica a la anestesia, la cual puede requerir de atención médica de emergencia. El efecto de la anestesia puede reducir mi capacidad para deglutir, lo cual aumenta los riesgos de tragar objetos extraños durante el tratamiento. Una vez que ha terminado el efecto de la anestesia, puedo tener una molestia pasajera en el lugar donde se me aplicó la anestesia. Si me dan un sedante puedo tener mareo temporal o reducir mi coordinación, por lo que debo asistir con un acompañante y no debo manejar ningún vehículo.',
+              },
+              {
+                title: '2. Irritación del nervio del diente:',
+                text: 'La preparación o desgaste de un diente puede irritar el nervio del diente (pulpa dental) que se encuentra en el centro de éste, provocando sensibilidad al calor, al frío, a la presión o los alimentos. Para tratar esta sensibilidad se usan pastas de dientes especiales. En casos de dolor o dientes muy destruidos, posiblemente deba tratarse la pulpa (tratamiento de endodoncia).',
+              },
+              {
+                title: '3. Mandíbula con contractura o adolorida:',
+                text: 'Al mantener la boca abierta durante el tratamiento puede provocarme dolor y contractura temporal de la mandíbula, y puede ser difícil abrir la boca de manera normal durante varios días posteriores al tratamiento. Puede ser necesario jalar los labios para realizar el tratamiento, lo que puede provocar que mis comisuras de la boca queden rojas o partidas durante varios días.',
+              },
+              {
+                title: '4. Cambios en la mordida:',
+                text: 'La corona o puente pueden alterar la mordida, dando la sensación de que choca antes que los otros dientes o hacer que la mandíbula se sienta adolorida. Esto puede requerir el ajuste de la mordida,rebajando la superficie de la corona, puente o de los dientes adyacentes.',
+              },
+              {
+                title: '5. Enfermedad de las encías (periodontal):',
+                text: 'Si el borde de la corona está diseñado para colocarse por debajo de la encía, puede aumentar los riesgos de irritación de la misma, infección o caries. El cepillado adecuado y el uso de hilo dental en casa, una dieta saludable y limpiezas profesionales regulares son esenciales para ayudar a prevenir estos problemas.',
+              },
+              {
+                title: '6. Desgaste o fractura.',
+                text: 'Si tengo apretamiento o rechinamiento (bruxismo) de mis dientes, es posible que haya desgaste o fractura de las coronas, puentes o de mis dientes. Debo usar un aparato llamado guarda oclusal para disminuir la posibilidad que esto me ocurra.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        title: 'Consecuencias de no realizar el tratamiento',
+        content: [
+          'Los dientes cariados, quebrados o rotos con previas restauraciones inadecuadas continuarán deteriorándose, provocando dolor, más caries, infección, daño del hueso alrededor del diente y, eventualmente, la pérdida prematura del mismo. Para los dientes que tuvieron tratamiento de endodoncia, el no colocar una corona o puente, produce contaminación y podría provocar dolor, infección, fractura y pérdida del diente. En los casos de problemas existentes, causados por la forma o posición de los dientes, puede haber desajustes mayores en la mordida causando molestias futuras al masticar y posible daño a la mandíbula.',
+        ],
+      },
+      {
+        title: 'Aceptación del tratamiento',
+        content: [
+          'Acepto y me comprometo a seguir responsablemente las recomendaciones recibidas, antes y después de la intervención, así como, acudir a las citas para las revisiones postoperatorias durante el tiempo indicado.',
+          'A pesar de que no es posible garantizar resultados perfectos, se realizará todo esfuerzo razonable por asegurar que su afección sea tratada adecuadamente.',
+          'Autorizo a mi odontólogo tratante a la atención de contingencias y urgencias que puedan derivarse del tratamiento que va a realizarme.',
+          'Reconozco que esta carta de consentimiento puede ser revocable siempre y cuando no haya iniciado el tratamiento. Reconozco también que el Dr. puede negarse a realizar el tratamiento si encuentra que hay mayor riesgo que beneficios para mi salud.',
+          'Al firmar esta carta de consentimiento reconozco que he recibido y comprendido la información adecuada acerca del tratamiento propuesto y que han respondido todas mis preguntas.',
+        ],
+      },
+    ],
   },
 ];
