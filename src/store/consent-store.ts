@@ -2,24 +2,24 @@ import { create } from 'zustand';
 
 interface ConsentState {
     patientSignature: string;
-    termsAccepted: boolean;
+    consentDecision: 'accepted' | 'rejected' | null;
     isFinalized: boolean;
     setPatientSignature: (signature: string) => void;
-    setTermsAccepted: (accepted: boolean) => void;
+    setConsentDecision: (decision: 'accepted' | 'rejected' | null) => void;
     finalizeConsent: () => void;
     resetConsentState: () => void;
 }
 
 const initialState = {
     patientSignature: '',
-    termsAccepted: false,
+    consentDecision: null,
     isFinalized: false,
 };
 
 export const useConsentStore = create<ConsentState>((set) => ({
     ...initialState,
     setPatientSignature: (signature) => set({ patientSignature: signature }),
-    setTermsAccepted: (accepted) => set({ termsAccepted: accepted }),
+    setConsentDecision: (decision) => set({ consentDecision: decision }),
     finalizeConsent: () => set({ isFinalized: true }),
     resetConsentState: () => set(initialState),
 }));
