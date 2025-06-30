@@ -145,14 +145,16 @@ export function TreatmentPlanForm() {
 
     const totalsByCurrency = budgetItems.reduce((acc, item) => {
         if (item.currency === 'MXN' || item.currency === 'USD') {
-            if (!acc[item.currency]) {
-                acc[item.currency] = { subtotal: 0, total: 0 };
+            const currencyKey = item.currency;
+            if (!acc[currencyKey]) {
+                acc[currencyKey] = { subtotal: 0, subtotalAfterIndividualDiscounts: 0 };
             }
-            acc[item.currency].subtotal += item.quantity * item.unitPrice;
-            acc[item.currency].total += item.total;
+            const itemSubtotal = item.quantity * item.unitPrice;
+            acc[currencyKey].subtotal += itemSubtotal;
+            acc[currencyKey].subtotalAfterIndividualDiscounts += item.total;
         }
         return acc;
-    }, {} as Record<'MXN' | 'USD', { subtotal: number; total: number }>);
+    }, {} as Record<'MXN' | 'USD', { subtotal: number; subtotalAfterIndividualDiscounts: number; }>);
     
 
     const formatCurrency = (amount: number, currency: 'MXN' | 'USD') => {
@@ -314,34 +316,43 @@ export function TreatmentPlanForm() {
                                     const currencyKey = currency as 'MXN' | 'USD';
                                     
                                     let globalDiscountDisplay = `(${globalDiscount.value}${globalDiscount.type === 'percentage' ? '%' : ''})`;
-                                    if (globalDiscount.value === 0) {
-                                        globalDiscountDisplay = '(0%)';
-                                    } else if (hasMultipleCurrencies && globalDiscount.type === 'amount') {
+                                    if (hasMultipleCurrencies && globalDiscount.type === 'amount') {
                                         globalDiscountDisplay = `(No aplicable)`;
                                     }
 
+                                    const individualDiscountTotal = totals.subtotal - totals.subtotalAfterIndividualDiscounts;
+                                    const hasIndividualDiscounts = individualDiscountTotal > 0.001;
+
                                     let globalDiscountAmount = 0;
                                     if (globalDiscount.type === 'percentage') {
-                                        globalDiscountAmount = totals.total * (globalDiscount.value / 100);
+                                        globalDiscountAmount = totals.subtotalAfterIndividualDiscounts * (globalDiscount.value / 100);
                                     } else if (globalDiscount.type === 'amount' && !hasMultipleCurrencies) {
                                         globalDiscountAmount = globalDiscount.value;
                                     }
 
-                                    const finalTotal = totals.total - globalDiscountAmount;
+                                    const finalTotal = totals.subtotalAfterIndividualDiscounts - globalDiscountAmount;
 
                                     return (
                                         <React.Fragment key={currency}>
-                                            <TableRow className="bg-muted/30">
-                                                <TableCell colSpan={5} className="text-right font-bold text-base">Subtotal ({currency})</TableCell>
-                                                <TableCell className="text-right font-bold text-base">{formatCurrency(totals.subtotal, currencyKey)}</TableCell>
-                                                <TableCell />
-                                            </TableRow>
                                             <TableRow>
-                                                <TableCell colSpan={4} />
-                                                <TableCell className="text-right">Desc. Global {globalDiscountDisplay}</TableCell>
-                                                <TableCell className="text-right">- {formatCurrency(globalDiscountAmount, currencyKey)}</TableCell>
+                                                <TableCell colSpan={5} className="text-right">Subtotal ({currency})</TableCell>
+                                                <TableCell className="text-right">{formatCurrency(totals.subtotal, currencyKey)}</TableCell>
                                                 <TableCell />
                                             </TableRow>
+                                            {hasIndividualDiscounts && (
+                                                <TableRow>
+                                                    <TableCell colSpan={5} className="text-right text-sm text-muted-foreground">Descuentos Individuales</TableCell>
+                                                    <TableCell className="text-right text-sm text-muted-foreground">- {formatCurrency(individualDiscountTotal, currencyKey)}</TableCell>
+                                                    <TableCell />
+                                                </TableRow>
+                                            )}
+                                            {globalDiscount.value > 0 && (
+                                                <TableRow>
+                                                    <TableCell colSpan={5} className="text-right text-sm text-muted-foreground">Descuento Global {globalDiscountDisplay}</TableCell>
+                                                    <TableCell className="text-right text-sm text-muted-foreground">- {formatCurrency(globalDiscountAmount, currencyKey)}</TableCell>
+                                                    <TableCell />
+                                                </TableRow>
+                                            )}
                                             <TableRow className="bg-muted/50">
                                                 <TableCell colSpan={5} className="text-right font-bold text-lg">Total ({currency})</TableCell>
                                                 <TableCell className="text-right font-bold text-lg">{formatCurrency(finalTotal, currencyKey)}</TableCell>

@@ -25,7 +25,8 @@ const calculateTotal = (
     return Math.max(0, baseTotal - discountAmount);
   }
   // For fixed amount discount, just subtract the value
-  return Math.max(0, baseTotal - item.discount.value);
+  const discountAmount = item.discount.value;
+  return Math.max(0, baseTotal - discountAmount);
 };
 
 
