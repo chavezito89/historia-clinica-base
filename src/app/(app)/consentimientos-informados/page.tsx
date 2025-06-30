@@ -3,7 +3,7 @@
 import { PageHeader } from '@/components/page-header';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import {
-    Child,
+    Baby,
     Sparkles,
     Layers,
     Award,
@@ -20,7 +20,7 @@ import type { LucideProps } from 'lucide-react';
 import React from 'react';
 
 const consentTypes: { title: string; icon: React.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React.RefAttributes<Icon>> }[] = [
-    { title: 'Paciente menor de edad', icon: Child },
+    { title: 'Paciente menor de edad', icon: Baby },
     { title: 'Blanqueamiento', icon: Sparkles },
     { title: 'Carillas', icon: Layers },
     { title: 'Coronas y puentes fijos', icon: Award },
